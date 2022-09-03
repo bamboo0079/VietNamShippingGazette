@@ -1,0 +1,57 @@
+.history_content {
+    position: relative;
+    height: calc(100vh - 260px);
+
+    .ranking_wrappers {
+    	padding: 15px;
+    	background-color: $white;
+    	border: 1px solid $border-color;
+    }
+}
+
+.schedule-view {
+	.block-title {
+		margin-bottom: 15px;
+	}
+
+	.schedule-image {
+		display: block;
+		position: relative;
+
+		.schedule-plan {
+			width: 100%;
+			padding: 15px 20px;
+			background-color: rgba($black, 0.75);
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+		}
+
+		.col {
+			color: $white;
+			font-size: 16px;
+			line-height: 1;
+			padding-left: 0px;
+		}
+
+		.video_times {
+			color: rgba($white, 0.7);
+			font-size: 13px;
+			padding-left: 18px;
+			margin-top: 8px;
+			position: relative;
+
+			i {
+				font-size: 15px;
+				font-weight: bold;
+				position: absolute;
+				left: 0px;
+				top: -2px;
+			}
+		}
+	}
+
+	.top_account {
+		margin-top: 25px;
+	}
+}

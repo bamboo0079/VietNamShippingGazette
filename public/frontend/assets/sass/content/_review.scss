@@ -1,0 +1,22 @@
+.review_list {
+	.review_item {
+		display: block;
+		margin-bottom: 10px;
+	}
+
+	.review_item_inner {
+		padding: 15px;
+		@include border-radius(12px);
+		background-color: $white;
+	}
+
+	.review_title {
+		margin-bottom: 5px;
+	}
+
+	.review_posted {
+		color: $gray-600;
+		font-size: 12px;
+		margin-bottom: 5px;
+	}
+}

@@ -1,0 +1,101 @@
+.producer_list {
+	margin-left: -5px;
+	margin-right: -5px;
+
+	.producer_item {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	.producer_item_inner {
+		display: block;
+		min-height: 210px;
+		padding: 15px 15px 60px;
+		margin-bottom: 10px;
+		background-color: $white;
+		@include border-radius(12px);
+		position: relative;
+	}
+
+	.producer_name {
+		font-size: 14px;
+		margin-bottom: 5px;
+
+		a {
+			@include text-ellipsis(1);
+		}
+	}
+
+	.producer_description {
+		height: 82px;
+		margin-bottom: 5px;
+		@include text-ellipsis(4);
+	}
+
+	.price {
+		color: $primary;
+		font-size: 14px;
+		font-weight: bold;
+		position: relative;
+	}
+
+	.buttons-set {
+		width: 100%;
+		left: 0px;
+		bottom: 15px;
+		margin-top: 0px;
+		text-align: center;
+		position: absolute;
+
+		.btn {
+			min-width: 160px;
+
+			& + .btn {
+				margin-left: 10px;
+			}
+		}
+
+		&.product-action {
+			.btn {
+				min-width: 120px;
+			}
+		}
+	}
+}
+
+.product-form-wrapper {
+	.buttons-set {
+		margin-top: 35px;
+		margin-bottom: 15px;
+
+		.btn {
+			font-size: 16px;
+			padding: 10px 15px;
+		}
+	}
+}
+
+@include bp('max-width', '1023px') {
+	.producer_list .producer_item {}	
+}
+
+@include bp('max-width', '767px') {
+	.producer_list {
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+
+	.producer_wrappers {
+		.section-wrapper {
+			position: relative;
+		}
+	}
+
+	.product-form-wrapper {
+		.form-group {
+			.control-label {
+				text-align: left !important;
+			}
+		}
+	}
+}

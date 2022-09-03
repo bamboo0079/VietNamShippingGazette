@@ -1,0 +1,17 @@
+// Opacity
+@mixin opacity($opacity) {
+  // IE8 filter
+  $opacity-ie: ($opacity * 100);
+  filter: alpha(opacity=$opacity-ie);
+  -moz-opacity: $opacity;
+  -khtml-opacity: $opacity;
+  opacity: $opacity;
+}
+
+// Blur
+@mixin blur ($radius) {
+  -webkit-filter: blur($radius+px);
+  -ms-filter: blur($radius+px);
+  filter: blur($radius+px);
+  filter: progid:DXImageTransform.Microsoft.Blur(Strength=$radius);
+}

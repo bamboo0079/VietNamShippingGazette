@@ -1,0 +1,159 @@
+.ranking-list {
+	display: block;
+	position: relative;
+	
+	.ranking-item {
+		display: block;
+		padding: 20px;
+		margin-bottom: 10px;
+		@include border-radius(12px);
+		background-color: $white;
+	}
+
+	.ranking-stt {
+		width: 70px;
+		margin-right: 20px;
+
+		> span {
+			display: block;
+		}
+
+		h3 {
+			color: $primary;
+			margin-bottom: 0px;
+			text-align: center;
+		}
+	}
+
+	.ranking-right {
+		flex: 1;
+		flex-basis: 0;
+		flex-grow: 1;
+		max-width: 100%;
+
+		.flexbox {
+			@include flex-align-item('center');
+		}
+	}
+
+	.randing-action {
+		margin-left: 15px;
+
+		.btn {
+			width: 160px;
+			padding-top: 12px;
+			padding-bottom: 12px;
+			@include border-radius(12px);
+
+			&.btn-primary {
+				padding-top: 13px;
+				padding-bottom: 13px;
+			}
+		}
+	}
+
+	.user-avatar {
+		width: 120px;
+
+		.avatar {
+			width: 120px;
+			height: 120px;
+			@include border-radius(50%);
+		}
+	}
+
+	.ranking-info {
+		flex: 1;
+		flex-basis: 0;
+		flex-grow: 1;
+		max-width: 100%;
+		padding-left: 30px;
+	}
+
+	.ranking-title {
+		margin-bottom: 5px;
+	}
+
+	.description {
+		margin-bottom: 5px;
+		@include text-ellipsis(2);
+	}
+}
+
+@include bp('max-width', '1023px') {
+	.ranking-list {
+		.ranking-stt {
+			width: 50px;
+			margin-right: 15px;
+		}
+
+		.ranking-right-content {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+
+		.user-avatar {
+			width: auto;
+
+			.avatar {
+				width: 80px;
+				height: 80px;
+			}
+		}
+
+		.ranking-info {
+			padding-left: 15px;
+		}
+	}
+}
+
+@include bp('max-width', '767px') {
+	.ranking-list {
+		.ranking-item {
+			padding: 10px;
+		}
+
+		.ranking-stt {
+			width: 36px;
+			margin-right: 10px;
+		}
+
+		.user-avatar {
+			.avatar {
+				width: 40px;
+				height: 40px;
+			}
+		}
+
+		.ranking-info {
+			padding-left: 10px;
+		}
+
+		.ranking-right {
+			-webkit-flex-direction: column;
+			flex-direction: column;
+
+			> * {
+				width: 100%;
+			}
+		}
+
+		.ranking-title {
+			font-size: 16px;
+		}
+
+		.farm-type {
+			> * {
+				margin-right: 8px;
+
+				&.btn {
+					line-height: 22px;
+					padding-top: 0px;
+					padding-bottom: 0px;
+					margin-right: 0px;
+					@include border-radius(4px);
+				}
+			}
+		}
+	}
+}

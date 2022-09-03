@@ -1,0 +1,167 @@
+.video_list {
+	margin-left: -6px;
+	margin-right: -6px;
+
+	.video_item {
+		padding-left: 6px;
+		padding-right: 6px;
+
+		.video_item_inner {
+			display: block;
+			margin-bottom: 20px;
+			position: relative;
+		}
+	}
+
+	.img-thumb {
+		display: block;
+		padding-top: 100%;
+		margin-bottom: 10px;
+		@include border-radius(12px);
+		position: relative;
+		overflow: hidden;
+
+		&:after {
+			content: '';
+			height: 50px;
+			width: 100%;
+			left: 0px;
+			bottom: 0px;
+			@include gradient-y(rgba($black, 0), rgba($black, 0.5));
+			position: absolute;
+			z-index: 0;
+		}
+
+		> * {
+			color: $white;
+			line-height: 1;
+			margin-bottom: 0px;
+			position: absolute;
+			display: block;
+			z-index: 1;
+		}
+	}
+
+	.video_type {
+		padding: 8px 10px;
+		text-align: center;
+		min-width: 100px;
+		@include border-radius(12px 0px 12px 0px);
+		background-color: rgba($black, 0.7);
+		top: 0px;
+		left: 0px;
+	}
+
+	.video_live {
+		top: 7px;
+		right: 7px;
+	}
+
+	.video_time_total {
+		font-size: 12px;
+		padding: 3px 2px;
+		background-color: rgba($black, 0.7);
+		top: 7px;
+		right: 5px;
+	}
+
+	.video_bells {
+		width: 30px;
+		height: 30px;
+		font-size: 18px;
+		line-height: 28px;
+		background: $gray-500;
+		text-align: center;
+		@include border-radius(50%);
+		position: absolute;
+		z-index: 5;
+		top: 7px;
+		right: 7px;
+
+		> * {
+			line-height: 28px;
+		}
+
+		&.primary {
+			@include gradient-directional($green, $blue, 180deg);
+		}
+	}
+
+	.video_author {
+		color: $white;
+		padding: 7px;
+		left: 0px;
+		bottom: 0px;
+		width: 100%;
+		
+		> span {
+			@include text-ellipsis(1);
+		}
+	}
+
+	.video_info {
+		font-size: 12px;
+		@include text-ellipsis(2);
+	}
+
+	.video_times {
+		color: $primary;
+		display: block;
+		margin-top: 8px;
+		padding-left: 22px;
+		position: relative;
+		line-height: 1;
+
+		i {
+			font-size: 16px;
+			font-weight: bold;
+			@include translateY(-50%);
+			margin-top: -1px;
+			position: absolute;
+			left: 0px;
+			top: 50%;
+		}
+	}
+}
+
+@include bp('max-width', '767px') {
+	.video_list {
+		.video_item {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+
+		> div.col {
+			padding-left: 6px;
+			padding-right: 6px;
+		}
+	}	
+}
+
+@include bpminmax('768px', '1199px') {
+	.video_list {
+		margin-left: -10px;
+		margin-right: -10px;
+
+		.video_item {
+			flex: 0 0 33.333%;
+			max-width: 33.333%;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+	}
+}
+
+@include bpminmax('1200px', '1359px') {
+	.video_list {
+		margin-left: -10px;
+		margin-right: -10px;
+
+		.video_item {
+			flex: 0 0 20%;
+			max-width: 20%;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+	}
+}

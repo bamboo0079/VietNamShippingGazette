@@ -1,0 +1,186 @@
+// stylelint-disable selector-no-qualifying-type
+
+//
+// Base styles
+//
+
+.btn {
+  display: inline-block;
+  font-family: $btn-font-family;
+  font-weight: $btn-font-weight;
+  color: $gray-base;
+  text-align: center;
+  white-space: $btn-white-space;
+  vertical-align: middle;
+  cursor: if($enable-pointer-cursor-for-buttons, pointer, null);
+  user-select: none;
+  background-color: transparent;
+  border: none;
+  position: relative;
+  //@include gradient-directional($green, $blue, 90deg);
+  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
+  @include transition($btn-transition);
+
+  @include hover() {
+    color: $body-color;
+    //@include gradient-directional($blue, $green, 90deg);
+  }
+
+  &:focus,
+  &.focus {
+    outline: 0 !important;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    opacity: $btn-disabled-opacity;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+  }
+
+  &.block {
+    width: 100%;
+    display: block;
+  }
+
+  &.noEvent {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  &.btn-info {
+    color: $gray-600;
+    border: 1px solid $border-color;
+    background: $white;
+
+    > i {
+      color: $gray-500;
+    }
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+// Future-proof disabling of clicks on `<a>` elements
+a.btn.disabled,
+fieldset:disabled a.btn {
+  pointer-events: none;
+}
+
+//
+// Alternate buttons
+//
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    @include button-variant($value, $value);
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .btn-outline-#{$color} {
+    @include button-outline-variant($value);
+  }
+}
+
+.btn-primary {
+  color: $white;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.btn-default {
+  &:before {
+    content: '';
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    background-color: $white;
+    @include border-radius(20px);
+    position: absolute;
+    z-index: 0;
+    top: 2px;
+    left: 2px;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+  color: $white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: $primary;
+  @include border-radius(4px);
+
+  &:hover {
+    color: $white;
+    background: $primary;
+  }
+
+  &:disabled,
+  &.disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  @include bp('min-width', '1200px') {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+
+//
+// Button Sizes
+//
+
+.btn-lg {
+  @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+}
+
+.btn-sm {
+  @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+}
+
+
+//
+// Block button
+//
+
+.btn-block {
+  display: block;
+  width: 100%;
+
+  // Vertically space out multiple block buttons
+  + .btn-block {
+    margin-top: $btn-block-spacing-y;
+  }
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.btn-block {
+    width: 100%;
+  }
+}

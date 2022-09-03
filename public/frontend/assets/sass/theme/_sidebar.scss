@@ -1,0 +1,88 @@
+.menuSidebar {
+    width: 250px;
+    height: 100%;
+    padding-top: 15px;
+    visibility: hidden;
+    @include transition(all 0.3s ease);
+    background-color: $primary;
+    position: fixed;
+    z-index: 999;
+    left: -100%;
+    top: 0px;
+
+    .menu-sidebar-inner {
+        height: 100%;
+        position: relative;
+    }
+}
+
+.lesson-list {
+    display: block;
+    
+    li {
+        display: block;
+        position: relative;
+        border-bottom: 1px solid $white;
+
+        a {
+            color: $white;
+            display: block;
+            padding: 13px 20px;
+            position: relative;
+
+            > i {
+                font-size: 20px;
+                font-weight: normal;
+                @include translateY(-50%);
+                position: absolute;
+                right: 20px;
+                top: 50%;
+            }
+
+            &.active,
+            &:hover {
+                //color: $gray-base;
+                background-color: lighten($primary, 30%);
+            }
+        }
+
+        .dropdown-menu {
+            margin: 0px;
+            border: none;
+            @include border-radius(0);
+            @include box-shadow(none);
+            background-color: transparent;
+            position: static;
+            float: none;
+
+            &:before {
+                display: none;
+            }
+
+            .dropdown-inner {
+                padding: 0px;
+                @include border-radius(0);
+                background-color: transparent;
+            }
+
+            ul > li {
+                border-bottom: none;
+
+                & + li {
+                    border-top: 1px solid $white;
+                }
+
+                > a {
+                    padding-left: 45px;
+                }
+            }
+        }
+    }
+}
+
+html.nav-open {
+    .menuSidebar {
+        visibility: visible;
+        left: 0px;
+    }
+}
