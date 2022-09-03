@@ -708,7 +708,7 @@
             text-align: center;
             box-shadow: var(--btn-shadow);
             transition: .25s ease-in-out;
-            background: var(--c-main);
+            background: #17a2b8;
             color: #fff;
             border: 0;
             border-radius: 2px;
@@ -5501,7 +5501,11 @@
                     class="delim">&raquo;</span><span class="current">@if(Session::get('locale') == 'vi') TRA CỨU LỊCH TÀU CONTAINER @else TRAIN SCHEDULE  @endif</span></div>
     </nav>
 
-
+    <style type="text/css">
+        .information_search > .top-row > .col-4 {
+            padding-bottom: 7px;
+        }
+    </style>
     <div class="main ts-contain cf right-sidebar">
         <div class="ts-row">
             <div class="col-8 main-content" style="width:100%">
@@ -5511,7 +5515,7 @@
                     <div class="block-content">
                             <!--Full form-->
                             <form class="information_search col-12" id="schedule-full-form" action="" method="get">
-                                <div class="row">
+                                <div class="row top-row">
                                     <div class="col-4">
                                         <select id="ship_id" class="chosen-select input-block-level select2-hidden-accessible form-control" name="ship_id" tabindex="-1" aria-hidden="true">
                                             <option value="">Tất cả các hãng tàu</option>
@@ -5526,7 +5530,7 @@
                                     </div>
                                     <div class="col-4">
                                         <select id="boss_port_id" class="chosen-select input-block-level select2-hidden-accessible form-control" name="boss_port_id" tabindex="-1" aria-hidden="true">
-                                            <option value="">Cảng Xếp</option>
+                                            <option value="">POL</option>
                                             @foreach($list_port as $port)
                                                 @if(Session::get('locale') == 'vi')
                                                     <option @if(isset($_GET['boss_port_id']) && $_GET['boss_port_id'] == $port->id) selected @endif value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
@@ -5536,11 +5540,9 @@
                                             @endforeach
                                         </select>
                                     </div>
-
-
                                     <div class="col-4">
                                         <select id="unloading_port_id" class="chosen-select input-block-level select2-hidden-accessible form-control" name="unloading_port_id" tabindex="-1" aria-hidden="true">
-                                            <option value="">Cảng Dỡ</option>
+                                            <option value="">POD</option>
                                             @foreach($list_port as $port)
                                                 @if(Session::get('locale') == 'vi')
                                                     <option @if(isset($_GET['unloading_port_id']) && $_GET['unloading_port_id'] == $port->id) selected @endif value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
@@ -5554,40 +5556,48 @@
 
                                 <div class="row mt-2">
                                     <div class="col-4">
-                                        <input value="@if(isset($_GET['departure_day'])){{ $_GET['departure_day'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="Từ ngày" id="departure_day" data-position="right top" autocomplete="off" name="departure_day" type="text">
+                                        <input value="@if(isset($_GET['departure_day'])){{ $_GET['departure_day'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="ETD" id="departure_day" data-position="right top" autocomplete="off" name="departure_day" type="text">
                                     </div>
                                     <div class="col-4">
-                                        <input value="@if(isset($_GET['arrival_date'])){{ $_GET['arrival_date'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="Đến ngày" id="arrival_date" autocomplete="off" name="arrival_date" type="text">
+                                        <input value="@if(isset($_GET['arrival_date'])){{ $_GET['arrival_date'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="ETA" id="arrival_date" autocomplete="off" name="arrival_date" type="text">
                                     </div>
                                     <div class="col-4">
-                                        <input class="btn btn-primary btn-medium pull-right" type="submit" name="yt0" value="Tra cứu">
+                                        <button type="submit" class="btn-primary"><i class="tsi tsi-search"></i> Tra cứu</button>
+                                        <button id="dl" type="button" class="btn-primary" value="Download" style="background: #28a745 !important; margin-left: 5px"><i class="tsi tsi-chevron-down"></i> Tải Về</button>
                                     </div>
                                 </div>
                             </form>
-                        <table id="schedule-table" class="table table-hover table-nomargin table-bordered">
+
+                        @if(!empty($list_scenarios))
+                            <table id="schedule-table" class="table table-hover table-nomargin table-bordered">
                             <thead>
-                            <tr>
-                                <th id="lichtau-grid_cMaHangTau">Hãng Tàu</th>
-                                <th id="lichtau-grid_cETD">Ngày Đi</th>
-                                <th id="lichtau-grid_cETA">Ngày Đến</th>
-                                <th id="lichtau-grid_cPOL">Cảng Xếp</th>
-                                <th id="lichtau-grid_cPOD">Cảng Dỡ</th>
-                                <th id="lichtau-grid_cLoadVesselVoyage">Cảng Transit</th>
+                                <tr>
+                                    <th id="lichtau-grid_cMaHangTau">Hãng Tàu</th>
+                                    <th id="lichtau-grid_cETD">ETD</th>
+                                    <th id="lichtau-grid_cETA">ETA</th>
+                                    <th id="lichtau-grid_cPOL">POL</th>
+                                    <th id="lichtau-grid_cPOD">POD</th>
+                                    <th id="lichtau-grid_cLoadVesselVoyage">Load Vessel - Voyage</th>
+                                    <th id="lichtau-grid_cLoadVesselVoyage">Discharge Vessel - Voyage</th>
+                                    <th id="lichtau-grid_cLoadVesselVoyage">Transit Time</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach($list_scenarios as $k => $scenario)
-                                <tr class="odd">
+                                @foreach($list_scenarios as $k => $scenario)
+                                <tr >
                                     <td>{{ $scenario->ship->ship_nm_vn }}</td>
                                     <td><b>{{ $scenario->departure_day }}</b></td>
                                     <td><b>{{ $scenario->arrival_date }}</b></td>
                                     <td>{{ $scenario->boss->port_nm_vn }}</td>
                                     <td>{{ $scenario->unloading->port_nm_vn }}</td>
                                     <td>{{ $scenario->transit->port_nm_vn }}</td>
+                                    <td> </td>
+                                    <td>{!! App\Helpers\Helper::substractTwoDate( $scenario->departure_day, $scenario->arrival_date)  !!}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        <p style="text-align: right;"><input type="button" id="dl" class="btn btn-primary btn-medium pull-right" value="Download" style="background: #de333b;border-color: #de333b;"></p>
+                        @endif
                     </div>
                 </section>
             </div>
@@ -5613,8 +5623,6 @@
                                                               data-sizes="(max-width: 105px) 100vw, 105px"></span>
                                                     </a>
                                                 </div>
-
-
                                                 <div class="content">
                                                     <div class="post-meta post-meta-a post-meta-left has-below">
                                                         <h4 class="is-title post-title">
@@ -5652,8 +5660,6 @@
                                                                 data-sizes="(max-width: 105px) 100vw, 105px"></span>
                                                     </a>
                                                 </div>
-
-
                                                 <div class="content">
                                                     <div class="post-meta post-meta-a post-meta-left has-below">
                                                         <h4 class="is-title post-title">
@@ -5748,9 +5754,10 @@
         margin-bottom: 25px;
     }
     .table-bordered, .table-bordered td, .table-bordered th {
-        border: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
         border-collapse: separate;
         border-collapse: collapse;
+        font-size: 12px !important;
     }
     .chosen-container-single .chosen-single div b {
         background-position-y: 10px;
