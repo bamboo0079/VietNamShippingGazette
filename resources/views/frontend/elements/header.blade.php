@@ -6,42 +6,28 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <!-- This site is optimized with the Yoast SEO plugin v18.3 - https://yoast.com/wordpress/plugins/seo/ -->
     <title>VIET NAM SHIPPING GAZETTE</title>
-    <meta name="description" content="A Premium SmartMag Theme demo."/>
+    <meta name="description" content="VIET NAM SHIPPING GAZETTE"/>
+    <title>Viet Nam Shipping Gazette</title>
+    <link rel="apple-touch-icon" sizes="32x32" href="/frontend/images/favicon.png" />
+    <link rel="apple-touch-icon" sizes="64x64" href="/frontend/images/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/frontend/images/favicon.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/frontend/images/favicon.png" />
     <link rel="canonical" href=""/>
     <meta property="og:locale" content="en_US"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Homepage - SmartMag ProMag"/>
-    <meta property="og:description"
-          content="Style The Essential Back-to-Work Style Guide for Women Shane DoeJan 14, 2020 Lifestyle How to Find the Best Pet Insurance for Your Dog Shane DoeJan 14, 2020 Decor 11 Japandi Style Home Decor Finds From Amazon Shane DoeJan 14, 2020 Gadgets Mirrorless or DSLR: Which is Best for Your Next Camera? Shane DoeJan 14, 2020"/>
-    <meta property="og:url" content="https://smartmag.theme-sphere.com/pro-mag/"/>
-    <meta property="og:site_name" content="SmartMag ProMag"/>
+    <meta property="og:title" content="Homepage - VIET NAM SHIPPING GAZETTE"/>
+    <meta property="og:url" content="http://vietnamshippinggazette.com/"/>
+    <meta property="og:site_name" content="VIET NAM SHIPPING GAZETTE"/>
     <meta property="article:modified_time" content="2021-08-20T23:23:58+00:00"/>
-    <meta property="og:image"
-          content="https://smartmag.theme-sphere.com/pro-mag/wp-content/uploads/sites/18/2020/01/daniel-monteiro-iK2MdOKSmj8-unsplash-3-768x790.jpg"/>
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:label1" content="Est. reading time"/>
     <meta name="twitter:data1" content="12 minutes"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
-
-    <script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph
-        ":[{"@type":"WebSite","@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/#website","url":"https://smartmag.theme-sphere.com/pro-mag/","name":"SmartMag ProMag","description":"Premium Theme Demo","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://smartmag.theme-sphere.com/pro-mag/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/#primaryimage","inLanguage":"en-US","url":"https://smartmag.theme-sphere.com/pro-mag/wp-content/uploads/sites/18/2020/01/daniel-monteiro-iK2MdOKSmj8-unsplash-3-768x790.jpg","contentUrl":"https://smartmag.theme-sphere.com/pro-mag/wp-content/uploads/sites/18/2020/01/daniel-monteiro-iK2MdOKSmj8-unsplash-3-768x790.jpg"},{"@type":"WebPage","@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/#webpage","url":"https://smartmag.theme-sphere.com/pro-mag/","name":"Homepage - SmartMag ProMag","isPartOf":{"@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/#website"},"primaryImageOfPage":{"@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/#primaryimage"},"datePublished":"2021-01-13T16:29:55+00:00","dateModified":"2021-08-20T23:23:58+00:00","breadcrumb":{"@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://smartmag.theme-sphere.com/pro-mag/"]}]},{"@type":"BreadcrumbList","@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]}]}
-    </script>
     <!-- / Yoast SEO plugin. -->
     <link rel='dns-prefetch' href='//fonts.googleapis.com'/>
-    <link rel='dns-prefetch' href='//s.w.org'/>
-    <link rel="alternate" type="application/rss+xml" title="SmartMag ProMag &raquo; Feed"/>
-    <link rel="alternate" type="application/rss+xml" title="SmartMag ProMag &raquo; Comments Feed"/>
     <style id='debloat-wp-block-library-css'>@charset "UTF-8";
         h1, h2, h3, h4, h5, h6 {
             overflow-wrap: break-word;
@@ -6344,50 +6330,15 @@
             unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
         }
     </style>
-
-    <script type="text/javascript" id="jquery-migrate-js"
-            src="https://smartmag.theme-sphere.com/pro-mag/wp-content/cache/debloat/js/18146d061285409bceeddb11a597bd85.js"
-            defer></script>
+    <script type="text/javascript" id="jquery-migrate-js" src="/src/asset/js/frontend/18146d061285409bceeddb11a597bd85.js" defer></script>
     <link rel="https://api.w.org/"/>
     <link rel="alternate" type="application/json"/>
     <link rel="EditURI" type="application/rsd+xml" title="RSD"/>
     <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="pro-mag/wp-includes/wlwmanifest.xml"/>
     <meta name="generator" content="WordPress 5.9.3"/>
-    <link rel='shortlink' href='https://smartmag.theme-sphere.com/pro-mag/'/>
-    <link rel="alternate" type="application/json+oembed"
-          href="pro-mag/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fsmartmag.theme-sphere.com%2Fpro-mag%2F"/>
-    <link rel="alternate" type="text/xml+oembed"
-          href="pro-mag/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fsmartmag.theme-sphere.com%2Fpro-mag%2F&#038;format=xml"/>
-
+    <link rel='shortlink' href='http://vietnamshippinggazette.com/'/>
     <link href="/src/asset/css/frontend/bootstrap-chosen.css" rel="stylesheet">
-    <!--    <script src="/src/asset/js/frontend/endless_scroll_min.js" type="text/javascript"></script>-->
-    <!--    <script src="/src/asset/js/frontend/jquery-3.6.0.min.js"></script>-->
-    <script
-            src="https://code.jquery.com/jquery-2.2.4.js"
-            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        // $(window).load(function () {
-        //     $("#s1").endlessScroll({
-        //         width: '100%',
-        //         height: '100px',
-        //         steps: -2, speed: 40,
-        //         mousestop: true });
-        //     $("#s2").endlessScroll({
-        //         width: '700px',
-        //         height: '26px',
-        //         steps: -2,
-        //         speed: 40,
-        //         mousestop: false });
-        // });
-
-        $(document).ready(function () {
-            $(".change_lang").on("click", function () {
-
-            });
-        });
-
-    </script>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <style type="text/css">
         .modal.fade.show{
             z-index: 99999;

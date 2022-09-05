@@ -2,18 +2,12 @@
 @section('content')
     <div id="content" xmlns="http://www.w3.org/1999/html">
         <div class="container-fluid">
-            <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-primary">Quản lý lịch tàu</h1>
-                {{--<a href="{{ route('admin.country.add') }}" class="btn btn-primary min-w140"><i class="fas fa-plus-circle"></i> Thêm</a>--}}
-            </div>
-            <!-- End Heading -->
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h5 class="m-0 font-weight-bold text-primary">Lịch tàu</h5>
+                    <h5 class="m-0 font-weight-bold text-primary">Quản lý lịch tàu</h5>
                 </div>
-                <div class="container-fluid mt-2 d-none" id="msgSuccess">
+                {{--<div class="container-fluid mt-2 d-none" id="msgSuccess">
                     <div class="card" style="border: none">
                         <div class="alert alert-success" role="alert">
                             Lưu thông tin thành công!
@@ -22,7 +16,10 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>--}}
+                {{--@if(Session::has('message'))
+                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                @endif--}}
                 <div class="card-body">
                     <div class="row">
                         <div class="block_search mb-3 col-md-3">
@@ -87,11 +84,12 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3 text-center">
-                                        <button id="btnSubmit" type="submit" class="btn btn-primary mr-2"><i class="fas fa-plus-circle"></i> @if(isset($scenario->id) && $scenario->id) Cập nhật @else Thêm mới @endif</button>
+                                        {{--<input class="btn btn-primary btn-medium pull-right" type="submit" name="yt0" value="Thêm mới">--}}
+                                        <button style="margin-top: 0px !important;" id="btnSubmit" type="submit" class="btn btn-primary mr-2"><i class="fas fa-plus-circle"></i> @if(isset($scenario->id) && $scenario->id) Cập nhật @else Thêm mới @endif</button>
+                                        <button style="background: #0e6dcd; margin-top: 0px !important;" onclick="window.location.href = '{{ route('admin.scenarios') }}';"type="button" class="btn btn-primary @if(isset($scenario->id) && $scenario->id) mt-2 @endif"><i class="fas fa-reply-all"></i> Đặt lại </button>
                                         @if(isset($scenario->id) && $scenario->id)
-                                            <button onclick="window.location.href = '{{ route('admin.scenario.delete', $scenario->id) }}';"type="button" class="btn btn-light mr-2"><i class="fas fa-times-circle"></i> Xóa</button>
+                                            <button style="background: #de333b; color: white; width: 249px; margin-left: 10px; margin-top: 5px" onclick="window.location.href = '{{ route('admin.scenario.delete', $scenario->id) }}';"type="button" class="btn btn-light mr-2"><i class="fas fa-trash"></i> Xóa</button>
                                         @endif
-                                        <button onclick="window.location.href = '{{ route('admin.scenarios') }}';"type="button" class="btn btn-primary @if(isset($scenario->id) && $scenario->id) mt-2 @endif"><i class="fas fa-angle-left"></i> Đặt lại </button>
                                     </div>
                                 </div>
                             </form>
@@ -115,21 +113,23 @@
                                     </div>
                                     <div class="col-md-2 find_type">
                                         <div class="form-group">
-                                            <select name="country" class="form-control">
-                                                <option value="-1">All</option>
-                                                <option @if(isset($_GET['country']) && $_GET['country'] == 2) selected @endif value="2" {{ (isset($_GET['country']) && $_GET['country'] == 2)?'selected':''}}>OutBound</option>
-                                                <option @if(isset($_GET['country']) && $_GET['country'] == 1) selected @endif value="1" {{ (isset($_GET['country']) && $_GET['country'] == 1)?'selected':''}}>InBound</option>
+                                            <select name="is_inbound" class="form-control">
+                                                <option @if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 0) selected @endif value="0" {{ (isset($_GET['is_inbound']) && $_GET['is_inbound'] == 0)?'selected':''}}>InBound</option>
+                                                <option @if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1) selected @endif value="1" {{ (isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1)?'selected':''}}>OutBound</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn btn-primary mr-2"><i class="fas fa-filter"></i> Tìm kiếm</button>
+                                        <button style="padding: 9px 5px;" type="submit" class="btn btn-primary mr-2"><i class="fas fa-filter"></i> Tìm kiếm</button>
+                                        <button style="padding: 9px 10px;" type="button" class="btn btn-primary mr-2" title="Download File">
+                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                            <a style="color: white;" href="{{ $download_link }}">DL</a>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
                             <div class="table-responsive">
-                                <p class="text-right"><a href="{{ $download_link }}"><i class="fa fa-download" aria-hidden="true"></i> Download</a></p>
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <colgroup>
                                         <col width="50">
                                         <col>
@@ -146,7 +146,7 @@
                                         <th class="text-left">Cảng Xếp</th>
                                         <th class="text-left">Cảng Dỡ</th>
                                         <th class="text-left">Cảng Transit</th>
-                                        <th class="text-left">Tàu</th>
+                                        <th class="text-left">Tên Tàu</th>
                                         <th class="text-left">Đại Lý</th>
                                         <th class="text-left">Ngày Đi</th>
                                         <th class="text-left">Ngày Đến</th>
@@ -262,10 +262,19 @@
             </div>
             <div class="col-md-12 mb-3">
                 <button type="submit" class="btn btn-primary mr-2"><i class="fas fa-plus-circle"></i> Thêm mới</button>
-                <button onclick="window.location.href = '{{ route('admin.scenarios') }}';"type="button" class="btn btn-light mr-2"><i class="fas fa-times-circle"></i> Xóa</button>
+                <button style="background: #de333b" onclick="window.location.href = '{{ route('admin.scenarios') }}';"type="button" class="btn btn-light mr-2"><i class="fas fa-times-circle"></i> Xóa</button>
             </div>
         </div>
     </form>
+    <style type="text/css">
+       button:focus {
+           background: #32627c;
+           border: 1px solid #0a0505;
+       }
+       table tr td {
+           cursor: pointer;
+       }
+    </style>
     <script src="/src/asset/js/backend/bootstrap-datepicker.min.js"></script>
 
     <link href="/src/asset/css/frontend/bootstrap-chosen.css" rel="stylesheet">

@@ -8,9 +8,6 @@
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'/>
 
     <title>Register</title>
-    <link rel="preload" as="image"
-          imagesrcset="https://smartmag.theme-sphere.com/pro-mag/wp-content/uploads/sites/18/2021/03/Depositphotos_350694770_xl-2015-1-768x512.jpg 768w, https://smartmag.theme-sphere.com/pro-mag/wp-content/uploads/sites/18/2021/03/Depositphotos_350694770_xl-2015-1-1024x683.jpg 1024w, https://smartmag.theme-sphere.com/pro-mag/wp-content/uploads/sites/18/2021/03/Depositphotos_350694770_xl-2015-1-1536x1024.jpg 1536w, https://smartmag.theme-sphere.com/pro-mag/wp-content/uploads/sites/18/2021/03/Depositphotos_350694770_xl-2015-1-2048x1365.jpg 2048w, https://smartmag.theme-sphere.com/pro-mag/wp-content/uploads/sites/18/2021/03/Depositphotos_350694770_xl-2015-1-1200x800.jpg 1200w"
-          imagesizes="(max-width: 556px) 100vw, 556px"/>
     <link rel="preload" as="font"
           href="/src/asset/css/fonts/ts-icons.woff2?v2.3"
           type="font/woff2" crossorigin="anonymous"/>
@@ -23,18 +20,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
-
-
-    <script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph
-        ":[{"@type":"WebSite","@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/#website","url":"https://smartmag.theme-sphere.com/pro-mag/","name":"SmartMag ProMag","description":"Premium Theme Demo","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://smartmag.theme-sphere.com/pro-mag/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"CollectionPage","@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/category/example-2/#webpage","url":"https://smartmag.theme-sphere.com/pro-mag/category/example-2/","name":"Computing Archives - SmartMag ProMag","isPartOf":{"@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/#website"},"breadcrumb":{"@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/category/example-2/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://smartmag.theme-sphere.com/pro-mag/category/example-2/"]}]},{"@type":"BreadcrumbList","@id
-        ":"https://smartmag.theme-sphere.com/pro-mag/category/example-2/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://smartmag.theme-sphere.com/pro-mag/"},{"@type":"ListItem","position":2,"name":"Computing"}]}]}
-    </script>
-    <!-- / Yoast SEO plugin. -->
-
 
     <link rel='dns-prefetch' href='//fonts.googleapis.com'/>
     <link rel='dns-prefetch' href='//s.w.org'/>

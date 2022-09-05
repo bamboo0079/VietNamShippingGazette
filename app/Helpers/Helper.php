@@ -71,4 +71,13 @@ class Helper
     {
         
     }
+
+    public static function substractTwoDate($date_1, $date_2) {
+        $datetime1 = strtotime($date_1);
+        $datetime2 = strtotime($date_2);
+
+        $secs = $datetime2 - $datetime1;// == <seconds between the two times>
+        $days = $secs / 86400;
+        return $days;
+    }
 }

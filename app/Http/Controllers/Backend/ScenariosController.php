@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\ConstApp;
 use App\Helpers\Helper;
 use App\Models\Agent;
 use App\Models\Audio;
@@ -21,6 +22,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cookie;
 use App\Exports\ScenarioExport;
+use Illuminate\Support\Facades\DB;
+//use mysql_xdevapi\Session;
+use Symfony\Component\Console\Input\Input;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 //use MaatwebsiteExcelFacadesExcel;
 
 class ScenariosController extends Controller
@@ -37,25 +44,23 @@ class ScenariosController extends Controller
     public function index(Request $request)
     {
         $submit_data = $request->all();
-        $data['limit'] = $this->limit;
-        $category = Scenario::where('id','>', 0);
-        if (isset($submit_data['country']) && $submit_data['country'] != -1) {
-            if($submit_data['country'] == 1){
-                $category->where('country_id',1);
-            }else{
-                $category->where('country_id','>',1);
-            }
-        }
-        if (isset($submit_data['start']) && $submit_data['start']) {
-            $submit_data['start'] = \DateTime::createFromFormat("d/m/Y", $submit_data['start'])->format('Y-m-d');
-            $category->where('arrival_date','>=', $submit_data['start']);
-        }
-        if (isset($submit_data['end']) && $submit_data['end']) {
-            $submit_data['end'] = \DateTime::createFromFormat("d/m/Y", $submit_data['end'])->format('Y-m-d');
-            $category->where('departure_day','<=', $submit_data['end']);
+        $data['limit'] = ConstApp::NUMBER_PER_PAGE;
+        $query = Scenario::where('id','>', 0);
+
+        if(isset($submit_data['is_inbound']) && $submit_data['is_inbound'] == 1){
+            $query->where('scenarios.country_id',1);
+        } else {
+            $query->where('scenarios.country_id','<>',1);
         }
 
-        $data['categories'] = $category->orderBy('id', 'DESC')->paginate($this->limit);
+        if (isset($submit_data['start']) && $submit_data['start']) {
+            $query->where('departure_day','>=', date("Y-m-d", strtotime($submit_data['start'])));
+        }
+        if (isset($submit_data['end']) && $submit_data['end']) {
+            $query->where('arrival_date','<=', date("Y-m-d",strtotime($submit_data['end'])));
+        }
+
+        $data['categories'] = $query->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
         $id = isset($_GET['id'])?$_GET['id']:0;
         $data['scenario'] = Scenario::where('id', $id)->first();
         $data['ports'] = Port::get();
@@ -78,6 +83,10 @@ class ScenariosController extends Controller
 
     public function process(Request $request, $category_id = 0)
     {
+        \Session::flash('errorMsg', "Ngày đến không được bé hơn ngày đi");
+        \Session::flash('alert-class', 'alert-danger');
+//        return redirect()->route('scenarios');
+        return redirect(route('scenarios'));
 
         $data = $request->all();
             $request->validate([
@@ -93,6 +102,11 @@ class ScenariosController extends Controller
         $data['country_id'] = isset($port->country_id)?$port->country_id:0;
         $data['departure_day'] = \DateTime::createFromFormat("d/m/Y", $data['departure_day'])->format('Y-m-d');
         $data['arrival_date'] = \DateTime::createFromFormat("d/m/Y", $data['arrival_date'])->format('Y-m-d');
+        $errorMsg = "";
+        if($data['departure_day'] > $data['arrival_date']) {
+            \Session::flash('errorMsg', "Ngày đến không được bé hơn ngày đi");
+            \Session::flash('alert-class', 'alert-danger');
+        }
         $departure_day = Carbon::parse($data['departure_day']);
         $arrival_date = Carbon::parse($data['arrival_date']);
         $data['total_date'] = $departure_day->diffInDays($arrival_date);
@@ -108,7 +122,9 @@ class ScenariosController extends Controller
                 'country_id' => $data['country_id'],
                 'total_date' => $data['total_date'],
             ];
-            Scenario::where('id', $data['id'])->update($update);
+            if($errorMsg == "") {
+                Scenario::where('id', $data['id'])->update($update);
+            }
         }else{
             $update = [
                 'boss_port_id' => $data['boss_port_id'],
@@ -121,21 +137,47 @@ class ScenariosController extends Controller
                 'country_id' => $data['country_id'],
                 'total_date' => $data['total_date'],
             ];
-
-            Scenario::create($update);
+            if($errorMsg == "") {
+                Scenario::create($update);
+            }
         }
         $data['limit'] = $this->limit;
         $category = Scenario::where('id','>', 0);
-        $data['categories'] = $category->orderBy('id', 'DESC')->paginate($this->limit);
+
+        if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1){
+            $category->where('scenarios.country_id',1);
+        } else {
+            $category->where('scenarios.country_id','<>',1);
+        }
+
+        if (isset($_GET['start']) && $_GET['start']) {
+            $category->where('departure_day','>=', date("Y-m-d", strtotime($_GET['start'])));
+        }
+        if (isset($_GET['end']) && $_GET['end']) {
+            $category->where('arrival_date','<=', date("Y-m-d",strtotime($_GET['end'])));
+        }
+        if(isset($_GET['id']) && $_GET['id'] != "") {
+            $data['scenario'] = Scenario::where('id', $_GET['id'])->first();
+        }
+
+        $data['categories'] = $category->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
+
         $data['download_link'] = route('export').'?';
+
         return view('backend.scenarios.ajax', $data);
-//        return redirect()->route('admin.scenarios')->with('status', 'Lưu thông tin thành công');
     }
 
     public function export(Request $request)
     {
+
+        if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1) {
+            $file_name = 'OutBound_'.date("YmdHis").'.xlsx';
+        } else {
+            $file_name = 'InBound_'.date("YmdHis").'.xlsx';
+        }
+
         $conditions = $request->all();
-        return \Excel::download(new ScenarioExport($conditions), 'download_'.date("YmdHis").'.xlsx');
+        return \Excel::download(new ScenarioExport($conditions), $file_name);
     }
 
     public function delete($category_id){

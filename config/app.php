@@ -52,7 +52,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+//    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://shippinggate.local'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -228,6 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Helper' => \App\Helpers\Helper::class,
+        'ConstApp' => App\ConstApp::class,
 
     ],
 
