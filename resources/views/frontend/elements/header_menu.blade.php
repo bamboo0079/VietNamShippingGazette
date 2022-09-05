@@ -18,18 +18,17 @@
     }
 </style>
 
-<div id="sl1" class="sl1" style="top: 40px; width:180px; position: fixed;left: 0px;z-index: 9999;">
+<div id="sl1" class="sl1" style="top: 195px; max-width:120px; position: fixed; left: 30px;z-index: 9999;">
     <a rel="nofollow" href="#" target="_blank">
-        <img border="0" alt="qc" src="/images/left_banner.jpg" >
+        <img type=" max-width:120px; " border="0" alt="qc" src="/images/left_banner.jpg" >
     </a>
 </div>
 
-<div id="sl2" style="top: 40px;position: fixed;width:180px; right: 0px;z-index: 9999;">
+<div id="sl2" style="top: 195px; position: fixed; max-width:120px; right: 30px;z-index: 9999;">
     <a rel="nofollow" href="#" target="_blank">
-        <img border="0" alt="qc" src="/images/left_banner.jpg">
+        <img style=" max-width:120px; " border="0" alt="qc" src="/images/left_banner.jpg">
     </a>
 </div>
-
 
 <div class="off-canvas-backdrop"></div>
 <div class="mobile-menu-container off-canvas s-dark" id="off-canvas">
@@ -37,9 +36,8 @@
         <a href="#" class="close"><i class="tsi tsi-times"></i></a>
         <div class="ts-logo">
             <img class="logo-mobile logo-image logo-image-dark" src="/src/asset/img/system/Capture.PNG" width="176"
-                 height="35" alt="SmartMag ProMag"/><img class="logo-mobile logo-image"
-                                                         src="/src/asset/img/system/Capture.PNG" width="88"
-                                                         height="18" alt="SmartMag ProMag"/>
+                 height="35" alt="SmartMag ProMag"/>
+            <img class="logo-mobile logo-image" src="/src/asset/img/system/Capture.PNG" width="88" height="18" alt="SmartMag ProMag"/>
         </div>
     </div>
     <div class="off-canvas-content">
@@ -100,11 +98,11 @@
             </div>
             <div class="items items-center empty">
             </div>
-            <div class="items items-right ">
-                <a href="#" class="search-icon has-icon-only is-icon" title="Search">
-                    <i class="tsi tsi-search"></i>
-                </a>
-            </div>
+            {{--<div class="items items-right ">--}}
+                {{--<a href="#" class="search-icon has-icon-only is-icon" title="Search">--}}
+                    {{--<i class="tsi tsi-search"></i>--}}
+                {{--</a>--}}
+            {{--</div>--}}
         </div>
     </div>
     <div class="smart-head-row smart-head-mid is-light smart-head-row-full">
@@ -116,10 +114,7 @@
                              alt="SmartMag ProMag"
                              srcset="/src/asset/img/system/Capture.PNG ,/src/asset/img/system/Capture.PNG 2x"
                              width="176" height="35"/>
-                        <img src="/src/asset/img/system/logo1.jpg" class="logo-image"
-                                                           alt="SmartMag ProMag"
-                                                           srcset="/src/asset/img/system/Capture.PNG ,/src/asset/img/system/Capture.PNG 2x"
-                                                           width="176" height="35"/>
+                        <img src="/src/asset/img/system/logo1.jpg" class="logo-image" alt="SmartMag ProMag" srcset="/src/asset/img/system/Capture.PNG ,/src/asset/img/system/Capture.PNG 2x" width="176" height="35"/>
                     </h1>
                 </a>
                 <img style="margin-top: 7px;" border="0" alt="qc" src="/images/header_banner.jpg" >
@@ -199,7 +194,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <div class="smart-head smart-head-a smart-head-mobile" id="smart-head-mobile" data-sticky="mid"
      data-sticky-type="smart" data-sticky-full>
@@ -215,20 +209,16 @@
             <div class="items items-center ">
                 <a href="" title="SmartMag ProMag" rel="home" class="logo-link ts-logo logo-is-image">
 		            <span>
-                        <img class="logo-mobile logo-image logo-image-dark"
-                             src="/src/asset/img/system/Capture.PNG"
-                             width="176" height="35" alt="SmartMag ProMag"/><img class="logo-mobile logo-image"
-                                                                                 src="/src/asset/img/system/logo1.jpg"
-                                                                                 width="88" height="18"
-                                                                                 alt="SmartMag ProMag"/>
+                        <img class="logo-mobile logo-image logo-image-dark" src="/src/asset/img/system/Capture.PNG" width="176" height="35" alt="SmartMag ProMag"/>
+                        <img class="logo-mobile logo-image" src="/src/asset/img/system/logo1.jpg" width="88" height="18"  alt="SmartMag ProMag"/>
 					</span>
                 </a>
             </div>
-            <div class="items items-right ">
-                <a href="#" class="search-icon has-icon-only is-icon" title="Search">
-                    <i class="tsi tsi-search"></i>
-                </a>
-            </div>
+            {{--<div class="items items-right ">--}}
+                {{--<a href="#" class="search-icon has-icon-only is-icon" title="Search">--}}
+                    {{--<i class="tsi tsi-search"></i>--}}
+                {{--</a>--}}
+            {{--</div>--}}
         </div>
     </div>
 </div>

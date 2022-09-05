@@ -26,24 +26,25 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         $this->conditions = $conditions;
         $submit_data = $this->conditions;
         $query = Scenario::query();
-        if (isset($submit_data['country']) && $submit_data['country'] != -1) {
-            if ($submit_data['country'] == 1) {
-                $query->where('country_id', 1);
-            } else {
-                $query->where('country_id', '>', 1);
-            }
+
+        if (isset($submit_data['is_inbound']) && $submit_data['is_inbound'] == 1) {
+            $query->where('country_id', 1);
+        } else {
+            $query->where('country_id', '<>', 1);
         }
+
         if (isset($submit_data['start']) && $submit_data['start']) {
             $query->where('arrival_date', '>=', $submit_data['start']);
         }
         if (isset($submit_data['end']) && $submit_data['end']) {
             $query->where('departure_day', '<=', $submit_data['end']);
         }
-        $this->data = $query->orderBy('boss_port_id','ASC')->orderBy('country_id','ASC')->orderBy('unloading_port_id','ASC')->get();
+        $this->data = $query->orderBy('id','DESC')->get();
     }
 
     public function collection()
     {
+
         $data = [];
         $count = 0;
         $header = [];
