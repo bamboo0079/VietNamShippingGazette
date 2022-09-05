@@ -1,5 +1,20 @@
-<p class="text-right"><a href="{{ $download_link }}"><i class="fa fa-download" aria-hidden="true"></i> Download</a></p>
-<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+@if(Session::has('successMsg'))
+    <div class="alert alert-success" role="alert">
+        {{ Session::get('successMsg') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+@if(Session::has('errorMsg'))
+    <div class="alert alert-danger" role="alert">
+        {{ Session::get('errorMsg') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
     <colgroup>
         <col width="50">
         <col>
@@ -16,7 +31,7 @@
         <th class="text-left">Cảng Xếp</th>
         <th class="text-left">Cảng Dỡ</th>
         <th class="text-left">Cảng Transit</th>
-        <th class="text-left">Tàu</th>
+        <th class="text-left">Hãng Tàu</th>
         <th class="text-left">Đại Lý</th>
         <th class="text-left">Ngày Đi</th>
         <th class="text-left">Ngày Đến</th>

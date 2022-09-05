@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Helpers\Helper;
+//use App\Helpers\Helper;
 use App\Models\Audio;
 use App\Models\Book;
 use App\Models\Category;
@@ -78,6 +78,7 @@ class HomeController extends Controller
         }
         return view('frontend.home', $data);
     }
+
     public function category(Request $request, $id = 0)
     {
         $data = [];
@@ -98,9 +99,11 @@ class HomeController extends Controller
         // truy van lay du lieu cu the
         return view('frontend.category', $data);
     }
+
     public function schedule(Request $request, $id = 0)
     {
         $data = [];
+        $data['list_scenarios']=[];
         $category = Category::where('id', '>', 0)->first();
         $id = $category->id;
         $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
@@ -118,29 +121,33 @@ class HomeController extends Controller
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['list_ship'] = Ship::where('id','>', 0)->orderBy('id','ASC')->get();
         $data['list_port'] = Port::where('id','>', 0)->orderBy('id','ASC')->get();
-        $list_scenarios = Scenario::query();
-        if(isset($_GET['ship_id']) && $_GET['ship_id']){
-            $list_scenarios = $list_scenarios->where('ship_id', $_GET['ship_id']);
+        if(isset($_GET['ship_id']) || isset($_GET['boss_port_id']) || isset($_GET['unloading_port_id']) || isset($_GET['departure_day']) || isset($_GET['arrival_date'])) {
+            $list_scenarios = Scenario::query();
+            if(isset($_GET['ship_id']) && $_GET['ship_id']){
+                $list_scenarios = $list_scenarios->where('ship_id', $_GET['ship_id']);
+            }
+            if(isset($_GET['boss_port_id']) && $_GET['boss_port_id']){
+                $list_scenarios = $list_scenarios->where('boss_port_id', $_GET['boss_port_id']);
+            }
+            if(isset($_GET['unloading_port_id']) && $_GET['unloading_port_id']){
+                $list_scenarios = $list_scenarios->where('unloading_port_id', $_GET['unloading_port_id']);
+            }
+            if(isset($_GET['departure_day']) && $_GET['departure_day']){
+                $departure_day = \DateTime::createFromFormat("d/m/Y", $_GET['departure_day'])->format('Y-m-d');
+                $list_scenarios = $list_scenarios->where('departure_day', '>=',$departure_day);
+            }
+            if(isset($_GET['arrival_date']) && $_GET['arrival_date']){
+                $arrival_date = \DateTime::createFromFormat("d/m/Y", $_GET['arrival_date'])->format('Y-m-d');
+                $list_scenarios = $list_scenarios->where('departure_day', '<=',$arrival_date);
+            }
+            $list_scenarios = $list_scenarios->orderBy('departure_day', 'ASC')->get();
+            $data['list_scenarios'] = $list_scenarios;
         }
-        if(isset($_GET['boss_port_id']) && $_GET['boss_port_id']){
-            $list_scenarios = $list_scenarios->where('boss_port_id', $_GET['boss_port_id']);
-        }
-        if(isset($_GET['unloading_port_id']) && $_GET['unloading_port_id']){
-            $list_scenarios = $list_scenarios->where('unloading_port_id', $_GET['unloading_port_id']);
-        }
-        if(isset($_GET['departure_day']) && $_GET['departure_day']){
-            $departure_day = \DateTime::createFromFormat("d/m/Y", $_GET['departure_day'])->format('Y-m-d');
-            $list_scenarios = $list_scenarios->where('departure_day', '>=',$departure_day);
-        }
-        if(isset($_GET['arrival_date']) && $_GET['arrival_date']){
-            $arrival_date = \DateTime::createFromFormat("d/m/Y", $_GET['arrival_date'])->format('Y-m-d');
-            $list_scenarios = $list_scenarios->where('departure_day', '<=',$arrival_date);
-        }
-        $list_scenarios = $list_scenarios->orderBy('departure_day', 'ASC')->get();
-        $data['list_scenarios'] = $list_scenarios;
+
         // truy van lay du lieu cu the
         return view('frontend.schedule', $data);
     }
+
     public function productCategory(Request $request, $id = 0)
     {
         $data = [];
@@ -157,6 +164,7 @@ class HomeController extends Controller
         // truy van lay du lieu cu the
         return view('frontend.subcategory', $data);
     }
+
     public function detail(Request $request, $id = 0)
     {
         $data = [];
