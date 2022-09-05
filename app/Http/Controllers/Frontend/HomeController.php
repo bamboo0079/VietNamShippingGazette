@@ -18,6 +18,7 @@ use App\Models\Scenario;
 use App\Models\Setting;
 use App\Models\Ship;
 use App\Models\Step;
+use App\Models\Support;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -72,6 +73,7 @@ class HomeController extends Controller
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['partners'] = Partner::where('type', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['anpham'] = Partner::where('type', 2)->where('is_show', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['supports'] = Support::where('is_show',1)->get();
         $data['other'] = [];
         foreach ($categories_new_id as $id){
             $data['other'][$id] = News::where('category_id', $id)->where('approved', 1)->orderBy('id','DESC')->limit(4)->get();
