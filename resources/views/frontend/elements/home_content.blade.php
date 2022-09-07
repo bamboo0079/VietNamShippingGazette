@@ -39,12 +39,24 @@
                                                                 <a href="{{ route('tin.tuc', $new->id) }}">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
                                                             </h2>
                                                             <div class="post-meta-items meta-below">
-                                                                <p style="font-size: 14px">@if(Session::get('locale') == 'vi') {!! mb_substr(strip_tags($new->content_vn), 0, 95) !!} @else {!! mb_substr(strip_tags($new->content_en), 0, 95) !!} @endif...</p>
+                                                                <span class="meta-item post-author">
+                                                                    <a href="javascript:void(0)" title="Posts by Shane Doe" rel="author">{{ __("messages.POST_DATE") }}</a>
+                                                                </span>
+                                                                <span class="meta-item date">
+                                                                    <span class="date-link">
+                                                                        <time class="post-date" datetime=""> {{ $new->created_at }}</time>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="excerpt">
+                                                                <p style="font-size: 14px">
+                                                                    @if(Session::get('locale') == 'vi')
+                                                                        {!! \App\Helpers\Helper::limitCharacters($new->content_vn) !!}
+                                                                    @else {!! \App\Helpers\Helper::limitCharacters($new->content_en) !!} @endif
+                                                                </p>
+
                                                             </div>
                                                         </div>
-                                                        {{--<div class="excerpt">
-                                                            <p>{{ $new->title_vn }}</p>
-                                                        </div>--}}
                                                     </div>
                                                 </article>
                                             @endif

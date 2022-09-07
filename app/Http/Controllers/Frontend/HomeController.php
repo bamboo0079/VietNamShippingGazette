@@ -78,7 +78,29 @@ class HomeController extends Controller
         foreach ($categories_new_id as $id){
             $data['other'][$id] = News::where('category_id', $id)->where('approved', 1)->orderBy('id','DESC')->limit(4)->get();
         }
-        return view('frontend.home', $data);
+        return view('templates.homePage', $data);
+    }
+
+    public function newsDetail(Request $request, $id = 0)
+    {
+        $data = [];
+        $category = ProductCategory::where('id', $id)->first();
+        $news = News::where('id', $id)->where('approved', 1)->orderBy('id', 'DESC')->first();
+        $data['category'] = $category;
+        $data['news'] = $news;
+        $data['categories'] = Category::get();
+        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
+        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
+        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
+        $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['relate_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->inRandomOrder()->limit(6)->get();
+        // truy van lay du lieu cu the
+        if($news->product_category_id){
+            $data['hot_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->orderBy('id','DESC')->limit(6)->get();
+            return view('frontend.product', $data);
+        }
+        return view('templates.newsDetail', $data);
     }
 
     public function category(Request $request, $id = 0)
@@ -98,8 +120,10 @@ class HomeController extends Controller
         $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
         $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['anpham'] = Partner::where('type', 2)->where('is_show', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['partners'] = Partner::where('type', 1)->orderBy('id','DESC')->limit(3)->get();
         // truy van lay du lieu cu the
-        return view('frontend.category', $data);
+        return view('templates.category', $data);
     }
 
     public function schedule(Request $request, $id = 0)
@@ -229,8 +253,6 @@ class HomeController extends Controller
         $data = [];
         $msg = '';
         $category = Category::where('id', '>', 0)->first();
-        $id = $category->id;
-//        $news = News::where('id', '>', 0)->orderBy('id', 'DESC')->paginate(10);
         $data['category'] = $category;
         $data['categories'] = Category::get();
         $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
@@ -264,46 +286,93 @@ class HomeController extends Controller
     public function register(Request $request)
     {
         $data = [];
-        $msg = '';
         $category = Category::where('id', '>', 0)->first();
         $id = $category->id;
         $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
         $data['category'] = $category;
-        $data['news'] = $news;
         $data['categories'] = Category::get();
         $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
         $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
         $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
-        $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
-        $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
             $submit_data = $request->all();
-            $mem = Member::where('email', $submit_data['email'])->count();
-            if($submit_data['password'] != $submit_data['confirm_password']){
-                $msg = 'Mật khẩu và xác nhận mật khẩu không trùng khớp';
-            }elseif(strlen($submit_data['password']) < 6){
-                $msg = 'Mật khẩu phải ít nhất 6 ký tự';
-            }elseif($mem){
-                $msg = 'Tài khoản đã tồn tại!';
-            }else{
-                $member = new Member();
-                $member->name = $submit_data['name'];
-                $member->email = $submit_data['email'];
-                $member->phone = $submit_data['phone'];
-                $member->password = md5($submit_data['password']);
-                $member->save();
-                Session::put('member', $member);
-                return redirect('/');
+            $validate = $this->validateDataRegister($submit_data);
+            Session::flash('name', $submit_data['name']);
+            Session::flash('email', $submit_data['email']);
+            Session::flash('phone', $submit_data['phone']);
+
+            if($validate == true) {
+                $mem = Member::where('email', $submit_data['email'])->count();
+                if($mem > 0) {
+                    Session::flash('errMsg', __("messages.ACCOUNT_EXISTS_ERROR_MSG"));
+                } else {
+                    try{
+                        $member = new Member();
+                        $member->name = $submit_data['name'];
+                        $member->email = $submit_data['email'];
+                        $member->phone = $submit_data['phone'];
+                        $member->password = md5($submit_data['password']);
+                        $member->save();
+                        Session::flash('successMsg', __("messages.SUCCESS_REGISTER_ACCOUNT"));
+                    } catch (\Exception $exception) {
+                        Session::flash('errMsg', __("messages.EXCEPTION_REGISTER_ERROR_MSG"));
+                    }
+                }
             }
         }
-        $data['msg'] = $msg;
-        return view('frontend.register', $data);
+        return view('templates.register',$data);
+    }
+
+    public function validateDataRegister($submit_data) {
+
+        if(strlen($submit_data['name']) == 0) {
+            Session::flash('errMsg', __("messages.FULL_NAME"));
+            return false;
+        }
+
+        if(strlen($submit_data['email']) == 0) {
+            Session::flash('errMsg', __("messages.EMPTY_EMAIL_ERROR_MSG"));
+            return false;
+        }
+
+        if (!filter_var($submit_data['email'], FILTER_VALIDATE_EMAIL)) {
+            Session::flash('errMsg', __("messages.FORMAT_EMAIL_ERROR_MSG"));
+            return false;
+        }
+
+        if (strlen($submit_data['phone']) == 0) {
+            Session::flash('errMsg', __("messages.EMPTY_PHONE_ERROR_MSG"));
+            return false;
+        }
+
+        if(!preg_match("/^0(1\d{9}|9\d{8})$/", $submit_data['phone'])) {
+            Session::flash('errMsg', __("messages.FORMAT_PHONE_ERROR_MSG"));
+            return false;
+        }
+
+        if (strlen($submit_data['password']) == 0) {
+            Session::flash('errMsg', __("messages.EMPTY_PASSWORD_ERROR_MSG"));
+            return false;
+        }
+
+        if (strlen($submit_data['password']) < 6) {
+            Session::flash('errMsg', __("messages.PASSWORD_MORE_SIX_CHARACTERS_ERROR_MSG"));
+            return false;
+        }
+
+        if ($submit_data['password'] != $submit_data['confirm_password']) {
+            Session::flash('errMsg', __("messages.PASSWORD_AND_REPASSWORD_NOT_MATCH_ERROR_MSG"));
+            return false;
+        }
+
+        return true;
     }
 
     public function login(Request $request)
     {
         $data = [];
-        $msg = '';
         $category = Category::where('id', '>', 0)->first();
         $id = $category->id;
         $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
@@ -313,20 +382,23 @@ class HomeController extends Controller
         $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
         $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
         $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
-        $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
-        $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
             $submit_data = $request->all();
-            $member = Member::where('email', $submit_data['email'])->where('password', md5($submit_data['password']))->first();
-            if(!isset($member->id)){
-                $msg = 'Email hoặc mật khẩu không trùng khớp';
-            }else{
-                Session::put('member', $member);
-                return redirect('/my-page');
+            if(strlen($submit_data['email']) == 0 || strlen($submit_data['password']) == 0) {
+                Session::flash('errLoginMsg', __("messages.EMPTY_DATA_LOGIN"));
+            } else {
+                $member = Member::where('email', $submit_data['email'])->where('password', md5($submit_data['password']))->first();
+                if(!isset($member->id)){
+                    Session::flash('errLoginMsg', __("messages.ERROR_LOGIN_MSG"));
+                } else {
+                    Session::flash('successLoginMsg', __("messages.SUCCESS_LOGIN_MSG"));
+                    Session::put('member', $member);
+                }
             }
         }
-        $data['msg'] = $msg;
-        return view('frontend.login', $data);
+        return view('templates.login', $data);
     }
 
     public function resetPassword(Request $request)
