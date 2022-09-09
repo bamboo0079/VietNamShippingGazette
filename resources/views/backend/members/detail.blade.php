@@ -97,7 +97,7 @@
                         </div>
                         <div class="buttons-set text-center">
                             <button type="submit" class="btn btn-primary mr-2"><i class="fa fa-save"></i> Lưu</button>
-                            <a href="{{ route('admin.dashboard') }}" class="btn btn-light"><i class="fa fa-reply"></i>Hủy bỏ</a>
+                            <a href="{{ route('admin.member') }}" class="btn btn-light"><i class="fa fa-reply"></i>Hủy bỏ</a>
                         </div>
                     </form>
 
