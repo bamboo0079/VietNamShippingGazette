@@ -75,7 +75,7 @@
                                     </td>
                                     <td class="text-right text-nowrap">
                                         <a href="{{ route('admin.user.detail', $user->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i> Cập nhật</a>
-                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.user.delete', $user->id) }}" class="btn btn-primary btn-sm"><i class="fas fa fa-trash"></i> Xóa</a>
+                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.user.delete', $user->id) }}" class="btn btn-primary btn-sm btn-delete"><i class="fas fa fa-trash"></i> Xóa</a>
                                     </td>
                                 </tr>
                             @empty

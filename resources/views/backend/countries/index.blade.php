@@ -54,7 +54,7 @@
                                     <td class="text-left">{{ $category->country_nm_en }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.country.add', $category->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i> Cập nhật</a>
-                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.country.delete', $category->id) }}" class="btn btn-primary btn-sm"><i class="fas fa fa-trash"></i> Xóa</a>
+                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.country.delete', $category->id) }}" class="btn btn-primary btn-sm btn-delete"><i class="fas fa fa-trash"></i> Xóa</a>
                                     </td>
                                 </tr>
                             @empty
