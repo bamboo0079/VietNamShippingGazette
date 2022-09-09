@@ -100,6 +100,11 @@ class VSGNewsController extends Controller
         }else{
             $data['img'] = '';
         }
+        if(isset($data['youtube_url']) && strpos($data['youtube_url'], 'v=') !== false){
+            $url = $data['youtube_url'];
+            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+            $data['youtube_url'] =  'https://www.youtube.com/embed/'.$my_array_of_vars['v'];
+        }
         if (isset($data['id']) && $data['id']) {
             $update = [
                 'title_vn' => $data['title_vn'],

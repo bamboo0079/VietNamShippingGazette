@@ -14,7 +14,7 @@
                     <h5 class="m-0 font-weight-bold text-primary">{{ __("Cập nhật tin tức") }}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.new.process') }}" enctype="multipart/form-data" method="post" novalidate class="needs-validation">
+                    <form action="{{ route('admin.vsg.new.process') }}" enctype="multipart/form-data" method="post" novalidate class="needs-validation">
                         @csrf
                         @if(isset($book->id))
                             <input type="hidden" name="id" value="{{ $book->id }}" />
