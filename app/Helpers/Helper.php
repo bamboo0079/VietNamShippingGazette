@@ -2,10 +2,12 @@
 
 namespace App\Helpers;
 
+use App\ConstApp;
 use App\Models\Chapter;
 use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class Helper
 {
@@ -67,11 +69,6 @@ class Helper
         return $string;
     }
 
-    public static function pushNotify($data)
-    {
-        
-    }
-
     public static function substractTwoDate($date_1, $date_2) {
         $datetime1 = strtotime($date_1);
         $datetime2 = strtotime($date_2);
@@ -79,5 +76,16 @@ class Helper
         $secs = $datetime2 - $datetime1;// == <seconds between the two times>
         $days = $secs / 86400;
         return $days;
+    }
+
+    public static function limitCharacters($str,$number) {
+        if(strlen($str) <= $number) {
+            return $str;
+        }
+        $str = strip_tags($str);
+        $str = wordwrap($str, $number);
+        $str = explode("\n", $str);
+        return $str[0] . '...';
+
     }
 }

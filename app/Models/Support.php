@@ -11,6 +11,6 @@ class Support extends Model
     protected $table = 'supports';
 
     protected $fillable = [
-        'name','zalo','skype'
+        'name','zalo','skype','phone','sex'
     ];
 }
