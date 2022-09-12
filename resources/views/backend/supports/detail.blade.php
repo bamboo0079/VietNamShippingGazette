@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-primary">{{ __("Cập nhật hỗ trợ") }}</h1>
+                <h1 class="h3 mb-0 text-primary"></h1>
                 <a href="{{ route('admin.supports') }}" class="d-sm-inline-block btn btn-primary btn-add"><i class="fas fa-angle-left"></i> Quay lại</a>
             </div>
             <!-- End Heading -->
@@ -51,11 +51,33 @@
 
                         <div class="form-group">
                             <div class="row">
+                                <label class="control-label col-sm-3 text-right">Phone</label>
+                                <div class="input-field col-sm-9">
+                                    <input id="phone" type="text" placeholder="phone" class="input-space form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $book->phone }}" autofocus>
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
                                 <label class="control-label col-sm-3 text-right">Ẩn/Hiện</label>
                                 <div class="input-field col-sm-9">
                                     <select name="is_show" class="form-control">
                                         <option value="1" @if($book->is_show == 1) selected @endif>Hiển thị</option>
                                         <option value="0" @if($book->is_show == 0) selected @endif>Ẩn</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Giới tính</label>
+                                <div class="input-field col-sm-9">
+                                    <select name="sex" class="form-control">
+                                        <option value="1" @if($book->sex == 1) selected @endif>Nam</option>
+                                        <option value="0" @if($book->sex == 0) selected @endif>Nữ</option>
                                     </select>
                                 </div>
                             </div>

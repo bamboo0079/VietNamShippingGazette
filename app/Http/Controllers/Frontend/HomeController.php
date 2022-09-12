@@ -185,7 +185,7 @@ class HomeController extends Controller
         $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
         $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
         $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
-        $data['hot_news'] = News::where('product_category_id', $id)->orderBy('id','DESC')->limit(6)->get();
+        $data['hot_news'] = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id','DESC')->limit(6)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         // truy van lay du lieu cu the
         return view('frontend.subcategory', $data);
@@ -207,7 +207,7 @@ class HomeController extends Controller
         $data['relate_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->inRandomOrder()->limit(6)->get();
         // truy van lay du lieu cu the
         if($news->product_category_id){
-            $data['hot_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->orderBy('id','DESC')->limit(6)->get();
+            $data['hot_news'] = News::where('approved', 1)/*->where('id','<>', $id)*/->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->orderBy('id','DESC')->limit(6)->get();
             return view('frontend.product', $data);
         }
         return view('frontend.detail', $data);

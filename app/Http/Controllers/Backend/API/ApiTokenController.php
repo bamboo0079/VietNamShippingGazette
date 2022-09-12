@@ -15,7 +15,7 @@ use Illuminate\Validation\Rule;
 
 class ApiTokenController extends Controller
 {
-    public $public_key = '8909346ff6346e7aa15132cccb37842cKLLsByNHQrqJWaVAMcBn8FpPuONiGsmL8EA20201208';
+    public $public_key = '';
     public function __construct()
     {
 //        $this->middleware('auth:api')->except(['login', 'pushNotify']);

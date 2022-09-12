@@ -4,14 +4,14 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-primary">{{ __("Chi tiết liên hệ") }}</h1>
+                <h1 class="h3 mb-0 text-primary"></h1>
                 <a href="{{ route('admin.contacts') }}" class="d-sm-inline-block btn btn-primary btn-add"><i class="fas fa-angle-left"></i> Quay lại</a>
             </div>
             <!-- End Heading -->
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h5 class="m-0 font-weight-bold text-primary">{{ __("Cập nhật hỗ trợ") }}</h5>
+                    <h5 class="m-0 font-weight-bold text-primary">{{ __("Chi tiết liên hệ") }}</h5>
                 </div>
                 <div class="card-body">
                     <form action="" enctype="multipart/form-data" method="post" novalidate class="needs-validation">

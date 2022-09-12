@@ -72,7 +72,7 @@
                                     </td>
                                     <td class="text-right">
                                         <a href="{{ route('admin.recruit.new.detail', $book->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i> Cập nhật</a>
-                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.new.delete', $book->id) }}" class="btn btn-primary btn-sm"><i class="fas fa fa-trash"></i> Xóa</a>
+                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.new.delete', $book->id) }}" class="btn btn-primary btn-sm btn-delete"><i class="fas fa fa-trash"></i> Xóa</a>
                                     </td>
                                 </tr>
                             @empty
