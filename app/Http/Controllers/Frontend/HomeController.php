@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 //use App\Helpers\Helper;
+use App\ConstApp;
 use App\Models\Audio;
 use App\Models\Book;
 use App\Models\Category;
@@ -24,6 +25,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\MD5;
 use Session;
 use Cookie;
 use Illuminate\Support\Facades\App;
@@ -78,7 +80,7 @@ class HomeController extends Controller
         foreach ($categories_new_id as $id){
             $data['other'][$id] = News::where('category_id', $id)->where('approved', 1)->orderBy('id','DESC')->limit(4)->get();
         }
-        return view('templates.homePage', $data);
+        return view('templates.news.homePage', $data);
     }
 
     public function newsDetail(Request $request, $id = 0)
@@ -100,7 +102,7 @@ class HomeController extends Controller
             $data['hot_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->orderBy('id','DESC')->limit(6)->get();
             return view('frontend.product', $data);
         }
-        return view('templates.newsDetail', $data);
+        return view('templates.news.newsDetail', $data);
     }
 
     public function category(Request $request, $id = 0)
@@ -123,7 +125,7 @@ class HomeController extends Controller
         $data['anpham'] = Partner::where('type', 2)->where('is_show', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['partners'] = Partner::where('type', 1)->orderBy('id','DESC')->limit(3)->get();
         // truy van lay du lieu cu the
-        return view('templates.category', $data);
+        return view('templates.news.category', $data);
     }
 
     public function schedule(Request $request, $id = 0)
@@ -170,8 +172,7 @@ class HomeController extends Controller
             $data['list_scenarios'] = $list_scenarios;
         }
 
-        // truy van lay du lieu cu the
-        return view('frontend.schedule', $data);
+        return view('templates.schedules.schedule', $data);
     }
 
     public function productCategory(Request $request, $id = 0)
@@ -187,8 +188,7 @@ class HomeController extends Controller
         $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
         $data['hot_news'] = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id','DESC')->limit(6)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
-        // truy van lay du lieu cu the
-        return view('frontend.subcategory', $data);
+        return view('templates.products.productList', $data);
     }
 
     public function detail(Request $request, $id = 0)
@@ -243,57 +243,86 @@ class HomeController extends Controller
         return view('frontend.contact', $data);
     }
 
-    public function chaomua(Request $request)
+    public function memberInfo(Request $request)
     {
         if(!Session::has('member')){
             return redirect('/login');
         }
-        $member = Session::get('member');
 
-        $data = [];
-        $msg = '';
-        $category = Category::where('id', '>', 0)->first();
-        $data['category'] = $category;
-        $data['categories'] = Category::get();
-        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
-        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
-        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
-        $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
-        $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
-        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $submit_data = $request->all();
-            $new = new News();
-            $new->category_id = $submit_data['category_id'];
-            $new->title_vn = $submit_data['title_vn'];
-            $new->title_en = $submit_data['title_vn'];
-            $new->content_vn = $submit_data['content_vn'];
-            $new->content_en = $submit_data['content_vn'];
-            $new->content_en = $submit_data['content_vn'];
-            $new->approved = 0;
-            $new->member_id = $member->id;
-            if($request->has('img')){
-                $new->img = '/'.request()->file('img')->store('certificates','public');
-            }
-            $new->save();
-            $msg = 'Gửi thông tin thành công. Xin cảm ơn!';
+        $data = $this->commonMenuData();
+
+        $member = Session::get('member');
+        $data['name'] = $member->name;
+        $data['email'] = $member->email;
+        $data['phone'] = $member->phone;
+        $data['router_active'] = 'my_account';
+        return view('templates.members.accountInfo', $data);
+    }
+
+    public function updateAccount(Request $request) {
+
+        if(!Session::has('member')) {
+            return redirect('/');
         }
-        $data['msg'] = $msg;
-        $news = News::where('member_id', $member->id)->orderBy('id', 'DESC')->paginate(10);
-        $data['news'] = $news;
-        return view('frontend.mypage', $data);
+        $data = $this->commonMenuData();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            $submit_data = $request->all();
+            $validate = $this->validateUpdateAccount($submit_data);
+
+            if($validate == true) {
+                try{
+                    Session::get('member')->name = $submit_data['name'];
+                    Session::get('member')->phone = $submit_data['phone'];
+
+                    Member::where('id', Session::get('member')->id)->update([
+                        'name' => $submit_data['name'],
+                        'phone' => $submit_data['phone'],
+                    ]);
+                    Session::flash('successMsg', __("messages.SUCCESS_UPDATE_ACCOUNT"));
+                } catch (\Exception $exception) {
+                    Session::flash('errMsg', __("messages.EXCEPTION_UPDATE_ERROR_MSG"));
+                }
+            }
+        }
+
+        $member = Session::get('member');
+        $data['name'] = $member->name;
+        $data['email'] = $member->email;
+        $data['phone'] = $member->phone;
+        $data['router_active'] = 'my_account';
+
+        return view('templates.members.editMemberInfo', $data);
+    }
+
+    public function validateUpdateAccount($submit_data) {
+
+        if(strlen($submit_data['name']) == 0) {
+            Session::flash('errMsg', __("messages.FULL_NAME"));
+            return false;
+        }
+
+        if (strlen($submit_data['phone']) == 0) {
+            Session::flash('errMsg', __("messages.EMPTY_PHONE_ERROR_MSG"));
+            return false;
+        }
+
+        if(!preg_match("/^0(1\d{9}|9\d{8})$/", $submit_data['phone'])) {
+            Session::flash('errMsg', __("messages.FORMAT_PHONE_ERROR_MSG"));
+            return false;
+        }
+
+        return true;
     }
 
     public function register(Request $request)
     {
-        $data = [];
-        $category = Category::where('id', '>', 0)->first();
-        $id = $category->id;
-        $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
-        $data['category'] = $category;
-        $data['categories'] = Category::get();
-        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
-        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
-        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
+        if(!Session::has('member')) {
+            return redirect('/');
+        }
+
+        $data = $this->commonMenuData();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -322,7 +351,7 @@ class HomeController extends Controller
                 }
             }
         }
-        return view('templates.register',$data);
+        return view('templates.members.register',$data);
     }
 
     public function validateDataRegister($submit_data) {
@@ -372,20 +401,12 @@ class HomeController extends Controller
 
     public function login(Request $request)
     {
-        $data = [];
-        $category = Category::where('id', '>', 0)->first();
-        $id = $category->id;
-        $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
-        $data['category'] = $category;
-        $data['news'] = $news;
-        $data['categories'] = Category::get();
-        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
-        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
-        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
+        $data = $this->commonMenuData();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             $submit_data = $request->all();
+
             if(strlen($submit_data['email']) == 0 || strlen($submit_data['password']) == 0) {
                 Session::flash('errLoginMsg', __("messages.EMPTY_DATA_LOGIN"));
             } else {
@@ -398,38 +419,61 @@ class HomeController extends Controller
                 }
             }
         }
-        return view('templates.login', $data);
+        return view('templates.members.login', $data);
     }
 
     public function resetPassword(Request $request)
     {
-        $data = [];
-        $msg = '';
-        $category = Category::where('id', '>', 0)->first();
-        $id = $category->id;
-        $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
-        $data['category'] = $category;
-        $data['news'] = $news;
-        $data['categories'] = Category::get();
-        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
-        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
-        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
-        $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
-        $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+        if(!Session::has('member')) {
+            return redirect('/');
+        }
+
+        $data = $this->commonMenuData();
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
             $submit_data = $request->all();
-            if(strlen($submit_data['password']) < 6){
-                $msg = 'Mật khẩu tối thiểu 6 ký tự!';
-            }elseif($submit_data['password'] != $submit_data['confirm_password']){
-                $msg = 'Mật khẩu không trùng khớp!';
-            }else{
+            $validate = $this->validateDataResetPassword($submit_data);
+            if($validate == true) {
                 $member = Session::get('member');
                 Member::where('id', $member->id)->update(['password' => md5($submit_data['password'])]);
-                $msg = 'Đổi mật khẩu thành công!';
+                Session::flash('successResetMsg', __("messages.RESET_PASS_SUCCESS"));
+                Session::get('member')->password = md5($submit_data['password']);
             }
         }
-        $data['msg'] = $msg;
-        return view('frontend.reset', $data);
+        $data['router_active'] = 'reset_pass';
+        return view('templates.members.resetPassword', $data);
+    }
+
+    public function validateDataResetPassword($submit_data) {
+
+        if(strlen($submit_data['old_password']) == 0) {
+            Session::flash('errResetMsg', __("messages.EMPTY_OLD_PASS_ERROR"));
+            return false;
+        }
+
+        if(strlen($submit_data['password']) == 0) {
+            Session::flash('errResetMsg', __("messages.EMPTY_NEW_PASS_ERROR"));
+            return false;
+        }
+
+        if(strlen($submit_data['password']) < 6) {
+            Session::flash('errResetMsg', __("messages.PASSWORD_MORE_SIX_CHARACTERS_ERROR_MSG"));
+            return false;
+        }
+
+        if($submit_data['password'] != $submit_data['confirm_password']) {
+            Session::flash('errResetMsg', __("messages.NOT_MATCH_PASS_ERROR"));
+            return false;
+        }
+
+        $meber_data = Session::get("member");
+        if($meber_data->password != md5($submit_data['old_password'])) {
+            Session::flash('errResetMsg', __("messages.OLD_PASS_INVALID_ERROR"));
+            return false;
+        }
+
+        return true;
     }
 
     public function logout(Request $request){
@@ -446,5 +490,118 @@ class HomeController extends Controller
             Session::put('locale', 'vi');
         }
         return redirect()->back();
+    }
+
+    public function commonMenuData() {
+
+        $data = array();
+        $data['category'] = Category::where('id', '>', 0)->first();
+        $data['categories'] = Category::get();
+        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
+        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
+        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
+        return $data;
+    }
+
+    public function addNews( Request $request) {
+
+        if(!Session::has('member')) {
+            return redirect('/');
+        }
+        $data = $this->commonMenuData();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            $submit_data = $request->all();
+            $validate = $this->validateNews($submit_data, $request);
+
+            if($validate == true) {
+                try{
+                    $new = new News();
+                    $new->category_id = $submit_data['category_id'];
+                    $new->title_vn = $submit_data['title_vn'];
+                    $new->title_en = $submit_data['title_vn'];
+                    $new->content_vn = $submit_data['content_vn'];
+                    $new->content_en = $submit_data['content_vn'];
+                    $new->content_en = $submit_data['content_vn'];
+                    $new->approved = 0;
+                    $new->member_id = Session::get('member')->id;
+                    if($request->has('img')){
+                        $new->img = '/'.request()->file('img')->store('certificates','public');
+                    }
+                    $new->save();
+                    Session::flash('successMsg', __("messages.SUCCESS_ADD_NEWS"));
+                } catch (\Exception $exception) {
+                    Session::flash('errMsg', __("messages.EXCEPTION_ERROR_ADD_NEWS"));
+                }
+                Session::forget('category_id');
+                Session::forget('title_vn');
+                Session::forget('content_vn');
+            } else {
+                Session::flash('category_id',$submit_data['category_id']);
+                Session::flash('title_vn',$submit_data['title_vn']);
+                Session::flash('content_vn',$submit_data['content_vn']);
+            }
+        }
+        $data['router_active'] = 'news_add';
+        return view('templates.news.addNews', $data);
+    }
+
+    public function validateNews($submit_data, $request) {
+
+        if (strlen($submit_data['category_id']) == 0) {
+            Session::flash('errMsg', __("messages.PASSWORD_AND_REPASSWORD_NOT_MATCH_ERROR_MSG"));
+            return false;
+        }
+
+        if (strlen($submit_data['title_vn']) == 0) {
+            Session::flash('errMsg', __("messages.ERROR_NEWS_TITLE"));
+            return false;
+        }
+
+        if (strlen($submit_data['title_vn']) > ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) {
+            $msg =  __("messages.ERROR_NEWS_TITLE_LIMIT");
+            $msg = str_replace('%s',ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE, $msg);
+            Session::flash('errMsg', $msg);
+            return false;
+        }
+
+        if (strlen($submit_data['title_vn']) < ConstApp::NUMBER_CHARACTERS_TITLE_LET_THAN) {
+            $msg =  __("messages.ERROR_NEWS_TITLE_LESS_THAN");
+            $msg = str_replace('%s',ConstApp::NUMBER_CHARACTERS_TITLE_LET_THAN, $msg);
+            Session::flash('errMsg', $msg);
+            return false;
+        }
+
+        if (strlen($submit_data['content_vn']) == 0) {
+            Session::flash('errMsg', __("messages.content_vn"));
+            return false;
+        }
+
+        if (strlen($submit_data['content_vn']) == 0) {
+            Session::flash('errMsg', __("messages.ERROR_NEWS_CONTENT"));
+            return false;
+        }
+
+        if (strlen($submit_data['content_vn']) < ConstApp::NUMBER_CHARACTERS_TITLE_LET_THAN) {
+            $msg =  __("messages.ERROR_NEWS_CONTENT_LESS_THAN");
+            $msg = str_replace('%s',ConstApp::NUMBER_CHARACTERS_TITLE_LET_THAN, $msg);
+            Session::flash('errMsg', $msg);
+            return false;
+        }
+
+        if(!$request->has('img')){
+            Session::flash('errMsg', __("messages.ERROR_NEWS_IMAGE"));
+            return false;
+        }
+
+        return true;
+    }
+
+    public function newsManagent(Request $request) {
+        $data = $this->commonMenuData();
+        $data['posted'] = News::where('member_id', Session::get('member')->id)->orderBy('id', 'DESC')->paginate(10);
+        $data['router_active'] = 'news_manager';
+        return view('templates.news.newsManagent', $data);
     }
 }

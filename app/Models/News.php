@@ -11,7 +11,7 @@ class News extends Model
     protected $table = 'news';
 
     protected $fillable = [
-        'category_id','reject_reason','member_id','price','product_category_id','youtube_url', 'img', 'title_vn', 'title_en','content_vn','content_en','approved','is_new','is_hot','is_paid'
+        'category_id','member_id','price','product_category_id','youtube_url', 'img', 'title_vn', 'title_en','content_vn','content_en','approved','reject_reason','is_new','is_hot','is_paid'
     ];
 
     public function category()
