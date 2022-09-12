@@ -85,23 +85,14 @@ class HomeController extends Controller
 
     public function newsDetail(Request $request, $id = 0)
     {
-        $data = [];
+        $data = $this->commonMenuData();
         $category = ProductCategory::where('id', $id)->first();
         $news = News::where('id', $id)->where('approved', 1)->orderBy('id', 'DESC')->first();
-        $data['category'] = $category;
-        $data['news'] = $news;
-        $data['categories'] = Category::get();
-        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
-        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
-        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
         $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['news'] = $news;
+
         $data['relate_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->inRandomOrder()->limit(6)->get();
-        // truy van lay du lieu cu the
-        if($news->product_category_id){
-            $data['hot_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->orderBy('id','DESC')->limit(6)->get();
-            return view('frontend.product', $data);
-        }
         return view('templates.news.newsDetail', $data);
     }
 
@@ -179,7 +170,7 @@ class HomeController extends Controller
     {
         $data = [];
         $category = ProductCategory::where('id', $id)->first();
-        $news = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(12);
+        $news = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
         $data['category'] = $category;
         $data['news'] = $news;
         $data['categories'] = Category::get();
@@ -189,6 +180,29 @@ class HomeController extends Controller
         $data['hot_news'] = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id','DESC')->limit(6)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         return view('templates.products.productList', $data);
+    }
+
+    public function productDetail(Request $request, $id = 0) {
+
+        $data = [];
+        $category = ProductCategory::where('id', $id)->first();
+        $news = News::where('id', $id)->where('approved', 1)->orderBy('id', 'DESC')->first();
+        $data['category'] = $category;
+        $data['news'] = $news;
+        $data['categories'] = Category::get();
+        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
+        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
+        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
+        $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['relate_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->inRandomOrder()->limit(6)->get();
+        // truy van lay du lieu cu the
+        /*if($news->product_category_id){
+            $data['hot_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->orderBy('id','DESC')->limit(6)->get();
+            return view('frontend.product', $data);
+        }*/
+
+        return view('templates.products.productDetail', $data);
     }
 
     public function detail(Request $request, $id = 0)

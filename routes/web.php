@@ -31,7 +31,6 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/tin-tuc/{id?}', 'HomeController@newsDetail')->name('tin.tuc');
     Route::any('/lich-tau', 'HomeController@schedule')->name('lich.tau');
     Route::any('/the-loai/{id?}', 'HomeController@category')->name('the.loai');
-    Route::any('/loai-san-pham/{id?}', 'HomeController@productCategory')->name('loai.san.pham');
     Route::any('/lien-he', 'HomeController@contact')->name('contact');
     Route::any('/my-account', 'HomeController@memberInfo')->name('memberInfo');
     Route::any('/reset-password', 'HomeController@resetPassword')->name('reset.password');
@@ -42,6 +41,8 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/update-account', 'HomeController@updateAccount')->name('update.account');
     Route::any('/add-news', 'HomeController@addNews')->name('add.news');
     Route::any('/news-management', 'HomeController@newsManagent')->name('news.management');
+    Route::any('/loai-san-pham/{id?}', 'HomeController@productCategory')->name('loai.san.pham');
+    Route::any('/chi-tiet-san-pham/{id?}', 'HomeController@productDetail')->name('product.detail');
 });
 
 // Route BackEnd

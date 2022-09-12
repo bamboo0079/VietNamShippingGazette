@@ -5497,7 +5497,6 @@
 
 <div class="main-wrap">
 
-
     @include('frontend.elements.header_menu')
 
     <nav class="breadcrumbs is-full-width breadcrumbs-a" id="breadcrumb">

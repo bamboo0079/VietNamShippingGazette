@@ -1,19 +1,13 @@
-@extends('templates.news.master')
+@extends('templates.master')
 @section('content')
 
 <div class="main ts-contain cf right-sidebar" data-title="Viet Nam Shipping Gazette" data-url="http://www.vietnamshippinggazette.com/" style="transform: none;">
     <div class="ts-row" style="transform: none;">
         <div class="col-8 main-content">
+            <h1 class="archive-heading"><span>  {{ __("messages.NEWS_DETAIL_TITLE") }} </span></h1>
             <div class="the-post-header s-head-modern s-head-modern-a">
                 <div class="post-meta post-meta-a post-meta-left post-meta-single has-below">
                     <div class="post-meta-items meta-above">
-                        <span class="meta-item cat-labels">
-                        @if($news->category_id)
-                                <a class="category" rel="category" href="{{ route('the.loai', $news->category_id) }}"><span>@if(Session::get('locale') == 'vi') {{ $news->category->name_vn }} @else {{ $news->category->name_en }} @endif</span></a>
-                            @else
-                                <a class="category" rel="category" href="{{ route('loai.san.pham', $news->product_category_id) }}"><span>@if(Session::get('locale') == 'vi') {{ $news->productcategory->name_vn }} @else {{ $news->productcategory->name_en }} @endif</span></a>
-                            @endif
-                        </span>
                         <h1 class="is-title post-title">@if(Session::get('locale') == 'vi') {{ $news->title_vn }} @else {{ $news->title_en }} @endif</h1>
                         <div class="post-meta-items meta-below has-author-img">
                             <div class="post-meta-items meta-below item-margin-booton">
@@ -38,7 +32,7 @@
         </article>
             </div>
         </div>
-        @include('templates.rightBarNews')
+        @include('templates.news.rightBarNews')
     </div>
 
     <section class="related-posts @if(count($relate_news) == 0) d-none @endif">
