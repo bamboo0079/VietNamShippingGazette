@@ -115,7 +115,7 @@
                                         <div class="form-group">
                                             <select name="is_inbound" class="form-control">
                                                 <option @if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 0) selected @endif value="0" {{ (isset($_GET['is_inbound']) && $_GET['is_inbound'] == 0)?'selected':''}}>InBound</option>
-                                                <option @if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1) selected @endif value="1" {{ (isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1)?'selected':''}}>OutBound</option>
+                                                <option @if(isset($scenario->country_id) && $scenario->country_id == 1) selected @endif @if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1) selected @endif value="1" {{ (isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1)?'selected':''}}>OutBound</option>
                                             </select>
                                         </div>
                                     </div>
