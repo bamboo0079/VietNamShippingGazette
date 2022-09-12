@@ -87,7 +87,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             }
             $last_name2 = $current_name2;
 
-            $current_name3 = (isset($cond['country']) && $cond['country'] == 1 && isset($item->transit->port_nm_vn))?$item->transit->port_nm_vn:'';
+            $current_name3 = (isset($cond['is_inbound']) && $cond['is_inbound'] == 1 && isset($item->transit->port_nm_vn))?$item->transit->port_nm_vn:'';
             if($current_name3 != $last_name3){
                 $count++;
                 $transit[] = $count;
@@ -145,7 +145,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             }
             $last_name2 = $current_name2;
 
-            $current_name3 = (isset($cond['country']) && $cond['country'] == 1 && isset($item->transit->port_nm_vn))?$item->transit->port_nm_vn:'';
+            $current_name3 = (isset($cond['is_inbound']) && $cond['is_inbound'] == 1 && isset($item->transit->port_nm_vn))?$item->transit->port_nm_vn:'';
             if($current_name3 != $last_name3){
                 $count++;
                 $transit[] = $count;
@@ -157,7 +157,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         }
 
         $color = 'FF0000';
-        if(isset($cond['country']) && $cond['country'] == 1){
+        if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
             $color = '000000';
         }
         $data = [
