@@ -92,7 +92,10 @@ class PartnersController extends Controller
             'link' => ['required', 'string', 'max:255'],
         ]);
         if($request->has('img')){
-            $data['img'] = '/'.request()->file('img')->store('certificates','public');
+            $extension = $request->file('img')->extension();
+            $file_name = uniqid().'.'.$extension;
+            $data['img'] = '/'.request()->file('img')->storeAs('certificates',$file_name,'public');
+//            $data['img'] = '/'.request()->file('img')->store('certificates','public');
         }else{
             $data['img'] = '';
         }

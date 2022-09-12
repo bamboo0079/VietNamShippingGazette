@@ -61,6 +61,8 @@ class SupportsController extends Controller
                 'name' => $data['name'],
                 'zalo' => $data['zalo'],
                 'skype' => $data['skype'],
+                'phone' => $data['phone'],
+                'sex' => $data['sex'],
                 'is_show' => isset($data['is_show'])?$data['is_show']:1,
             ];
             Support::where('id', $data['id'])->update($update);
@@ -69,6 +71,8 @@ class SupportsController extends Controller
                 'name' => $data['name'],
                 'zalo' => $data['zalo'],
                 'skype' => $data['skype'],
+                'phone' => $data['phone'],
+                'sex' => $data['sex'],
                 'is_show' => isset($data['is_show'])?$data['is_show']:1
             ]);
         }

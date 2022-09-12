@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-primary">{{ __("Thêm tin tức") }}</h1>
+                <h1 class="h3 mb-0 text-primary"></h1>
                 <a href="{{ route('admin.news') }}" class="d-sm-inline-block btn btn-primary btn-add"><i class="fas fa-angle-left"></i> Quay lại</a>
             </div>
             <!-- End Heading -->
@@ -90,7 +90,7 @@
                             <div class="row">
                                 <label class="control-label col-sm-3 text-right">Đường dẫn youtube</label>
                                 <div class="input-field col-sm-9">
-                                    <input id="youtube_url" type="text" placeholder="Đường dẫn youtube" class="input-space form-control @error('youtube_url') is-invalid @enderror" name="youtube_url" value="{{ old('youtube_url') }}" autofocus>
+                                    <input id="youtube_url" type="url" placeholder="https://www.youtube.com/watch?v=Yc6SCoSLYmk" class="input-space form-control @error('youtube_url') is-invalid @enderror" name="youtube_url" value="{{ old('youtube_url') }}" autofocus>
                                     <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
                                 </div>
                             </div>

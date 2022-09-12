@@ -1,21 +1,19 @@
 <!-- Latest news & events -->
 <section class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-ac3b37e elementor-section-boxed elementor-section-height-default elementor-section-height-default"
         data-id="ac3b37e" data-element_type="section">
-
-
     <div class="elementor-container elementor-column-gap-no">
         <div class="elementor-column elementor-col-66 elementor-top-column elementor-element elementor-element-fd8591e main-content"
              data-id="fd8591e" data-element_type="column">
             <div class="elementor-widget-wrap elementor-element-populated">
+
+                @if(count($news))
                 <div class="elementor-element elementor-element-abc4e86 elementor-widget elementor-widget-smartmag-highlights"
                      data-id="abc4e86" data-element_type="widget"
                      data-widget_type="smartmag-highlights.default">
                     <div class="elementor-widget-container">
-                        <section class="block-wrap block-highlights block-sc mb-sm" data-id="8"
-                                 data-block="{&quot;id&quot;:&quot;highlights&quot;,&quot;props&quot;:{&quot;cat_labels&quot;:&quot;&quot;,&quot;cat_labels_pos&quot;:&quot;bot-left&quot;,&quot;reviews&quot;:&quot;radial&quot;,&quot;post_formats_pos&quot;:&quot;center&quot;,&quot;load_more_style&quot;:&quot;a&quot;,&quot;meta_above&quot;:[],&quot;meta_below&quot;:[&quot;author&quot;,&quot;date&quot;],&quot;posts&quot;:6,&quot;space_below&quot;:&quot;sm&quot;,&quot;title_lines&quot;:&quot;2&quot;,&quot;media_ratio&quot;:&quot;3-2&quot;,&quot;container_width&quot;:66,&quot;offset&quot;:2,&quot;heading&quot;:&quot;*Pro* Lifestyle&quot;,&quot;filters&quot;:&quot;category&quot;,&quot;filters_terms&quot;:[&quot;10&quot;,&quot;568&quot;],&quot;cat&quot;:&quot;1&quot;,&quot;heading_colors&quot;:&quot;none&quot;,&quot;pagination_links&quot;:null,&quot;excerpt_length&quot;:15,&quot;query_type&quot;:&quot;custom&quot;,&quot;sort_days&quot;:null,&quot;is_sc_call&quot;:true,&quot;meta_items_default&quot;:true}}">
+                        <section class="block-wrap block-highlights block-sc mb-sm" data-id="8" data-block="{&quot;id&quot;:&quot;highlights&quot;,&quot;props&quot;:{&quot;cat_labels&quot;:&quot;&quot;,&quot;cat_labels_pos&quot;:&quot;bot-left&quot;,&quot;reviews&quot;:&quot;radial&quot;,&quot;post_formats_pos&quot;:&quot;center&quot;,&quot;load_more_style&quot;:&quot;a&quot;,&quot;meta_above&quot;:[],&quot;meta_below&quot;:[&quot;author&quot;,&quot;date&quot;],&quot;posts&quot;:6,&quot;space_below&quot;:&quot;sm&quot;,&quot;title_lines&quot;:&quot;2&quot;,&quot;media_ratio&quot;:&quot;3-2&quot;,&quot;container_width&quot;:66,&quot;offset&quot;:2,&quot;heading&quot;:&quot;*Pro* Lifestyle&quot;,&quot;filters&quot;:&quot;category&quot;,&quot;filters_terms&quot;:[&quot;10&quot;,&quot;568&quot;],&quot;cat&quot;:&quot;1&quot;,&quot;heading_colors&quot;:&quot;none&quot;,&quot;pagination_links&quot;:null,&quot;excerpt_length&quot;:15,&quot;query_type&quot;:&quot;custom&quot;,&quot;sort_days&quot;:null,&quot;is_sc_call&quot;:true,&quot;meta_items_default&quot;:true}}">
                             <div class="block-head block-head-ac block-head-e block-head-e2 is-left">
-                                <h4 class="heading"><a href=""><span
-                                                class="color">{{ __("messages.LastNews") }}</span></a></h4>
+                                <h4 class="heading"><a href=""><span class="color">{{ __("messages.LastNews") }}</span></a></h4>
                                 <a href="" class="view-link">
                                     {{ __("messages.ReadMore") }} <i class="arrow tsi tsi-angle-right"></i>
                                 </a>
@@ -41,12 +39,24 @@
                                                                 <a href="{{ route('tin.tuc', $new->id) }}">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
                                                             </h2>
                                                             <div class="post-meta-items meta-below">
-                                                                <p style="font-size: 14px">@if(Session::get('locale') == 'vi') {!! mb_substr(strip_tags($new->content_vn), 0, 95) !!} @else {!! mb_substr(strip_tags($new->content_en), 0, 95) !!} @endif...</p>
+                                                                <span class="meta-item post-author">
+                                                                    <a href="javascript:void(0)" title="Posts by Shane Doe" rel="author">{{ __("messages.POST_DATE") }}</a>
+                                                                </span>
+                                                                <span class="meta-item date">
+                                                                    <span class="date-link">
+                                                                        <time class="post-date" datetime=""> {{ $new->created_at }}</time>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="excerpt">
+                                                                <p style="font-size: 14px">
+                                                                    @if(Session::get('locale') == 'vi')
+                                                                        {!! \App\Helpers\Helper::limitCharacters($new->content_vn) !!}
+                                                                    @else {!! \App\Helpers\Helper::limitCharacters($new->content_en) !!} @endif
+                                                                </p>
+
                                                             </div>
                                                         </div>
-                                                        {{--<div class="excerpt">
-                                                            <p>{{ $new->title_vn }}</p>
-                                                        </div>--}}
                                                     </div>
                                                 </article>
                                             @endif
@@ -85,6 +95,8 @@
                         </section>
                     </div>
                 </div>
+                @endif
+                @if(count($event_news))
                 <div class="elementor-element elementor-element-625e01a elementor-widget elementor-widget-smartmag-postslist"
                      data-id="625e01a" data-element_type="widget"
                      data-widget_type="smartmag-postslist.default">
@@ -128,8 +140,10 @@
                         </section>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
+
         <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-fb04f95 main-sidebar main-sidebar ts-sticky-col"
              data-id="fb04f95" data-element_type="column">
             <div class="elementor-widget-wrap elementor-element-populated">
@@ -140,8 +154,7 @@
                         @if(count($anpham))
                         <section class="block-wrap block-grid block-sc mb-none" data-id="12">
                             <div class="block-head block-head-ac block-head-e block-head-e2 is-left">
-                                <h4 class="heading"><a><span
-                                                class="color">{{ __("messages.LatestPublications") }}</span></a></h4>
+                                <h4 class="heading"><a><span class="color">{{ __("messages.LatestPublications") }}</span></a></h4>
                             </div>
                             <div class="block-content">
                                 <div class="loop loop-grid loop-grid-base has-nums has-nums-a grid grid-1 md:grid-1 xs:grid-1">
@@ -165,43 +178,51 @@
                             </div>
                         </section>
                         @endif
+                        <style type="text/css">
+                            .ifo-tag-p {
+                                font-size: 13px;
+                                line-height: 2px;
+                                color: #454d55;
+                            }
+                            .ifo-tag-p-top {
+                                margin-top: 3px !important;
+                            }
+                            .ifo-tag-p b {
+                                font-weight: bold;
+                                color: #454d55;
+                            }
+                        </style>
                         <div style="margin-top: 15px"
                              class="elementor-element elementor-element-8ea91f8 elementor-widget elementor-widget-wp-widget-bunyad-social"
                              data-id="8ea91f8" data-element_type="widget"
                              data-widget_type="wp-widget-bunyad-social.default">
                             <div class="elementor-widget-container">
                                 <div class="widget widget-social-b">
-                                    <div style="margin-bottom: 15px !important;"
-                                         class="widget-title block-head block-head-ac block-head block-head-ac block-head-e block-head-e2 is-left has-style">
-                                        <h5 class="heading">{{ __("messages.Onlinesupport") }}</h5>
+                                    @if(count($supports))
+                                    <div style="margin-bottom: 15px !important;"  class="widget-title block-head block-head-ac block-head block-head-ac block-head-e block-head-e2 is-left has-style">
+                                        <h5 class="heading"><span class="color">{{ __("messages.Onlinesupport") }}</span></h5>
                                     </div>
-                                    <style type="text/css">
-                                        #company_support li {
-                                            line-height: 25px;
-                                        }
-
-                                        #company_support li strong {
-                                            color: #de333b !important;
-                                        }
-
-                                        .loop-grid-news {
-                                            --grid-row-gap: 10px !important;
-                                        }
-                                    </style>
-                                    <div class="spc-social-follow spc-social-follow-b spc-social-colors spc-social-bg">
-                                        <ul id="company_support">
-                                            <li class="recentcomments">
-                                                Ms: <strong>Linh</strong>
-                                            </li>
-                                            <li class="recentcomments">
-                                                Zalo: <strong>0909 999 999</strong>
-                                            </li>
-                                            <li class="recentcomments">
-                                                Skype: <strong>abc@xyz</strong>
-                                            </li>
-                                        </ul>
+                                    <div class="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
+                                        @foreach($supports as $support)
+                                        <article class="l-post small-a-post m-pos-left small-post">
+                                            <div class="media" style="width: 87px">
+                                                <img src="/public/frontend/images/support_member_{{ $support->sex == 0 ? 'women' : 'men' }}.png" style="max-width: 100px">
+                                            </div>
+                                            <div class="content">
+                                                <div class="post-meta post-meta-a post-meta-left has-below">
+                                                    <h6 class="is-title post-title" style="margin-top: 9px !important;">{{ $support->name }}</h6>
+                                                    <div class="post-meta-items meta-below">
+                                                        <p class="ifo-tag-p ifo-tag-p-top" ><b>Zalo: </b> {{ $support->zalo }}</p>
+                                                        <p class="ifo-tag-p"><b>Skype: </b> {{ $support->skype }}</p>
+                                                        <p class="ifo-tag-p"><b>Phone: </b> {{ $support->phone }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        @endforeach
                                     </div>
-
+                                    @endif
+                                    @if(count($hot_news))
                                     <div style="margin-top: 20px"
                                          class="elementor-element elementor-element-2970e47 elementor-widget elementor-widget-smartmag-postssmall"
                                          data-id="2970e47" data-element_type="widget"
@@ -226,8 +247,8 @@
                                                                                         <span data-bgsrc="{{ $new->img }}"
                                                                                               class="img bg-cover wp-post-image attachment-medium size-medium lazyloaded"
                                                                                               data-bgset="{{ $new->img }}"
-                                                                                              data-sizes="(max-width: 116px) 100vw, 116px"
-                                                                                              style="background-image: url(&quot;https://smartmag.theme-sphere.com/pro-mag/wp-content/uploads/sites/18/2020/01/shutterstock_134286254-1-150x113.jpg&quot;);"></span>
+                                                                                              data-sizes="(max-width: 116px) 100vw, 116px">
+                                                                                              </span>
                                                                 </a>
                                                             </div>
                                                             <div class="content">
@@ -235,10 +256,9 @@
                                                                     <h4 class="is-title post-title limit-lines l-lines-2">
                                                                         <a href="{{ route('tin.tuc', $new->id) }}">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a></h4>
                                                                     <div class="post-meta-items meta-below">
-                                                                                            <span class="meta-item date"><span
-                                                                                                        class="date-link"><time
-                                                                                                            class="post-date"
-                                                                                                            datetime="{{ $new->created_at }}">{{ $new->created_at }}</time></span></span>
+                                                                        <span class="meta-item date">
+                                                                            <span class="date-link">
+                                                                                <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time></span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -249,7 +269,8 @@
                                             </section>
                                         </div>
                                     </div>
-
+                                    @endif
+                                    @if(count($paid_news))
                                     <div style="margin-top: 20px"
                                          class="elementor-element elementor-element-2970e47 elementor-widget elementor-widget-smartmag-postssmall"
                                          data-id="2970e47" data-element_type="widget"
@@ -298,7 +319,8 @@
                                             </section>
                                         </div>
                                     </div>
-
+                                    @endif
+                                    @if(count($partners))
                                     <div style="margin-top: 20px"
                                          class="elementor-element elementor-element-2970e47 elementor-widget elementor-widget-smartmag-postssmall"
                                          data-id="2970e47" data-element_type="widget"
@@ -309,6 +331,7 @@
                                                     <span class="color">Đối Tác</span>
                                                 </h5>
                                             </div>
+                                            @if(count($partners))
                                             <section class="block-wrap block-posts-small block-sc"
                                                      data-id="21">
                                                 <div class="block-content">
@@ -333,8 +356,10 @@
                                                     </div>
                                                 </div>
                                             </section>
+                                            @endif
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -342,10 +367,10 @@
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 <!-- Latest news & events -->
-
 <!-- VSG news -->
 @if(count($vsg_news))
 <section

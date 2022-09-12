@@ -19,6 +19,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
     protected $data;
     protected $header;
     protected $locate;
+    protected $transit;
     protected $detail;
 
     public function __construct($conditions)
@@ -26,32 +27,32 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         $this->conditions = $conditions;
         $submit_data = $this->conditions;
         $query = Scenario::query();
-
         if (isset($submit_data['is_inbound']) && $submit_data['is_inbound'] == 1) {
             $query->where('country_id', 1);
         } else {
             $query->where('country_id', '<>', 1);
         }
-
         if (isset($submit_data['start']) && $submit_data['start']) {
             $query->where('arrival_date', '>=', $submit_data['start']);
         }
         if (isset($submit_data['end']) && $submit_data['end']) {
             $query->where('departure_day', '<=', $submit_data['end']);
         }
-        $this->data = $query->orderBy('id','DESC')->get();
+        $this->data = $query->orderBy('boss_port_id','ASC')->orderBy('country_id','ASC')->orderBy('unloading_port_id','ASC')->get();
     }
 
     public function collection()
     {
-
+        $cond = $this->conditions;
         $data = [];
         $count = 0;
         $header = [];
         $locate = [];
+        $transit = [];
         $detail = [];
         $last_name = '';
         $last_name2 = '';
+        $last_name3 = '';
         foreach ($this->data as $key => $item){
             $current_name = $item->boss->port_nm_vn.','.$item->country->country_nm_vn;
             if($current_name != $last_name){
@@ -65,6 +66,8 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     'title5' =>'',
                     'title6' =>'',
                 ];
+                $last_name2 = '';
+                $last_name3 = '';
             }
             $last_name = $current_name;
 
@@ -80,8 +83,24 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     'title5' =>'',
                     'title6' =>'',
                 ];
+                $last_name3 = '';
             }
             $last_name2 = $current_name2;
+
+            $current_name3 = (isset($cond['country']) && $cond['country'] == 1 && isset($item->transit->port_nm_vn))?$item->transit->port_nm_vn:'';
+            if($current_name3 != $last_name3){
+                $count++;
+                $transit[] = $count;
+                $data[] =  [
+                    'title1' => '',
+                    'title2' =>''.$item->transit->port_nm_vn,
+                    'title3' =>'',
+                    'title4' =>'',
+                    'title5' =>'',
+                    'title6' =>'',
+                ];
+            }
+            $last_name3 = $current_name3;
 
             $count++;
             $detail[] = $count;
@@ -94,25 +113,27 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                 'title6' =>'('.$item->total_date.' days)',
             ];
         }
-//        print_r($header);
-//        print_r($locate);
-//        print_r($data);die;
         return collect($data);
     }
 
     public function registerEvents(): array
     {
+        $cond = $this->conditions;
         $count = 0;
         $header = [];
         $locate = [];
         $detail = [];
+        $transit = [];
         $last_name = '';
         $last_name2 = '';
+        $last_name3 = '';
         foreach ($this->data as $key => $item){
             $current_name = $item->boss->port_nm_vn.','.$item->country->country_nm_vn;
             if($current_name != $last_name){
                 $count++;
                 $header[] = $count;
+                $last_name2 = '';
+                $last_name3 = '';
             }
             $last_name = $current_name;
 
@@ -120,16 +141,31 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             if($current_name2 != $last_name2){
                 $count++;
                 $locate[] = $count;
+                $last_name3 = '';
             }
             $last_name2 = $current_name2;
+
+            $current_name3 = (isset($cond['country']) && $cond['country'] == 1 && isset($item->transit->port_nm_vn))?$item->transit->port_nm_vn:'';
+            if($current_name3 != $last_name3){
+                $count++;
+                $transit[] = $count;
+            }
+            $last_name3 = $current_name3;
 
             $count++;
             $detail[] = $count;
         }
+
+        $color = 'FF0000';
+        if(isset($cond['country']) && $cond['country'] == 1){
+            $color = '000000';
+        }
         $data = [
             'header' => $header,
             'locate' => $locate,
+            'transit' => $transit,
             'detail' => $detail,
+            'color' => $color,
         ];
         return [
             AfterSheet::class => function (AfterSheet $event) use ($data) {
@@ -146,17 +182,21 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                 $event->sheet->getColumnDimension('D')->setAutoSize(false)->setWidth(3);
                 $event->sheet->getColumnDimension('E')->setAutoSize(false)->setWidth(2);
                 $event->sheet->getColumnDimension('F')->setAutoSize(false)->setWidth(5);
-                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Arial Narrow')->getColor()->setARGB('FF0000');
+                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Arial Narrow')->getColor()->setARGB($data['color']);
                 foreach ($data['header'] as $item){
                     $cellRange = 'A'.$item.':F'.$item;
-                    $cellRange2 = 'A'.$item.':C'.$item;
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
                     $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold);
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['locate'] as $item){
                     $cellRange = 'A'.$item.':F'.$item;
-                    $cellRange2 = 'A'.$item.':C'.$item;
+                    $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
+                    $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold);
+                    $event->sheet->mergeCells($cellRange);
+                }
+                foreach ($data['transit'] as $item){
+                    $cellRange = 'B'.$item.':F'.$item;
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
                     $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold);
                     $event->sheet->mergeCells($cellRange);

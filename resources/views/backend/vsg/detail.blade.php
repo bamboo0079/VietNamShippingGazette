@@ -14,7 +14,7 @@
                     <h5 class="m-0 font-weight-bold text-primary">{{ __("Cập nhật tin tức") }}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.new.process') }}" enctype="multipart/form-data" method="post" novalidate class="needs-validation">
+                    <form action="{{ route('admin.vsg.new.process') }}" enctype="multipart/form-data" method="post" novalidate class="needs-validation">
                         @csrf
                         @if(isset($book->id))
                             <input type="hidden" name="id" value="{{ $book->id }}" />
@@ -90,7 +90,7 @@
                             <div class="row">
                                 <label class="control-label col-sm-3 text-right">Đường dẫn youtube</label>
                                 <div class="input-field col-sm-9">
-                                    <input id="youtube_url" type="text" placeholder="Đường dẫn youtube" class="input-space form-control @error('youtube_url') is-invalid @enderror" name="youtube_url" value="{{ $book->youtube_url }}" autofocus>
+                                    <input id="youtube_url" type="url" placeholder="https://www.youtube.com/watch?v=Yc6SCoSLYmk" class="input-space form-control @error('youtube_url') is-invalid @enderror" name="youtube_url" value="{{ $book->youtube_url }}" autofocus>
                                     <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
                                 </div>
                             </div>

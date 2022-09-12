@@ -27,30 +27,22 @@ Route::namespace('Backend')->prefix('admin')->group(function () {
 });
 
 Route::middleware(['front'])->namespace('Frontend')->group(function () {
-//    Route::get('/privacy-policy', 'HomeController@policy')->name('policy');
     Route::any('/', 'HomeController@index')->name('home');
-    Route::any('/tin-tuc/{id?}', 'HomeController@detail')->name('tin.tuc');
+    Route::any('/tin-tuc/{id?}', 'HomeController@newsDetail')->name('tin.tuc');
     Route::any('/lich-tau', 'HomeController@schedule')->name('lich.tau');
     Route::any('/the-loai/{id?}', 'HomeController@category')->name('the.loai');
     Route::any('/loai-san-pham/{id?}', 'HomeController@productCategory')->name('loai.san.pham');
     Route::any('/lien-he', 'HomeController@contact')->name('contact');
-    Route::any('/my-page', 'HomeController@chaomua')->name('chaomua');
-    Route::any('/reset-password', 'HomeController@resetPassword')->name('reset');
+    Route::any('/my-account', 'HomeController@memberInfo')->name('memberInfo');
+    Route::any('/reset-password', 'HomeController@resetPassword')->name('reset.password');
     Route::any('/dang-ky', 'HomeController@register')->name('register');
     Route::any('/dang-nhap', 'HomeController@login')->name('login');
     Route::any('/dang-xuat', 'HomeController@logout')->name('logout');
     Route::any('/language/{lang?}', 'HomeController@language')->name('change.language');
+    Route::any('/update-account', 'HomeController@updateAccount')->name('update.account');
+    Route::any('/add-news', 'HomeController@addNews')->name('add.news');
+    Route::any('/news-management', 'HomeController@newsManagent')->name('news.management');
 });
-
-/*Route::middleware(['front'])->namespace('Frontend')->group(function () {
-    Route::any('/', 'HomeController@index')->name('home');
-    Route::any('/san-pham/{id?}', 'HomeController@index')->name('san.pham');
-    Route::any('/loai-san-pham/{id?}', 'HomeController@category')->name('loai.san.pham');
-    Route::any('/ajax-get-chapter/{book_id?}', 'HomeController@ajaxChapterByBook')->name('ajax.chapter');
-    Route::any('/settings', 'HomeController@settings')->name('settings');
-    Route::get('/notify', 'HomeController@notify')->name('notify');
-    Route::any('/language/{lang?}', 'HomeController@language')->name('change.language');
-});*/
 
 // Route BackEnd
 Route::middleware(['admin', 'web'])->namespace('Backend')->prefix('admin')->group(function () {

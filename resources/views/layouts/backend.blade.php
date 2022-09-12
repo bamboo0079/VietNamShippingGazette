@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+@if (!Auth::check() && !request()->is('admin/login*'))
+    <meta http-equiv="refresh" content="0; url=/admin/login">
+@else
+        <!DOCTYPE html>
 <html dir="ltr" lang="ja">
 <head>
     <meta charset="utf-8">
@@ -29,27 +32,29 @@
 @endif
 <!-- End of Sidebar -->
 <!-- Page Wrapper -->
-    <div @if(Auth::check()) id="wrapper" @else id="login-wrapper" @endif>
-        @if (session('status'))
-            <div class="container-fluid">
-                <div class="card" style="border: none">
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+<div @if(Auth::check()) id="wrapper" @else id="login-wrapper" @endif>
+    @if (session('status'))
+        <div class="container-fluid">
+            <div class="card" style="border: none">
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
-        @endif
-        @yield('content')
-    </div>
-            <!-- End -->
-    @if(Auth::check())
-        @include('backend.elements.footer')
+        </div>
     @endif
-    @section('post-js')
-    @show
+    @yield('content')
+</div>
+<!-- End -->
+@if(Auth::check())
+    @include('backend.elements.footer')
+@endif
+@section('post-js')
+@show
 </body>
 </html>
+@endif
+
 

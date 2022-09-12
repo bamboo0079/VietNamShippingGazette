@@ -94,9 +94,16 @@ class VSGNewsController extends Controller
             'title_en' => ['required', 'string', 'max:255'],
         ]);
         if($request->has('img')){
-            $data['img'] = '/'.request()->file('img')->store('certificates','public');
+            $extension = $request->file('img')->extension();
+            $file_name = uniqid().'.'.$extension;
+            $data['img'] = '/'.request()->file('img')->storeAs('certificates',$file_name,'public');
         }else{
             $data['img'] = '';
+        }
+        if(isset($data['youtube_url']) && strpos($data['youtube_url'], 'v=') !== false){
+            $url = $data['youtube_url'];
+            parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+            $data['youtube_url'] =  'https://www.youtube.com/embed/'.$my_array_of_vars['v'];
         }
         if (isset($data['id']) && $data['id']) {
             $update = [

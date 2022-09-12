@@ -116,7 +116,9 @@ class NewsController extends Controller
             'title_en' => ['required', 'string', 'max:255'],
         ]);
         if($request->has('img')){
-            $data['img'] = '/'.request()->file('img')->store('certificates','public');
+            $extension = $request->file('img')->extension();
+            $file_name = uniqid().'.'.$extension;
+            $data['img'] = '/'.request()->file('img')->storeAs('certificates',$file_name,'public');
         }else{
             $data['img'] = '';
         }
@@ -181,6 +183,7 @@ class NewsController extends Controller
                 'content_en' => $data['content_en'],
                 'youtube_url' => $data['youtube_url'],
                 'approved' => isset($data['approved']) ? $data['approved'] : 1,
+                'reject_reason' => "",
                 'is_hot' => isset($data['is_hot']) ? $data['is_hot'] : 0,
                 'is_new' => isset($data['is_new']) ? $data['is_new'] : 0,
                 'is_paid' => isset($data['is_paid']) ? $data['is_paid'] : 0,
@@ -201,6 +204,7 @@ class NewsController extends Controller
                 'youtube_url' => $data['youtube_url'],
                 'img' => $data['img'],
                 'approved' => isset($data['approved']) ? $data['approved'] : 1,
+                'reject_reason' => "",
                 'is_hot' => isset($data['is_hot']) ? $data['is_hot'] : 0,
                 'is_new' => isset($data['is_new']) ? $data['is_new'] : 0,
                 'is_paid' => isset($data['is_paid']) ? $data['is_paid'] : 0,

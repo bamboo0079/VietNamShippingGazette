@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-primary">Quản lý tàu</h1>
+                <h1 class="h3 mb-0 text-primary"></h1>
                 <a href="{{ route('admin.ship.add') }}" class="btn btn-primary min-w140"><i class="fas fa-plus-circle"></i> Thêm</a>
             </div>
             <!-- End Heading -->
@@ -54,7 +54,7 @@
                                     <td class="text-left">{{ $category->ship_nm_en }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.ship.add', $category->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i> Cập nhật</a>
-                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.ship.delete', $category->id) }}" class="btn btn-primary btn-sm"><i class="fas fa fa-trash"></i> Xóa</a>
+                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.ship.delete', $category->id) }}" class="btn btn-primary btn-sm btn-delete"><i class="fas fa fa-trash"></i> Xóa</a>
                                     </td>
                                 </tr>
                             @empty
