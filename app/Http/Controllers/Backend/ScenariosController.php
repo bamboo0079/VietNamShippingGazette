@@ -103,7 +103,6 @@ class ScenariosController extends Controller
             $errorMsg = "";
             if($data['departure_day'] > $data['arrival_date']) {
                 \Session::flash('errorMsg', "Ngày đến không được bé hơn ngày đi");
-                \Session::flash('alert-class', 'alert-danger');
             }
             $departure_day = Carbon::parse($data['departure_day']);
             $arrival_date = Carbon::parse($data['arrival_date']);
@@ -121,8 +120,10 @@ class ScenariosController extends Controller
             'arrival_date' => ['required'],
         ]);
         if ($validate->fails()) {
-            \Session::flash('errorMsg', "Dữ liệu không hợp lệ");
+            \Session::flash('errorMsg', "Dữ liệu nhập vào không hợp lệ");
             \Session::flash('alert-class', 'alert-danger');
+        }elseif ($data['departure_day'] > $data['arrival_date']) {
+            \Session::flash('errorMsg', "Ngày đến không được bé hơn ngày đi");
         }else{
             if (isset($data['id']) && $data['id']) {
                 $update = [
@@ -155,6 +156,7 @@ class ScenariosController extends Controller
                     Scenario::create($update);
                 }
             }
+            \Session::flash('successMsg', "Lưu thông tin thành công!");
         }
 
         $data['limit'] = $this->limit;

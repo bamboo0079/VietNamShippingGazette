@@ -301,11 +301,17 @@
                 success: function(data)
                 {
                     $(".table-responsive").html(data);
-                    $('.chosen-select').val(0).trigger("chosen:updated");
-                    $('.mask').val('');
-                    $("#id").val(0);
-                    $("#msgSuccess").removeClass('d-none');
-                    $("#btnSubmit").html('<i class="fas fa-plus-circle"></i>  Thêm mới');
+                    if($(".alert-danger").length == 0){
+                        $('.chosen-select').val(0).trigger("chosen:updated");
+                        $('.mask').val('');
+                        $("#id").val(0);
+                        $("#msgSuccess").removeClass('d-none');
+                        $("#btnSubmit").html('<i class="fas fa-plus-circle"></i>  Thêm mới');
+                    }
+                    setTimeout(function() {
+                        $(".alert-danger").remove();
+                        $(".alert-success").remove();
+                    }, 3000);
                 }
             });
 
