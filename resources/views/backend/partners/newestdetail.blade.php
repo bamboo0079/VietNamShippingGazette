@@ -4,13 +4,13 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-primary">{{ __("Ấn phẩm mới nhất") }}</h1>
+                <h1 class="h3 mb-0 text-primary">{{--{{ __("Ấn phẩm mới nhất") }}--}}</h1>
             </div>
             <!-- End Heading -->
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h5 class="m-0 font-weight-bold text-primary">{{ __("Cập nhật đối tác") }}</h5>
+                    <h5 class="m-0 font-weight-bold text-primary">{{ __("Ấn phẩm mới nhất") }}</h5>
                 </div>
                 <div class="card-body">
                     <form action="" enctype="multipart/form-data" method="post" novalidate class="needs-validation">

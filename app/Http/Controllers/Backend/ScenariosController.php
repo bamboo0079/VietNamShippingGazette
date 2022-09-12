@@ -13,6 +13,8 @@ use App\Models\Scenario;
 use App\Models\Ship;
 use App\Models\Step;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Support\Facades\Auth;
 use Hash;
 use App\User;
@@ -83,64 +85,78 @@ class ScenariosController extends Controller
 
     public function process(Request $request, $category_id = 0)
     {
-        \Session::flash('errorMsg', "Ngày đến không được bé hơn ngày đi");
-        \Session::flash('alert-class', 'alert-danger');
-//        return redirect()->route('scenarios');
-        return redirect(route('scenarios'));
-
         $data = $request->all();
-            $request->validate([
-                'boss_port_id' => 'required|numeric|min:0|not_in:0',
-                'unloading_port_id' => 'required|numeric|min:0|not_in:0',
-                'transit_port_id' => 'required|numeric|min:0|not_in:0',
-                'ship_id' => 'required|numeric|min:0|not_in:0',
-                'agent_id' => 'required|numeric|min:0|not_in:0',
-                'departure_day' => ['required'],
-                'arrival_date' => ['required'],
-            ]);
+        /*$msg = $request->validate([
+            'boss_port_id' => 'required|numeric|min:0|not_in:0',
+            'unloading_port_id' => 'required|numeric|min:0|not_in:0',
+            'transit_port_id' => 'required|numeric|min:0|not_in:0',
+            'ship_id' => 'required|numeric|min:0|not_in:0',
+            'agent_id' => 'required|numeric|min:0|not_in:0',
+            'departure_day' => ['required'],
+            'arrival_date' => ['required'],
+        ]);*/
         $port = Port::where('id', $data['boss_port_id'])->first();
         $data['country_id'] = isset($port->country_id)?$port->country_id:0;
-        $data['departure_day'] = \DateTime::createFromFormat("d/m/Y", $data['departure_day'])->format('Y-m-d');
-        $data['arrival_date'] = \DateTime::createFromFormat("d/m/Y", $data['arrival_date'])->format('Y-m-d');
-        $errorMsg = "";
-        if($data['departure_day'] > $data['arrival_date']) {
-            \Session::flash('errorMsg', "Ngày đến không được bé hơn ngày đi");
+        if($data['departure_day'] && $data['arrival_date']){
+            $data['departure_day'] = \DateTime::createFromFormat("d/m/Y", $data['departure_day'])->format('Y-m-d');
+            $data['arrival_date'] = \DateTime::createFromFormat("d/m/Y", $data['arrival_date'])->format('Y-m-d');
+            $errorMsg = "";
+            if($data['departure_day'] > $data['arrival_date']) {
+                \Session::flash('errorMsg', "Ngày đến không được bé hơn ngày đi");
+                \Session::flash('alert-class', 'alert-danger');
+            }
+            $departure_day = Carbon::parse($data['departure_day']);
+            $arrival_date = Carbon::parse($data['arrival_date']);
+            $data['total_date'] = $departure_day->diffInDays($arrival_date);
+        }
+
+
+        $validate = Validator::make($data, [
+            'boss_port_id' => 'required|numeric|min:0|not_in:0',
+            'unloading_port_id' => 'required|numeric|min:0|not_in:0',
+            'transit_port_id' => 'required|numeric|min:0|not_in:0',
+            'ship_id' => 'required|numeric|min:0|not_in:0',
+            'agent_id' => 'required|numeric|min:0|not_in:0',
+            'departure_day' => ['required'],
+            'arrival_date' => ['required'],
+        ]);
+        if ($validate->fails()) {
+            \Session::flash('errorMsg', "Dữ liệu không hợp lệ");
             \Session::flash('alert-class', 'alert-danger');
-        }
-        $departure_day = Carbon::parse($data['departure_day']);
-        $arrival_date = Carbon::parse($data['arrival_date']);
-        $data['total_date'] = $departure_day->diffInDays($arrival_date);
-        if (isset($data['id']) && $data['id']) {
-            $update = [
-                'boss_port_id' => $data['boss_port_id'],
-                'unloading_port_id' => $data['unloading_port_id'],
-                'transit_port_id' => $data['transit_port_id'],
-                'ship_id' => $data['ship_id'],
-                'agent_id' => $data['agent_id'],
-                'departure_day' => $data['departure_day'],
-                'arrival_date' => $data['arrival_date'],
-                'country_id' => $data['country_id'],
-                'total_date' => $data['total_date'],
-            ];
-            if($errorMsg == "") {
-                Scenario::where('id', $data['id'])->update($update);
-            }
         }else{
-            $update = [
-                'boss_port_id' => $data['boss_port_id'],
-                'unloading_port_id' => $data['unloading_port_id'],
-                'transit_port_id' => $data['transit_port_id'],
-                'ship_id' => $data['ship_id'],
-                'agent_id' => $data['agent_id'],
-                'departure_day' => $data['departure_day'],
-                'arrival_date' => $data['arrival_date'],
-                'country_id' => $data['country_id'],
-                'total_date' => $data['total_date'],
-            ];
-            if($errorMsg == "") {
-                Scenario::create($update);
+            if (isset($data['id']) && $data['id']) {
+                $update = [
+                    'boss_port_id' => $data['boss_port_id'],
+                    'unloading_port_id' => $data['unloading_port_id'],
+                    'transit_port_id' => $data['transit_port_id'],
+                    'ship_id' => $data['ship_id'],
+                    'agent_id' => $data['agent_id'],
+                    'departure_day' => $data['departure_day'],
+                    'arrival_date' => $data['arrival_date'],
+                    'country_id' => $data['country_id'],
+                    'total_date' => $data['total_date'],
+                ];
+                if($errorMsg == "") {
+                    Scenario::where('id', $data['id'])->update($update);
+                }
+            }else{
+                $update = [
+                    'boss_port_id' => $data['boss_port_id'],
+                    'unloading_port_id' => $data['unloading_port_id'],
+                    'transit_port_id' => $data['transit_port_id'],
+                    'ship_id' => $data['ship_id'],
+                    'agent_id' => $data['agent_id'],
+                    'departure_day' => $data['departure_day'],
+                    'arrival_date' => $data['arrival_date'],
+                    'country_id' => $data['country_id'],
+                    'total_date' => $data['total_date'],
+                ];
+                if($errorMsg == "") {
+                    Scenario::create($update);
+                }
             }
         }
+
         $data['limit'] = $this->limit;
         $category = Scenario::where('id','>', 0);
 

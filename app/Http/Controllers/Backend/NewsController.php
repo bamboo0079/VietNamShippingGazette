@@ -116,7 +116,9 @@ class NewsController extends Controller
             'title_en' => ['required', 'string', 'max:255'],
         ]);
         if($request->has('img')){
-            $data['img'] = '/'.request()->file('img')->store('certificates','public');
+            $extension = $request->file('img')->extension();
+            $file_name = uniqid().'.'.$extension;
+            $data['img'] = '/'.request()->file('img')->storeAs('certificates',$file_name,'public');
         }else{
             $data['img'] = '';
         }

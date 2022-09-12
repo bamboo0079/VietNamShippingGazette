@@ -35,7 +35,7 @@
                                             <option value="-1">Trạng thái</option>
                                             <option value="0" {{ (isset($_GET['status']) && $_GET['status'] == 0)?'selected':''}}>Chờ duyệt</option>
                                             <option value="1" {{ (isset($_GET['status']) && $_GET['status'] == 1)?'selected':''}}>Xuất bản</option>
-                                            <option value="2" {{ (isset($_GET['status']) && $_GET['status'] == 1)?'selected':''}}>Từ chối</option>
+                                            <option value="2" {{ (isset($_GET['status']) && $_GET['status'] == 2)?'selected':''}}>Từ chối</option>
                                         </select>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     </td>
                                     <td class="text-right">
                                         <a href="{{ route('admin.app.new.detail', $book->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i> Cập nhật</a>
-                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.new.delete', $book->id) }}" class="btn btn-primary btn-sm"><i class="fas fa fa-trash"></i> Xóa</a>
+                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="{{ route('admin.new.delete', $book->id) }}" class="btn btn-primary btn-sm btn-delete"><i class="fas fa fa-trash"></i> Xóa</a>
                                     </td>
                                 </tr>
                             @empty

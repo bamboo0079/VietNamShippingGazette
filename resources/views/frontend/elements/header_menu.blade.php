@@ -16,6 +16,24 @@
             display: none !important;
         }
     }
+    .mobile-menu-custom{
+        width: 300px;
+        margin-left: 20px;
+        display: none;
+    }
+    .mobile-menu-custom li a{
+        color: #0d6efd;
+        text-decoration: underline;
+    }
+    .mobile-menu-custom li{
+        float: left;
+        padding: 2px;
+    }
+    @media (max-width: 940px){
+        .mobile-menu-custom{
+            display: block!important;
+        }
+    }
 </style>
 
 <div id="sl1" class="sl1" style="top: 195px; max-width:120px; position: fixed; left: 30px;z-index: 9999;">
@@ -221,4 +239,44 @@
             {{--</div>--}}
         </div>
     </div>
+</div>
+<div class="nav-wrap">
+    <nav class="mobile-menu-custom">
+        <ul id="menu-top-nav" class="menu">
+            @if(Session::has('member'))
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="{{ route('chaomua') }}">Quản lý tin</a>
+                </li>
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="{{ route('reset') }}">Đổi mật khẩu</a>
+                </li>
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="{{ route('logout') }}">{{ __("messages.Logout") }}</a>
+                </li>
+            @else
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="{{ route('register') }}">{{ __("messages.Register") }}</a>
+                </li>
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="{{ route('login') }}">{{ __("messages.Login") }}</a>
+                </li>
+            @endif
+            @if(Session::get('locale') == 'vi')
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a href="/language/en">English</a>
+                </li>
+            @else
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="/language/vi">Tiếng Việt</a>
+                </li>
+            @endif
+        </ul>
+    </nav>
 </div>
