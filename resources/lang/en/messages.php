@@ -113,4 +113,9 @@ return [
     "REJECT" => "Reject",
     "REASON" => "Reason",
     "DOWNLOAD" => "Download",
+    "PRICE" => "Price",
+    "PRODUCT_DETAIL_TITLE" => "Product Detail",
+    "PRODUCT_RELATION_SHIP" => "Product Relation",
+    "NEWS_DETAIL_TITLE" => "News Detail",
+    "PRODUCT_UPDATING" => "Updating...",
 ];

@@ -111,6 +111,10 @@ return [
     "APPROVED" => "Đã được duyệt",
     "REJECT" => "Không được duyệt",
     "REASON" => "Lý do",
-    "SEARCH" => "Search",
     "DOWNLOAD" => "Tải về",
+    "PRICE" => "Giá",
+    "PRODUCT_DETAIL_TITLE" => "Chi Tiết Sản Phẩm",
+    "PRODUCT_RELATION_SHIP" => "Sản Phẩm Cùng Loại",
+    "NEWS_DETAIL_TITLE" => "Chi Tiết Tin",
+    "PRODUCT_UPDATING" => "Đang được cập nhật",
 ];

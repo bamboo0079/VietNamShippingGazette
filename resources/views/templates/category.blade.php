@@ -108,7 +108,7 @@
                 </section>
             </div>
 
-            @include('templates.rightBarNews')
+            @include('templates.news.rightBarNews')
         </div>
     </div>
 

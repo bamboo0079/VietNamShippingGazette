@@ -1,4 +1,4 @@
-@extends('templates.master')
+@extends('layouts.master')
 @section('content')
     <style type="text/css">
         .comment-respond {
@@ -54,6 +54,12 @@
             opacity: .5;
         }
     </style>
+    <nav class="breadcrumbs is-full-width breadcrumbs-a" id="breadcrumb">
+        <div class="inner ts-contain ">
+            <span><a href="/"><span>{{ __("messages.HOME") }}</span></a> </span>
+            <span class="delim"> &raquo; </span><span class="current">{{ __("messages.Login") }}</span>
+        </div>
+    </nav>
     <div class="main ts-contain cf right-sidebar">
         <div class="ts-row">
             <div class="col-8 main-content">
@@ -70,7 +76,7 @@
                         @endif
                         @if(Session::has('successLoginMsg'))
                             <div class="alert alert-success" role="alert">
-                                {{ Session::get('successLoginMsg') }}
+                                {{ Session::get('successLoginMsg') }} <a href="{{ route('login') }}" class="alert-link">{{ __("messages.HERE") }}</a>.
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
@@ -91,13 +97,7 @@
                                     <input name="password" type="password" placeholder="{{ __("messages.PASSWORD") }} *" value="" size="30" maxlength="30" required="required">
                                 </p>
                                 <p class="form-submit">
-                                    <button type="submit" class="btn btn-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"></path>
-                                            <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"></path>
-                                        </svg>
-                                        {{ __("messages.Login") }}
-                                    </button>
+                                    <input name="submit" type="submit" id="regis-submit" class="submit" value="{{ __("messages.Login") }}">
                                 </p>
                             </div>
                         </form>
