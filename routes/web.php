@@ -33,12 +33,15 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/the-loai/{id?}', 'HomeController@category')->name('the.loai');
     Route::any('/loai-san-pham/{id?}', 'HomeController@productCategory')->name('loai.san.pham');
     Route::any('/lien-he', 'HomeController@contact')->name('contact');
-    Route::any('/my-page', 'HomeController@chaomua')->name('chaomua');
-    Route::any('/reset-password', 'HomeController@resetPassword')->name('reset');
+    Route::any('/my-account', 'HomeController@memberInfo')->name('memberInfo');
+    Route::any('/reset-password', 'HomeController@resetPassword')->name('reset.password');
     Route::any('/dang-ky', 'HomeController@register')->name('register');
     Route::any('/dang-nhap', 'HomeController@login')->name('login');
     Route::any('/dang-xuat', 'HomeController@logout')->name('logout');
     Route::any('/language/{lang?}', 'HomeController@language')->name('change.language');
+    Route::any('/update-account', 'HomeController@updateAccount')->name('update.account');
+    Route::any('/add-news', 'HomeController@addNews')->name('add.news');
+    Route::any('/news-management', 'HomeController@newsManagent')->name('news.management');
 });
 
 // Route BackEnd

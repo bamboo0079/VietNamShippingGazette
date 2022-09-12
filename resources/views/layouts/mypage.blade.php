@@ -5547,35 +5547,35 @@
                         @else
                             <a class="btn btn-primary btn-medium pull-right mb-3" href="?add_new=1">Thêm mới</a>
                             @if(count($news))
-                            <table class="table table-hover table-nomargin table-bordered">
-                                <thead>
-                                <tr>
-                                    <th id="lichtau-grid_cMaHangTau">Tiêu đề</th>
-                                    <th id="lichtau-grid_cETA" style="width: 100px;text-align: center;">Ngày tạo</th>
-                                    <th id="lichtau-grid_cETA" style="width: 130px;text-align: center;">Loại tin</th>
-                                    <th id="lichtau-grid_cPOL" style="width: 100px;text-align: center;">Trạng thái</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($news as $k => $new)
-                                    <tr class="odd">
-                                        <td>{{ $new->title_vn }}</td>
-                                        <td>{{ date("d-m-Y", strtotime($new->updated_at)) }}</td>
-                                        <td>{{ @$new->category->name_vn }}</td>
-                                        <td>
-                                            @if($new->approved == 0)
-                                                <span style="width: 80px;display: inline-block;padding: 5px !important;" class="bg-primary text-white">Chờ duyệt</span>
-                                            @elseif($new->approved == 1)
-                                                <span style="width: 80px;display: inline-block;padding: 5px !important;" class="bg-success text-white">Đã duyệt</span>
-                                            @else
-                                                <span style="width: 80px;display: inline-block;padding: 5px !important;" class="bg-warning text-white">Bị từ chối</span>
-                                            @endif
-                                        </td>
+                                <table class="table table-hover table-nomargin table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th id="lichtau-grid_cMaHangTau">Tiêu đề</th>
+                                        <th id="lichtau-grid_cETA" style="width: 100px;text-align: center;">Ngày tạo</th>
+                                        <th id="lichtau-grid_cETA" style="width: 130px;text-align: center;">Loại tin</th>
+                                        <th id="lichtau-grid_cPOL" style="width: 100px;text-align: center;">Trạng thái</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            {{ $news->appends($_GET)->links('paginations.admin') }}
+                                    </thead>
+                                    <tbody>
+                                    @foreach($news as $k => $new)
+                                        <tr class="odd">
+                                            <td>{{ $new->title_vn }}</td>
+                                            <td>{{ date("d-m-Y", strtotime($new->updated_at)) }}</td>
+                                            <td>{{ @$new->category->name_vn }}</td>
+                                            <td>
+                                                @if($new->approved == 0)
+                                                    <span style="width: 80px;display: inline-block;padding: 5px !important;" class="bg-primary text-white">Chờ duyệt</span>
+                                                @elseif($new->approved == 1)
+                                                    <span style="width: 80px;display: inline-block;padding: 5px !important;" class="bg-success text-white">Đã duyệt</span>
+                                                @else
+                                                    <span style="width: 80px;display: inline-block;padding: 5px !important;" class="bg-warning text-white">Bị từ chối</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                {{ $news->appends($_GET)->links('paginations.admin') }}
                             @else
                                 <p>Chưa có dữ liệu</p>
                             @endif
