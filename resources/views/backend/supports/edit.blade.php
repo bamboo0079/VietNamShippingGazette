@@ -47,9 +47,31 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Phone</label>
+                                <div class="input-field col-sm-9">
+                                    <input id="phone" type="text" placeholder="phone" class="input-space form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" autofocus>
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Giới tính</label>
+                                <div class="input-field col-sm-9">
+                                    <select name="sex" class="form-control">
+                                        <option value="1">Nam</option>
+                                        <option value="0">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="buttons-set text-center">
                             <button type="submit" class="btn btn-primary mr-2"><i class="fa fa-save"></i> Lưu lại</button>
-                            <a href="{{ route('admin.partners') }}" class="btn btn-light"><i class="fa fa-reply"></i>Hủy bỏ</a>
+                            <a href="{{ route('admin.supports') }}" class="btn btn-light"><i class="fa fa-reply"></i>Hủy bỏ</a>
                         </div>
                     </form>
                 </div>

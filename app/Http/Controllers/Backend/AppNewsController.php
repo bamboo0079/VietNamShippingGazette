@@ -95,6 +95,9 @@ class AppNewsController extends Controller
             $update = [
                 'approved' => isset($data['approved']) ? $data['approved'] : 1,
             ];
+            if(isset($data['reject_reason']) && $data['reject_reason']){
+                $update['reject_reason'] = $data['reject_reason'];
+            }
             News::where('id', $data['id'])->update($update);
         }
         $news = News::where('id', $data['id'])->first();

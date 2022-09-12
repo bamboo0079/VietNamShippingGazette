@@ -127,11 +127,20 @@
                             <div class="row">
                                 <label class="control-label col-sm-3 text-right">Trạng thái</label>
                                 <div class="input-field col-sm-9">
-                                    <select name="approved" class="form-control">
+                                    <select id="approved" name="approved" class="form-control">
                                         <option value="0" @if($book->approved == 0) selected @endif>Chờ duyệt</option>
                                         <option value="1" @if($book->approved == 1) selected @endif>Xuất bản</option>
                                         <option value="2" @if($book->approved == 2) selected @endif>Từ chối</option>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="reject_reason" class="form-group @if($book->approved < 2) hidden @endif">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Lý do từ chối</label>
+                                <div class="input-field col-sm-9">
+                                    <textarea id="reject_reason_content" rows="6" name="reject_reason" placeholder="Lý do từ chối" class="form-control" @error('reject_reason') is-invalid @enderror>{{ $book->reject_reason }}</textarea>
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
                                 </div>
                             </div>
                         </div>
@@ -230,14 +239,11 @@
             }, false);
         })();
         $(document).ready(function () {
-            $(document).on("change", "#type", function () {
-                if($(this).val() == 1){
-                    $(".input-process").addClass('hidden');
-                    $(".self-process").removeClass('hidden');
+            $(document).on("change", "#approved", function () {
+                if($(this).val() == 2){
+                    $("#reject_reason").removeClass('hidden');
                 }else{
-                    $(".input-process").removeClass('hidden');
-                    $(".input-space").val(' ');
-                    $(".self-process").addClass('hidden');
+                    $("#reject_reason").addClass('hidden');
                 }
             });
             $('input#tel').keyup(function(event) {

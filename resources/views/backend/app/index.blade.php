@@ -35,7 +35,7 @@
                                             <option value="-1">Trạng thái</option>
                                             <option value="0" {{ (isset($_GET['status']) && $_GET['status'] == 0)?'selected':''}}>Chờ duyệt</option>
                                             <option value="1" {{ (isset($_GET['status']) && $_GET['status'] == 1)?'selected':''}}>Xuất bản</option>
-                                            <option value="2" {{ (isset($_GET['status']) && $_GET['status'] == 1)?'selected':''}}>Từ chối</option>
+                                            <option value="2" {{ (isset($_GET['status']) && $_GET['status'] == 2)?'selected':''}}>Từ chối</option>
                                         </select>
                                     </div>
                                 </div>
