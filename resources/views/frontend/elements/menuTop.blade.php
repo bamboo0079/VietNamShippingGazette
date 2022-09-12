@@ -61,7 +61,7 @@
                             @if(Session::has('member'))
                                 <li id="menu-item-3534"
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
-                                    <a rel="noopener" href="{{ route('chaomua') }}">{{ Session::get('member.name') }}</a>
+                                    <a rel="noopener" href="{{ route('memberInfo') }}">{{ Session::get('member.name') }}</a>
                                     <ul id="hidden">
                                         <li><a href="{{ route('reset') }}">Đổi mật khẩu</a></li>
                                         <li><a href="{{ route('chaomua') }}">Quản lý tin</a></li>
