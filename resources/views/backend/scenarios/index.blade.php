@@ -155,14 +155,15 @@
                                     <tbody>
                                     @forelse($categories as $k => $category)
                                         <tr>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="text-center">{{ (($categories->currentPage()-1)*$limit)+$k+1 }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="text-left">{{ $category->boss->port_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="text-left">{{ $category->unloading->port_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="text-left">{{ $category->transit->port_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="text-left">{{ $category->ship->ship_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="text-left">{{ $category->agent->agent_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="text-left">{{ date("Y/m/d", strtotime($category->departure_day)) }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="text-left">{{ date("Y/m/d", strtotime($category->arrival_date)) }}</td>
+                                            @php $class = (isset($_GET['id']) && $_GET['id'] == $category->id)?'active':'';@endphp
+                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-center">{{ (($categories->currentPage()-1)*$limit)+$k+1 }}</td>
+                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->boss->port_nm_vn }}</td>
+                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->unloading->port_nm_vn }}</td>
+                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->transit->port_nm_vn }}</td>
+                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->ship->ship_nm_vn }}</td>
+                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->agent->agent_nm_vn }}</td>
+                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ date("Y/m/d", strtotime($category->departure_day)) }}</td>
+                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ date("Y/m/d", strtotime($category->arrival_date)) }}</td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -274,6 +275,9 @@
        table tr td {
            cursor: pointer;
        }
+        td.active{
+            background: #dddfeb;
+        }
     </style>
     <script src="/src/asset/js/backend/bootstrap-datepicker.min.js"></script>
 

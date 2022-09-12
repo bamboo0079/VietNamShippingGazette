@@ -49,12 +49,6 @@ class ScenariosController extends Controller
         $data['limit'] = ConstApp::NUMBER_PER_PAGE;
         $query = Scenario::where('id','>', 0);
 
-        if(isset($submit_data['is_inbound']) && $submit_data['is_inbound'] == 1){
-            $query->where('scenarios.country_id',1);
-        } else {
-            $query->where('scenarios.country_id','<>',1);
-        }
-
         if (isset($submit_data['start']) && $submit_data['start']) {
             $query->where('departure_day','>=', date("Y-m-d", strtotime($submit_data['start'])));
         }
@@ -62,9 +56,19 @@ class ScenariosController extends Controller
             $query->where('arrival_date','<=', date("Y-m-d",strtotime($submit_data['end'])));
         }
 
-        $data['categories'] = $query->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
         $id = isset($_GET['id'])?$_GET['id']:0;
         $data['scenario'] = Scenario::where('id', $id)->first();
+        if($id == 0){
+            if(isset($submit_data['is_inbound']) && $submit_data['is_inbound'] == 1){
+                $query->where('scenarios.country_id',1);
+            } else {
+                $query->where('scenarios.country_id','<>',1);
+            }
+        }else{
+            $query->where('scenarios.country_id',$data['scenario']->country_id);
+        }
+        $data['categories'] = $query->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
+
         $data['ports'] = Port::get();
         $data['ships'] = Ship::get();
         $data['agents'] = Agent::get();
@@ -161,12 +165,11 @@ class ScenariosController extends Controller
 
         $data['limit'] = $this->limit;
         $category = Scenario::where('id','>', 0);
-
-        if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1){
+        if(isset($data['country_id']) && $data['country_id'] == 1){
             $category->where('scenarios.country_id',1);
         } else {
             $category->where('scenarios.country_id','<>',1);
-        }
+        }/*
 
         if (isset($_GET['start']) && $_GET['start']) {
             $category->where('departure_day','>=', date("Y-m-d", strtotime($_GET['start'])));
@@ -176,9 +179,9 @@ class ScenariosController extends Controller
         }
         if(isset($_GET['id']) && $_GET['id'] != "") {
             $data['scenario'] = Scenario::where('id', $_GET['id'])->first();
-        }
+        }*/
 
-        $data['categories'] = $category->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
+        $data['categories'] = $category->orderBy('updated_at', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
 
         $data['download_link'] = route('export').'?';
 
