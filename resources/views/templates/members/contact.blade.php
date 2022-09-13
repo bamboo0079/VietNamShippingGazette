@@ -53,51 +53,59 @@
             text-shadow: 0 1px 0 #fff;
             opacity: .5;
         }
+        .submit_button {
+            font-size: 13px;
+            padding: 0px 7px 0px 7px;
+        }
     </style>
-    <nav class="breadcrumbs is-full-width breadcrumbs-a" id="breadcrumb">
-        <div class="inner ts-contain ">
-            <span><a href="/"><span>{{ __("messages.HOME") }}</span></a> </span>
-            <span class="delim"> &raquo; </span><span class="current">{{ __("messages.Login") }}</span>
-        </div>
-    </nav>
     <div class="main ts-contain cf right-sidebar">
         <div class="ts-row">
             <div class="col-8 main-content">
-                <h1 class="archive-heading"><span>{{ __("messages.Login") }}</span></h1>
+                <h1 class="archive-heading"><span>{{ __("messages.SEND_CONTACT") }}</span></h1>
                 <section class="block-wrap block-grid mb-none" data-id="8">
                     <div class="block-content form-body-register">
-                        @if(Session::has('errLoginMsg') && ! Session::has('successLoginMsg'))
+                        @if(Session::has('errMsg') && ! Session::has('successMsg'))
                             <div class="alert alert-danger" role="alert">
-                                {{ Session::get('errLoginMsg') }}
+                                {{ Session::get('errMsg') }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                         @endif
-                        @if(Session::has('successLoginMsg'))
+                        @if(Session::has('successMsg'))
                             <div class="alert alert-success" role="alert">
-                                {{ Session::get('successLoginMsg') }} <a href="{{ route('login') }}" class="alert-link">{{ __("messages.HERE") }}</a>.
+                                {{ Session::get('successMsg') }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <script>
-                                setTimeout(function() {
-                                    window.location.href = "/"
-                                }, 1000); // 2 second
-                            </script>
                         @endif
                         <form class="register-form" action="" method="post">
                             @csrf
                             <div id="respond" class="comment-respond">
+                                <p class="form-field comment-form-author">
+                                    <input name="name" type="text" placeholder="{{ __("messages.FULL_NAME") }} *" value="@if(Session::has('name')) {{ Session::get('name') }} @endif" size="100" maxlength="100" required="required">
+                                </p>
                                 <p class="form-field comment-form-email">
                                     <input name="email" type="text" placeholder="{{ __("messages.EMAIL") }} *" value="@if(Session::has('email')) {{ Session::get('email') }} @endif" size="100" maxlength="100" required="required">
                                 </p>
                                 <p class="form-field comment-form-url">
-                                    <input name="password" type="password" placeholder="{{ __("messages.PASSWORD") }} *" value="" size="30" maxlength="30" required="required">
+                                    <input name="phone" type="text" placeholder="{{ __("messages.PHONE_NUMBER") }} *" value="@if(Session::has('phone')) {{ Session::get('phone') }} @endif" size="11" maxlength="11" required="required">
+                                </p>
+                                <p class="form-field comment-form-url">
+                                    <input name="title" type="text" placeholder="{{ __("messages.CONTACT_TITLE") }} *" value="@if(Session::has('title')) {{ Session::get('title') }} @endif" size="30" maxlength="30" required="required">
+                                </p>
+                                <p class="form-field comment-form-url">
+                                    <textarea name="content" placeholder="{{ __("messages.NEWS_CONTENT") }} *" style="min-width: 500px; min-height: 250px;" required="required" >@if(Session::has('content')) {{ Session::get('content') }} @endif</textarea>
                                 </p>
                                 <p class="form-submit">
-                                    <input name="submit" type="submit" id="regis-submit" class="submit" value="{{ __("messages.Login") }}">
+                                    <button type="submit" class="btn btn-primary submit_button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-dots" viewBox="0 0 16 16">
+                                            <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"></path>
+                                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                        </svg>
+                                        {{ __("messages.SEND_CONTACT") }}
+                                    </button>
                                 </p>
                             </div>
                         </form>

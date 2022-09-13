@@ -94,11 +94,6 @@
             </div>
             <div class="items items-center empty">
             </div>
-            {{--<div class="items items-right ">--}}
-                {{--<a href="#" class="search-icon has-icon-only is-icon" title="Search">--}}
-                    {{--<i class="tsi tsi-search"></i>--}}
-                {{--</a>--}}
-            {{--</div>--}}
         </div>
     </div>
     <div class="smart-head-row smart-head-mid is-light smart-head-row-full">
@@ -123,16 +118,13 @@
                 <div class="nav-wrap">
                     <nav class="navigation navigation-main nav-hov-a">
                         <ul id="menu-main-menu" class="menu">
-                            <li id="menu-item-573"
-                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-6 current_page_item menu-item-573">
+                            <li id="menu-item-573" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home  @if(isset($menu_active) && $menu_active == 'index') current-menu-item @endif page_item page-item-6 current_page_item menu-item-573">
                                 <a href="/" aria-current="page">{{ __("messages.HOME") }}</a>
                             </li>
-                            <li id="menu-item-583"
-                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-583">
+                            <li id="menu-item-583" class="menu-item @if(isset($menu_active) &&  $menu_active == 'schedule') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-583">
                                 <a rel="noopener" href="{{ route('lich.tau') }}">{{ __("messages.BOAT_SCHEDULE") }}</a>
                             </li>
-                            <li id="menu-item-4536"
-                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
+                            <li id="menu-item-4536" class="menu-item @if(isset($menu_active) && $menu_active == 'news') current-menu-item @endif  menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
                                 <a href="#">{{ __("messages.NEWS") }}</a>
                                 <ul class="sub-menu">
                                     @foreach($categories_menu as $menu)
@@ -144,7 +136,7 @@
                                 </ul>
                             </li>
                             <li id="menu-item-4536"
-                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
+                                class="menu-item menu-item-type-custom @if(isset($menu_active) &&  $menu_active == 'gt') current-menu-item @endif menu-item-object-custom menu-item-has-children menu-item-4536">
                                 <a href="#">{{ __("messages.TRADE") }}</a>
                                 <ul class="sub-menu">
                                     @foreach($trades_menu as $menu)
@@ -155,8 +147,7 @@
                                     @endforeach
                                 </ul>
                             </li>
-                            <li id="menu-item-4536"
-                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
+                            <li id="menu-item-4536" class="menu-item  @if(isset($menu_active) && $menu_active == 'product') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
                                 <a href="#">{{ __("messages.PRODUCTS") }}</a>
                                 <ul class="sub-menu">
 
@@ -169,19 +160,19 @@
                                 </ul>
                             </li>
                             <li id="menu-item-583"
-                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-583">
+                                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'event') current-menu-item @endif  menu-item-object-custom menu-item-583">
                                 <a rel="noopener" href="{{ route('the.loai', 1) }}">{{ __("messages.EVENTS") }}</a>
                             </li>
                             <li id="menu-item-583"
-                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-583">
-                                <a rel="noopener" href="{{ route('the.loai', 2) }}">{{ __("messages.VSG_NEWS") }}</a>
+                                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'svg') current-menu-item @endif menu-item-object-custom menu-item-583">
+                                <a rel="noopener" href="{{ route('tin.svg') }}">{{ __("messages.VSG_NEWS") }}</a>
                             </li>
                             <li id="menu-item-583"
-                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-583">
+                                     class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'rec') current-menu-item @endif menu-item-object-custom menu-item-583">
                                 <a rel="noopener" href="{{ route('the.loai', 17) }}">{{ __("messages.RECRUITMENT") }}</a>
                             </li>
                             <li id="menu-item-583"
-                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-583">
+                                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'contact') current-menu-item @endif menu-item-object-custom menu-item-583">
                                 <a rel="noopener" href="{{ route('contact') }}">{{ __("messages.CONTACT") }}</a>
                             </li>
                         </ul>

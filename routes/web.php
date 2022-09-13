@@ -43,6 +43,7 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/news-management', 'HomeController@newsManagent')->name('news.management');
     Route::any('/loai-san-pham/{id?}', 'HomeController@productCategory')->name('loai.san.pham');
     Route::any('/chi-tiet-san-pham/{id?}', 'HomeController@productDetail')->name('product.detail');
+    Route::any('/tin-svg', 'HomeController@svgNews')->name('tin.svg');
 });
 
 // Route BackEnd

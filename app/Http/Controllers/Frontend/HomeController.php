@@ -77,6 +77,7 @@ class HomeController extends Controller
         $data['anpham'] = Partner::where('type', 2)->where('is_show', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['supports'] = Support::where('is_show',1)->get();
         $data['other'] = [];
+        $data['menu_active'] = 'index';
         foreach ($categories_new_id as $id){
             $data['other'][$id] = News::where('category_id', $id)->where('approved', 1)->orderBy('id','DESC')->limit(4)->get();
         }
@@ -115,7 +116,16 @@ class HomeController extends Controller
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['anpham'] = Partner::where('type', 2)->where('is_show', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['partners'] = Partner::where('type', 1)->orderBy('id','DESC')->limit(3)->get();
-        // truy van lay du lieu cu the
+        if($id == 3 || $id == 4 || $id == 5) {
+            $data['menu_active'] = 'gt';
+        }elseif($id == 1) {
+            $data['menu_active'] = 'event';
+        } elseif($id == 17) {
+            $data['menu_active'] = 'rec';
+        }
+        else{
+            $data['menu_active'] = 'news';
+        }
         return view('templates.news.category', $data);
     }
 
@@ -140,6 +150,7 @@ class HomeController extends Controller
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['list_ship'] = Ship::where('id','>', 0)->orderBy('id','ASC')->get();
         $data['list_port'] = Port::where('id','>', 0)->orderBy('id','ASC')->get();
+        $data['menu_active'] = 'schedule';
         if(isset($_GET['ship_id']) || isset($_GET['boss_port_id']) || isset($_GET['unloading_port_id']) || isset($_GET['departure_day']) || isset($_GET['arrival_date'])) {
             $list_scenarios = Scenario::query();
             if(isset($_GET['ship_id']) && $_GET['ship_id']){
@@ -168,17 +179,11 @@ class HomeController extends Controller
 
     public function productCategory(Request $request, $id = 0)
     {
-        $data = [];
-        $category = ProductCategory::where('id', $id)->first();
-        $news = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
-        $data['category'] = $category;
-        $data['news'] = $news;
-        $data['categories'] = Category::get();
-        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
-        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
-        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
+        $data = $this->commonMenuData();
+        $data['news'] = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
         $data['hot_news'] = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id','DESC')->limit(6)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['menu_active'] = 'product';
         return view('templates.products.productList', $data);
     }
 
@@ -196,11 +201,6 @@ class HomeController extends Controller
         $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['relate_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->inRandomOrder()->limit(6)->get();
-        // truy van lay du lieu cu the
-        /*if($news->product_category_id){
-            $data['hot_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->orderBy('id','DESC')->limit(6)->get();
-            return view('frontend.product', $data);
-        }*/
 
         return view('templates.products.productDetail', $data);
     }
@@ -229,32 +229,68 @@ class HomeController extends Controller
 
     public function contact(Request $request)
     {
-        $data = [];
-        $msg = '';
-        $category = Category::where('id', '>', 0)->first();
-        $id = $category->id;
-        $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
-        $data['category'] = $category;
-        $data['news'] = $news;
-        $data['categories'] = Category::get();
-        $data['categories_menu'] = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get();
-        $data['trades_menu'] = Category::where('show_menu', 1)->where('type', 2)->orderBy('order','ASC')->get();
-        $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
-        $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
-        $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+       $data = $this->commonMenuData();
+        $data['menu_active'] = 'contact';
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $submit_data = $request->all();
-            $contact = new Contact();
-            $contact->name = $submit_data['name'];
-            $contact->email = $submit_data['email'];
-            $contact->phone = $submit_data['phone'];
-            $contact->title = $submit_data['title'];
-            $contact->content = $submit_data['content'];
-            $contact->save();
-            $msg = 'Gửi thông tin thành công!';
+            $validate = $this->validateContactData($submit_data);
+            Session::flash('name',$submit_data['name']);
+            Session::flash('email',$submit_data['email']);
+            Session::flash('phone',$submit_data['phone']);
+            Session::flash('title',$submit_data['title']);
+            Session::flash('content',trim($submit_data['content']));
+            if($validate == true) {
+                $contact = new Contact();
+                $contact->name = $submit_data['name'];
+                $contact->email = $submit_data['email'];
+                $contact->phone = $submit_data['phone'];
+                $contact->title = $submit_data['title'];
+                $contact->content = trim($submit_data['content']);
+                $contact->save();
+                Session::flash('successMsg',  __("messages.SUCCESS_CONTACT"));
+                Session::forget('name');
+                Session::forget('email');
+                Session::forget('phone');
+                Session::forget('title');
+                Session::forget('content');
+            }
         }
-        $data['msg'] = $msg;
-        return view('frontend.contact', $data);
+
+        return view('templates.members.contact', $data);
+    }
+
+    public function validateContactData($submit_data) {
+        if(strlen($submit_data['name']) == 0) {
+            Session::flash('errMsg', __("messages.FULL_NAME"));
+            return false;
+        }
+
+        if(strlen($submit_data['email']) == 0) {
+            Session::flash('errMsg', __("messages.EMPTY_EMAIL_ERROR_MSG"));
+            return false;
+        }
+
+        if (!filter_var($submit_data['email'], FILTER_VALIDATE_EMAIL)) {
+            Session::flash('errMsg', __("messages.FORMAT_EMAIL_ERROR_MSG"));
+            return false;
+        }
+
+        if (strlen($submit_data['phone']) == 0) {
+            Session::flash('errMsg', __("messages.EMPTY_PHONE_ERROR_MSG"));
+            return false;
+        }
+
+        if(!preg_match("/^0(1\d{9}|9\d{8})$/", $submit_data['phone'])) {
+            Session::flash('errMsg', __("messages.FORMAT_PHONE_ERROR_MSG"));
+            return false;
+        }
+
+        if (strlen($submit_data['content']) == 0) {
+            Session::flash('errMsg', __("messages.ERROR_EMPTY_CONTENT"));
+            return false;
+        }
+
+        return true;
     }
 
     public function memberInfo(Request $request)
@@ -332,9 +368,6 @@ class HomeController extends Controller
 
     public function register(Request $request)
     {
-        if(!Session::has('member')) {
-            return redirect('/');
-        }
 
         $data = $this->commonMenuData();
 
@@ -617,5 +650,14 @@ class HomeController extends Controller
         $data['posted'] = News::where('member_id', Session::get('member')->id)->orderBy('id', 'DESC')->paginate(10);
         $data['router_active'] = 'news_manager';
         return view('templates.news.newsManagent', $data);
+    }
+
+    public function svgNews(Request $request) {
+        $data = $this->commonMenuData();
+        $data['news'] = News::where('product_category_id', 2)->where('approved', 1)->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
+        $data['hot_news'] = News::where('product_category_id', 0)->where('approved', 1)->orderBy('id','DESC')->limit(6)->get();
+        $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['menu_active'] = 'svg';
+        return view('templates.news.svgNews', $data);
     }
 }

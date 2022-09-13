@@ -117,4 +117,9 @@ return [
     "PRODUCT_RELATION_SHIP" => "Sản Phẩm Cùng Loại",
     "NEWS_DETAIL_TITLE" => "Chi Tiết Tin",
     "PRODUCT_UPDATING" => "Đang được cập nhật",
+    "CONTACT_TITLE" => "Tiêu đề",
+    "SEND_CONTACT" => "Gởi Liên Hệ",
+    "ERROR_EMPTY_CONTENT" => "Vui lòng nhập nội dung liên hệ.",
+    "SUCCESS_CONTACT" => "Gởi thông tin liên hệ thành công.",
+    "VSG_NEWS_TITLE" => "Bảng Tin VSG",
 ];

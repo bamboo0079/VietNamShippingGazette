@@ -2,9 +2,10 @@
     <div class="inner theiaStickySidebar">
         <div id="smartmag-block-posts-small-6" class="widget ts-block-widget smartmag-widget-posts-small">
             <div class="block">
+                @if(count($hot_news))
                 <section class="block-wrap block-posts-small block-sc mb-none" data-id="12">
                     <div class="widget-title block-head block-head-ac block-head block-head-ac block-head-e block-head-e2 is-left has-style">
-                        <h5 class="heading">{{ __("messages.HotNews") }}</h5></div>
+                    <h5 class="heading">{{ __("messages.HotNews") }}</h5></div>
                     <div class="block-content">
                         <div class="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
                             @foreach($hot_news as $k => $new)
@@ -51,6 +52,8 @@
                 </section>
                 <br />
                 <br />
+                @endif
+                @if(count($paid_news))
                 <section class="block-wrap block-posts-small block-sc mb-none" data-id="13">
                     <div class="widget-title block-head block-head-ac block-head block-head-ac block-head-e block-head-e2 is-left has-style">
                         <h5 class="heading">{{ __("messages.PaidNews") }}</h5></div>
@@ -93,6 +96,7 @@
                         </div>
                     </div>
                 </section>
+                @endif
             </div>
 
         </div>
