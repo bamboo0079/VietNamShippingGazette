@@ -1,5 +1,14 @@
 @extends('templates.master')
 @section('content')
+    <style type="text/css">
+        .elementor-6 .elementor-element.elementor-element-75af90f:not(.elementor-motion-effects-element-type-background), .elementor-6 .elementor-element.elementor-element-75af90f > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+            background-color: #131312;
+        }
+        .elementor-section.elementor-section-boxed {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
     <section class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-ac3b37e elementor-section-boxed elementor-section-height-default elementor-section-height-default"
              data-id="ac3b37e" data-element_type="section">
         <div class="elementor-container elementor-column-gap-no">
@@ -446,15 +455,18 @@
     </section>
 
 
-
-{{--@include('frontend.elements.commonGroupNews')--}}
-<!-- Latest news & events -->
-<!-- VSG news -->
 @if(count($vsg_news))
 <section
         class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-75af90f elementor-section-boxed elementor-section-height-default elementor-section-height-default"
         data-id="75af90f" data-element_type="section"
-        data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+        data-settings="{&quot;background_background&quot;:&quot;classic&quot;}"
+        style="
+            background-color: #131312;
+            transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+            margin-top: 0px;
+            margin-bottom: 60px;
+            padding: 60px 0px 20px 0px;
+        ">
     <div class="elementor-container elementor-column-gap-no">
         <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-8af8a1b"
              data-id="8af8a1b" data-element_type="column">
@@ -499,7 +511,15 @@
                                                 <div class="post-meta post-meta-a has-below"><h2
                                                             class="is-title post-title"><a href="#" data-bs-toggle="modal" data-bs-target="#youtubeModal{{$new->id}}" data-toggle="modal">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
                                                     </h2>
-                                                    <div class="post-meta-items meta-below"><time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                                    <div class="post-meta-items meta-below item-margin-booton" >
+                                                        <span class="meta-item post-author">
+                                                            <a href="javascript:void(0)" rel="author">{{ __("messages.POST_DATE") }}</a>
+                                                        </span>
+                                                        <span class="meta-item date">
+                                                            <span class="date-link">
+                                                                <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                                            </span>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>

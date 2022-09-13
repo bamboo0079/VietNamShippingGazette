@@ -118,4 +118,9 @@ return [
     "PRODUCT_RELATION_SHIP" => "Product Relation",
     "NEWS_DETAIL_TITLE" => "News Detail",
     "PRODUCT_UPDATING" => "Updating...",
+    "CONTACT_TITLE" => "Tiêu đề",
+    "SEND_CONTACT" => "Gởi Liên Hệ",
+    "ERROR_EMPTY_CONTENT" => "Please input content contact.",
+    "SUCCESS_CONTACT" => "Success send contact message.",
+    "VSG_NEWS_TITLE" => "VSG News",
 ];

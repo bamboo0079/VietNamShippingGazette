@@ -10,18 +10,15 @@
         .color-header {
             color: #de333b;
         }
+        .btn {
+            --bs-btn-padding-x: 0.65rem;
+            --bs-btn-padding-y: 0px !important;
+        }
     </style>
     <div class="main-wrap">
         @include('templates.common.menuTop')
-        <div class="main-full" style="transform: none; margin-top: 25px">
-            <div id="post-6" class="page-content post-6 page type-page status-publish">
-                <div data-elementor-type="wp-page" data-elementor-id="6" class="elementor elementor-6"
-                     data-elementor-settings="[]">
-                    <div class="elementor-section-wrap">
-                        @yield('content')
-                    </div>
-                </div>
-            </div>
+        <div class="main-full" style="transform: none; margin-top: 25px; min-height: 1200px">
+            @yield('content')
         </div>
         @include('templates.common.footer')
     </div><!-- .main-wrap -->
