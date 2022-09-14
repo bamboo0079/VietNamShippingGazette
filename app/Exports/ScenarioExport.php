@@ -177,10 +177,10 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                 $cellRange = 'A1:F100'; // All headers
                 $event->sheet->getSheetView()->setZoomScale(175);
                 $event->sheet->getColumnDimension('A')->setAutoSize(false)->setWidth(3);
-                $event->sheet->getColumnDimension('B')->setAutoSize(false)->setWidth(2);
+                $event->sheet->getColumnDimension('B')->setAutoSize(false)->setWidth(3);
                 $event->sheet->getColumnDimension('C')->setAutoSize(false)->setWidth(20);
                 $event->sheet->getColumnDimension('D')->setAutoSize(false)->setWidth(3);
-                $event->sheet->getColumnDimension('E')->setAutoSize(false)->setWidth(2);
+                $event->sheet->getColumnDimension('E')->setAutoSize(false)->setWidth(3);
                 $event->sheet->getColumnDimension('F')->setAutoSize(false)->setWidth(5);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Arial Narrow')->getColor()->setARGB($data['color']);
                 foreach ($data['header'] as $item){
