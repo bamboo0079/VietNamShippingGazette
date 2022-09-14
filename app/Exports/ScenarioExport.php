@@ -59,7 +59,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                 $count++;
                 $header[] = $count;
                 $data[] =  [
-                    'title1' => ''.$item->boss->port_nm_vn.','.$item->country->country_nm_vn,
+                    'title1' => ''.mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->country->country_nm_vn),
                     'title2' =>'',
                     'title3' =>'',
                     'title4' =>'',
