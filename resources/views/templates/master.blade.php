@@ -28,6 +28,15 @@
 <script type="text/javascript" id="smartmag-theme-js" src="/public/js/88ec8fcb1e79b74a036e399f073c3276.js" defer></script>
 <script type="text/javascript" src="/public/js/delay-load.min.js"data-cfasync="false"></script>
 <script src="/public/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/public/css/jquery-ui.css">
+<script src="/public/src/asset/js/frontend/jquery-3.6.0.min.js"></script>
+<script src="/public/frontend/assets/js/jquery/jquery-ui.js"></script>
+<script>
+    $( function() {
+        $( "#datetimepicker1" ).datepicker({dateFormat: 'dd/mm/yy'});
+        $( "#datetimepicker2" ).datepicker({dateFormat: 'dd/mm/yy'});
+    } );
+</script>
 <script>
     $(document).ready(function(){
         $(".modal-video").on('hide.bs.modal', function(){
@@ -46,7 +55,6 @@
     <script src="/js/table2csv.min.js"></script>
     <script>
         $(document).ready(function () {
-
             $(document).on("click", "#dl", function () {
                 $("#schedule-table").table2csv({
                     filename:'schedule.csv'

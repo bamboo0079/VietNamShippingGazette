@@ -50,7 +50,7 @@
     <div class="elementor-element elementor-element-3d4c96b elementor-widget elementor-widget-smartmag-grid">
         <div class="elementor-widget-container">
 
-            <h1 class="archive-heading"><span>@if(Session::get('locale') == 'vi') {{ $category->name_vn }} @else {{ $category->name_en }} @endif</span></h1>
+            <h1 class="archive-heading"><span>{{ __("messages.PRODUCT_LIST") }}</span></h1>
             <section class="block-wrap block-grid block-sc s-dark" data-id="12">
                 <div class="block-content">
 
