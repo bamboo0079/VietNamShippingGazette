@@ -124,4 +124,5 @@ return [
     "VSG_NEWS_TITLE" => "Bảng Tin VSG",
     "ALL_SHIPPING_AGENT" => "Tất cả các hãng tàu",
     "SEARCH_SCHEDULE_TITLE" => "TRA CỨU LỊCH TÀU CONTAINER",
+    "PRODUCT_LIST" => "Danh Sách Sản Phẩm",
 ];
