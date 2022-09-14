@@ -167,6 +167,7 @@ Route::middleware(['admin', 'web'])->namespace('Backend')->prefix('admin')->grou
     Route::any('/add-scenario/{id?}', 'ScenariosController@add')->name('admin.scenario.add');
     Route::any('/process-scenario/{id?}', 'ScenariosController@process')->name('admin.scenario.process');
     Route::any('/delete-scenario/{delete?}', 'ScenariosController@delete')->name('admin.scenario.delete');
+    Route::any('/delete-multiple-scenario', 'ScenariosController@deleteMultiple')->name('admin.scenario.delete.multiple');
 
     // product Categories
     Route::get('/products', 'NewsController@products')->name('admin.new.product');

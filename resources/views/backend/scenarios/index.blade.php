@@ -142,7 +142,7 @@
                                     </colgroup>
                                     <thead>
                                     <tr>
-                                        <th class="text-center">STT</th>
+                                        <th class="text-center"><button class="btn btn-primary btn-sm btn-delete" type="button" id="btn_delete_all"><i class="fas fa fa-trash"></i></button></th>
                                         <th class="text-left">Cảng Xếp</th>
                                         <th class="text-left">Cảng Dỡ</th>
                                         <th class="text-left">Cảng Transit</th>
@@ -156,7 +156,7 @@
                                     @forelse($categories as $k => $category)
                                         <tr>
                                             @php $class = (isset($_GET['id']) && $_GET['id'] == $category->id)?'active':'';@endphp
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-center">{{ (($categories->currentPage()-1)*$limit)+$k+1 }}</td>
+                                            <td class="{{ $class }} text-center"><input name="scenarios_id[]" value="{{$category->id}}" type="checkbox" class="scenarios_id"></td>
                                             <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->boss->port_nm_vn }}</td>
                                             <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->unloading->port_nm_vn }}</td>
                                             <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->transit->port_nm_vn }}</td>
@@ -295,6 +295,18 @@
             $(".mask").mask("99/99/9999");
             $(document).on("change", "#is_inbound", function () {
                 $("#frm_search").submit();
+            });
+            $(document).on("click", "#btn_delete_all", function () {
+                var list_scenarios_id = '';
+                $(".scenarios_id").each(function () {
+                    if($(this).is(":checked")){
+                        list_scenarios_id = list_scenarios_id + $(this).val() + ',';
+                    }
+                });
+                if(list_scenarios_id.length){
+                    console.log(list_scenarios_id);
+                    window.location.href = '{{ route('admin.scenario.delete.multiple') }}?list_scenarios_id='+list_scenarios_id;
+                }
             });
         });
         $("#frmAjax").submit(function(e) {

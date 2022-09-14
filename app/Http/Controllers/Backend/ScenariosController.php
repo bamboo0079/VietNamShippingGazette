@@ -206,4 +206,11 @@ class ScenariosController extends Controller
         return redirect()->route('admin.scenarios')->with('status', 'Xóa thông tin thành công');
     }
 
+    public function deleteMultiple(Request $request){
+        $scenarial_ids = $request->all();
+        $scenarial_ids = explode(',',$scenarial_ids['list_scenarios_id']);
+        Scenario::whereIn('id', $scenarial_ids)->delete();
+        return redirect()->back()->with('status', 'Xóa thông tin thành công');
+    }
+
 }
