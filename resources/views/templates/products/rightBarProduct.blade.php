@@ -9,6 +9,7 @@
     }
 </style>
 <aside class="col-4 main-sidebar has-sep" data-sticky="1" style="margin-top:25px; margin-bottom: 40px">
+    @if(count($relate_news))
     <div class="inner theiaStickySidebar">
         <div id="smartmag-block-posts-small-6" class="widget ts-block-widget smartmag-widget-posts-small">
             <div class="block">
@@ -57,4 +58,5 @@
 
         </div>
     </div>
+    @endif
 </aside>
