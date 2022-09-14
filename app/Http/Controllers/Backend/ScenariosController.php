@@ -50,7 +50,7 @@ class ScenariosController extends Controller
         $query = Scenario::where('id','>', 0);
 
         if (isset($submit_data['start']) && $submit_data['start']) {
-            $query->where('departure_day','>=', date("Y-m-d", strtotime($submit_data['start'])));
+            $query->where('departure_day','=', date("Y-m-d", strtotime($submit_data['start'])));
         }
         if (isset($submit_data['end']) && $submit_data['end']) {
             $query->where('arrival_date','<=', date("Y-m-d",strtotime($submit_data['end'])));
