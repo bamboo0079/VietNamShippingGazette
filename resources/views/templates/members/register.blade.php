@@ -54,12 +54,6 @@
             opacity: .5;
         }
     </style>
-<nav class="breadcrumbs is-full-width breadcrumbs-a" id="breadcrumb">
-    <div class="inner ts-contain ">
-        <span><a href="/"><span>{{ __("messages.HOME") }}</span></a> </span>
-        <span class="delim"> &raquo; </span><span class="current">{{ __("messages.REGISTER") }}</span>
-    </div>
-</nav>
 <div class="main ts-contain cf right-sidebar">
     <div class="ts-row">
         <div class="col-8 main-content">

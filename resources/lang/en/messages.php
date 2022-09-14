@@ -118,9 +118,11 @@ return [
     "PRODUCT_RELATION_SHIP" => "Product Relation",
     "NEWS_DETAIL_TITLE" => "News Detail",
     "PRODUCT_UPDATING" => "Updating...",
-    "CONTACT_TITLE" => "Tiêu đề",
-    "SEND_CONTACT" => "Gởi Liên Hệ",
+    "CONTACT_TITLE" => "Title",
+    "SEND_CONTACT" => "Send Contact",
     "ERROR_EMPTY_CONTENT" => "Please input content contact.",
     "SUCCESS_CONTACT" => "Success send contact message.",
     "VSG_NEWS_TITLE" => "VSG News",
+    "ALL_SHIPPING_AGENT" => "All shipping lines",
+    "SEARCH_SCHEDULE_TITLE" => "TRAIN SCHEDULE",
 ];

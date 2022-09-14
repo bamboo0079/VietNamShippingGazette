@@ -96,7 +96,7 @@
                                     <input name="title" type="text" placeholder="{{ __("messages.CONTACT_TITLE") }} *" value="@if(Session::has('title')) {{ Session::get('title') }} @endif" size="30" maxlength="30" required="required">
                                 </p>
                                 <p class="form-field comment-form-url">
-                                    <textarea name="content" placeholder="{{ __("messages.NEWS_CONTENT") }} *" style="min-width: 500px; min-height: 250px;" required="required" >@if(Session::has('content')) {{ Session::get('content') }} @endif</textarea>
+                                    <textarea class="content-contact-area" name="content" placeholder="{{ __("messages.NEWS_CONTENT") }} *" required="required" >@if(Session::has('content')) {{ Session::get('content') }} @endif</textarea>
                                 </p>
                                 <p class="form-submit">
                                     <button type="submit" class="btn btn-primary submit_button">

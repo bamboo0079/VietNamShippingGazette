@@ -41,9 +41,113 @@
         </div>
     </div>
     <div class="off-canvas-content">
-        <ul class="mobile-menu"></ul>
+        <ul class="mobile-menu">
+            <li id="menu-item-573" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home  @if(isset($menu_active) && $menu_active == 'index') current-menu-item @endif page_item page-item-6 current_page_item menu-item-573">
+                <a href="/" aria-current="page">{{ __("messages.HOME") }}</a>
+            </li>
+            <li id="menu-item-583" class="menu-item @if(isset($menu_active) &&  $menu_active == 'schedule') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-583">
+                <a rel="noopener" href="{{ route('lich.tau') }}">{{ __("messages.BOAT_SCHEDULE") }}</a>
+            </li>
+            <li id="menu-item-4536" class="menu-item @if(isset($menu_active) && $menu_active == 'news') current-menu-item @endif  menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
+                <a href="#">{{ __("messages.NEWS") }}</a>
+                <ul class="sub-menu">
+                    @foreach($categories_menu as $menu)
+                        <li id="menu-item-4588"
+                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4588">
+                            <a rel="noopener" href="{{ route('the.loai', $menu->id) }}">@if(Session::get('locale') == 'vi') {{ $menu->name_vn }} @else {{ $menu->name_en }} @endif</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li id="menu-item-4536"
+                class="menu-item menu-item-type-custom @if(isset($menu_active) &&  $menu_active == 'gt') current-menu-item @endif menu-item-object-custom menu-item-has-children menu-item-4536">
+                <a href="#">{{ __("messages.TRADE") }}</a>
+                <ul class="sub-menu">
+                    @foreach($trades_menu as $menu)
+                        <li id="menu-item-4588"
+                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4588">
+                            <a rel="noopener" href="{{ route('the.loai', $menu->id) }}">@if(Session::get('locale') == 'vi') {{ $menu->name_vn }} @else {{ $menu->name_en }} @endif</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li id="menu-item-4536" class="menu-item  @if(isset($menu_active) && $menu_active == 'product') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
+                <a href="#">{{ __("messages.PRODUCTS") }}</a>
+                <ul class="sub-menu">
+
+                    @foreach($product_categories_menu as $menu)
+                        <li id="menu-item-4588"
+                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4588">
+                            <a rel="noopener" href="{{ route('loai.san.pham', $menu->id) }}">@if(Session::get('locale') == 'vi') {{ $menu->name_vn }} @else {{ $menu->name_en }} @endif</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li id="menu-item-583"
+                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'event') current-menu-item @endif  menu-item-object-custom menu-item-583">
+                <a rel="noopener" href="{{ route('the.loai', 1) }}">{{ __("messages.EVENTS") }}</a>
+            </li>
+            <li id="menu-item-583"
+                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'svg') current-menu-item @endif menu-item-object-custom menu-item-583">
+                <a rel="noopener" href="{{ route('tin.svg') }}">{{ __("messages.VSG_NEWS") }}</a>
+            </li>
+            <li id="menu-item-583"
+                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'rec') current-menu-item @endif menu-item-object-custom menu-item-583">
+                <a rel="noopener" href="{{ route('the.loai', 17) }}">{{ __("messages.RECRUITMENT") }}</a>
+            </li>
+            <li id="menu-item-583"
+                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'contact') current-menu-item @endif menu-item-object-custom menu-item-583">
+                <a rel="noopener" href="{{ route('contact') }}">{{ __("messages.CONTACT") }}</a>
+            </li>
+
+
+
+
+            @if(Session::has('member'))
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="{{ route('memberInfo') }}">{{ Session::get('member.name') }}</a>
+                </li>
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="{{ route('logout') }}">{{ __("messages.Logout") }}</a>
+                </li>
+            @else
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="{{ route('register') }}">{{ __("messages.Register") }}</a>
+                </li>
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="{{ route('login') }}">{{ __("messages.Login") }}</a>
+                </li>
+            @endif
+            @if(Session::get('locale') == 'vi')
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a href="/language/en">English</a>
+                </li>
+            @else
+                <li id="menu-item-3534"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534">
+                    <a rel="noopener" href="/language/vi">Tiếng Việt</a>
+                </li>
+            @endif
+        </ul>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="smart-head smart-head-a smart-head-main" id="smart-head" data-sticky="auto" data-sticky-type="smart"
      data-sticky-full>
     <div class="smart-head-row smart-head-top s-dark smart-head-row-full">
@@ -182,6 +286,7 @@
         </div>
     </div>
 </div>
+
 <div class="smart-head smart-head-a smart-head-mobile" id="smart-head-mobile" data-sticky="mid"
      data-sticky-type="smart" data-sticky-full>
     <div class="smart-head-row smart-head-mid smart-head-row-3 s-dark smart-head-row-full">
@@ -201,11 +306,6 @@
 					</span>
                 </a>
             </div>
-            {{--<div class="items items-right ">--}}
-                {{--<a href="#" class="search-icon has-icon-only is-icon" title="Search">--}}
-                    {{--<i class="tsi tsi-search"></i>--}}
-                {{--</a>--}}
-            {{--</div>--}}
         </div>
     </div>
 </div>

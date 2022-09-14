@@ -164,11 +164,11 @@ class HomeController extends Controller
             }
             if(isset($_GET['departure_day']) && $_GET['departure_day']){
                 $departure_day = \DateTime::createFromFormat("d/m/Y", $_GET['departure_day'])->format('Y-m-d');
-                $list_scenarios = $list_scenarios->where('departure_day', '>=',$departure_day);
+                $list_scenarios = $list_scenarios->where('departure_day', '=',$departure_day);
             }
             if(isset($_GET['arrival_date']) && $_GET['arrival_date']){
                 $arrival_date = \DateTime::createFromFormat("d/m/Y", $_GET['arrival_date'])->format('Y-m-d');
-                $list_scenarios = $list_scenarios->where('departure_day', '<=',$arrival_date);
+                $list_scenarios = $list_scenarios->where('arrival_date', '<=',$arrival_date);
             }
             $list_scenarios = $list_scenarios->orderBy('departure_day', 'ASC')->get();
             $data['list_scenarios'] = $list_scenarios;

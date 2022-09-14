@@ -122,4 +122,6 @@ return [
     "ERROR_EMPTY_CONTENT" => "Vui lòng nhập nội dung liên hệ.",
     "SUCCESS_CONTACT" => "Gởi thông tin liên hệ thành công.",
     "VSG_NEWS_TITLE" => "Bảng Tin VSG",
+    "ALL_SHIPPING_AGENT" => "Tất cả các hãng tàu",
+    "SEARCH_SCHEDULE_TITLE" => "TRA CỨU LỊCH TÀU CONTAINER",
 ];

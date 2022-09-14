@@ -24,7 +24,7 @@
         <div class="ts-row">
             <div class="col-8 main-content" style="width:100%">
 
-                <h1 class="archive-heading"><span> @if(Session::get('locale') == 'vi') TRA CỨU LỊCH TÀU CONTAINER @else TRAIN SCHEDULE  @endif</span></h1>
+                <h1 class="archive-heading"><span> {{ __("messages.SEARCH_SCHEDULE_TITLE") }}</span></h1>
                 <section class="block-wrap block-grid mb-none" data-id="8">
                     <div class="block-content">
                         <!--Full form-->
@@ -32,7 +32,7 @@
                             <div class="row top-row">
                                 <div class="col-4">
                                     <select id="ship_id" class="chosen-select input-block-level select2-hidden-accessible form-control" name="ship_id" tabindex="-1" aria-hidden="true">
-                                        <option value="">Tất cả các hãng tàu</option>
+                                        <option value=""> {{ __("messages.ALL_SHIPPING_AGENT") }}</option>
                                         @foreach($list_ship as $ship)
                                             @if(Session::get('locale') == 'vi')
                                                 <option @if(isset($_GET['ship_id']) && $_GET['ship_id'] == $ship->id) selected @endif  value="{{ $ship->id }}">{{ $ship->ship_nm_vn }}</option>
@@ -70,10 +70,10 @@
 
                             <div class="row mt-2">
                                 <div class="col-4">
-                                    <input value="@if(isset($_GET['departure_day'])){{ $_GET['departure_day'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="ETD" id="departure_day" data-position="right top" autocomplete="off" name="departure_day" type="text">
+                                    <input id="datetimepicker1" value="@if(isset($_GET['departure_day'])){{ $_GET['departure_day'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="ETD" id="departure_day" data-position="right top" autocomplete="off" name="departure_day" type="text">
                                 </div>
                                 <div class="col-4">
-                                    <input value="@if(isset($_GET['arrival_date'])){{ $_GET['arrival_date'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="ETA" id="arrival_date" autocomplete="off" name="arrival_date" type="text">
+                                    <input id="datetimepicker2" value="@if(isset($_GET['arrival_date'])){{ $_GET['arrival_date'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="ETA" id="arrival_date" autocomplete="off" name="arrival_date" type="text">
                                 </div>
                                 <div class="col-4">
                                     <button type="submit" class="btn btn-primary">
@@ -123,6 +123,7 @@
                             </table>
                         @endif
                     </div>
+
                 </section>
             </div>
 

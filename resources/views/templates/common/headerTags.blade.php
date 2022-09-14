@@ -2718,6 +2718,9 @@
         .feat-grid .item:not(.item-large) .category + .category {
             display: none;
         }
+        .content-contact-area {
+            min-width: 90% !important;
+        }
     }
 
     @media (max-width: 350px) {
@@ -2727,6 +2730,9 @@
 
         .feat-grid .item:not(.item-large) :nth-last-child(2) {
             margin-bottom: 0;
+        }
+        .content-contact-area {
+            min-width: 90% !important;
         }
     }
 
@@ -2752,6 +2758,10 @@
         height: 100%;
     }
 
+    .content-contact-area {
+        min-width: 500px; min-height: 250px;
+    }
+
     .feat-grid-d {
         --main-ratio: 1.3048544;
     }
@@ -2762,6 +2772,7 @@
             max-width: initial;
             padding: 0;
         }
+
     }
 
     .feat-grid-d .items-wrap {
