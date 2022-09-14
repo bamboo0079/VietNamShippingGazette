@@ -95,7 +95,7 @@
                             </form>
                         </div>
                         <div class="block_search mb-3 col-md-9">
-                            <form>
+                            <form id="frm_search">
                                 <div class="row">
                                     <div class="col-md-7">
                                         <div class="form-group sandbox-container" id="sandbox-container2">
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="col-md-2 find_type">
                                         <div class="form-group">
-                                            <select name="is_inbound" class="form-control">
+                                            <select id="is_inbound" name="is_inbound" class="form-control">
                                                 <option @if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 0) selected @endif value="0" {{ (isset($_GET['is_inbound']) && $_GET['is_inbound'] == 0)?'selected':''}}>InBound</option>
                                                 <option @if(isset($scenario->country_id) && $scenario->country_id == 1) selected @endif @if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1) selected @endif value="1" {{ (isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1)?'selected':''}}>OutBound</option>
                                             </select>
@@ -293,6 +293,9 @@
 //                $(this).datepicker();
             });
             $(".mask").mask("99/99/9999");
+            $(document).on("change", "#is_inbound", function () {
+                $("#frm_search").submit();
+            });
         });
         $("#frmAjax").submit(function(e) {
             e.preventDefault(); // avoid to execute the actual submit of the form.
