@@ -173,44 +173,38 @@
                                     <span><strong>{{ __("messages.STATUS") }}:</strong>
 
                                         @if($_posted->approved == 0)
-                                        <button type="button" class="btn btn-primary add-new-bt">
+                                        <span style="color: #0a58ca; font-weight: bold">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                                               <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
                                               <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
                                             </svg>
                                             {{ __("messages.WAITING") }}
-                                        </button>
+                                        </span>
                                         @endif
                                         @if($_posted->approved == 1)
-                                        <button type="button" class="btn btn-success add-new-bt">
+                                        <span style="color: #198754; font-weight: bold">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
                                               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                               <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
                                             </svg>
                                             {{ __("messages.APPROVED") }}
-                                        </button>
+                                        </span>
                                         @endif
                                         @if($_posted->approved == 2)
-                                        <button type="button" class="btn btn-danger add-new-bt">
+                                        <span style="color: red; font-weight: bold">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-bar-contract" viewBox="0 0 16 16">
                                               <path fill-rule="evenodd" d="M3.646 14.854a.5.5 0 0 0 .708 0L8 11.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708zm0-13.708a.5.5 0 0 1 .708 0L8 4.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zM1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8z"/>
                                             </svg>
                                             {{ __("messages.REJECT") }}
-                                        </button>
+                                        </span>
                                         @endif
                                     </span>
                                 </div>
                                 <div class="row left-comment">
                                     <p>
                                         {{ strip_tags(html_entity_decode($_posted->content_vn)) }}
-                                        @if($_posted->approved == 2)
-                                            <button type="button" class="btn btn-success add-new-bt reject_reason">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-emoji-neutral" viewBox="0 0 16 16">
-                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                    <path d="M4 10.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm3-4C7 5.672 6.552 5 6 5s-1 .672-1 1.5S5.448 8 6 8s1-.672 1-1.5zm4 0c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5S9.448 8 10 8s1-.672 1-1.5z"/>
-                                                </svg>
-                                                {{ __("messages.REASON") }}
-                                            </button>
+                                        @if($_posted->approved == 2 && strlen($_posted->reject_reason) > 0)
+                                            <span class="reject_reason" style="color: red; cursor: pointer;font-size: 12px;margin-left: 10px; ">{{ __("messages.REASON") }}...</span>
                                         @endif
                                         @if(strlen($_posted->reject_reason) > 0 && $_posted->approved == 2)
                                         <div class="alert alert-warning" role="alert">
@@ -239,7 +233,6 @@
                 $(this).parent('.alert').hide();
             });
             $(".reject_reason").on("click", function(){
-                console.log("aaaa");
                $(this).parents('.left-comment').first().find(".alert-warning").show();
             });
         })
