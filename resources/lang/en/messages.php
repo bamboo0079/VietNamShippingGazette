@@ -125,4 +125,5 @@ return [
     "VSG_NEWS_TITLE" => "VSG News",
     "ALL_SHIPPING_AGENT" => "All shipping lines",
     "SEARCH_SCHEDULE_TITLE" => "TRAIN SCHEDULE",
+    "PRODUCT_LIST" => "Product List",
 ];
