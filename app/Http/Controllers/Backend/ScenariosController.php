@@ -48,11 +48,12 @@ class ScenariosController extends Controller
         $submit_data = $request->all();
         $data['limit'] = ConstApp::NUMBER_PER_PAGE;
         $query = Scenario::where('id','>', 0);
-
         if (isset($submit_data['start']) && $submit_data['start']) {
+            $submit_data['start'] = \DateTime::createFromFormat("d/m/Y", $submit_data['start'])->format('Y-m-d');
             $query->where('departure_day','=', date("Y-m-d", strtotime($submit_data['start'])));
         }
         if (isset($submit_data['end']) && $submit_data['end']) {
+            $submit_data['end'] = \DateTime::createFromFormat("d/m/Y", $submit_data['end'])->format('Y-m-d');
             $query->where('arrival_date','<=', date("Y-m-d",strtotime($submit_data['end'])));
         }
 
