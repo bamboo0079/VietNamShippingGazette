@@ -224,6 +224,11 @@
                     <i class="fas fa-id-card"></i>
                     <span>Liên hệ</span></a>
             </li>
+            <li class="nav-item {{ (request()->is('admin/update-config') || request()->is('*update-config*')) ? ' active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.update.config') }}">
+                    <i class="fas fa-id-card"></i>
+                    <span>Cấu hình chung</span></a>
+            </li>
         </ul>
     </li>
 </ul>

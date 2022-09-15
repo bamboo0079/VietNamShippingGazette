@@ -123,4 +123,31 @@ class PartnersController extends Controller
         return redirect()->route('admin.partners')->with('status', 'Xóa thông tin thành công');
     }
 
+    public function updateConfig(Request $request){
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            if($request->has('img1')){
+                $data['img1'] = '/'.request()->file('img1')->storeAs('images','header_banner.jpg','public');
+            }
+            if($request->has('img2')){
+                $data['img2'] = '/'.request()->file('img2')->storeAs('images','left_banner.jpg','public');
+            }
+            if($request->has('img3')){
+                $data['img3'] = '/'.request()->file('img3')->storeAs('images','right_banner.jpg','public');
+            }
+            unset($data['_token']);
+
+            $data_final = file_get_contents(public_path().'/config.json');
+            $data_final = json_decode($data_final, true);
+            foreach ($data as $key => $item){
+                $data_final[$key] = $item;
+            }
+            $json = json_encode($data_final);
+            file_put_contents(public_path().'/config.json', $json);
+        }
+        $data = file_get_contents(public_path().'/config.json');
+        $data = json_decode($data, true);
+        return view('backend.configs.detail', $data);
+    }
+
 }

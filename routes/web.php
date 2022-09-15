@@ -194,6 +194,7 @@ Route::middleware(['admin', 'web'])->namespace('Backend')->prefix('admin')->grou
     Route::any('/contact-detail/{id?}', 'ContactsController@detail')->name('admin.contact.detail');
 
     Route::any('/newest-detail', 'PartnersController@newesetDetail')->name('admin.newest.detail');
+    Route::any('/update-config', 'PartnersController@updateConfig')->name('admin.update.config');
 
     Route::get('export', 'ScenariosController@export')->name('export');
     //ROUTES
