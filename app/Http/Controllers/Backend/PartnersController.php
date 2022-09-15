@@ -127,13 +127,13 @@ class PartnersController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
             if($request->has('img1')){
-                $data['img1'] = '/'.request()->file('img1')->storeAs('images','header_banner.jpg','public');
+                $data['img1'] = '/'.request()->file('img1')->storeAs('images','header_banner.jpg'/*,'public'*/);
             }
             if($request->has('img2')){
-                $data['img2'] = '/'.request()->file('img2')->storeAs('images','left_banner.jpg','public');
+                $data['img2'] = '/'.request()->file('img2')->storeAs('images','left_banner.jpg'/*,'public'*/);
             }
             if($request->has('img3')){
-                $data['img3'] = '/'.request()->file('img3')->storeAs('images','right_banner.jpg','public');
+                $data['img3'] = '/'.request()->file('img3')->storeAs('images','right_banner.jpg'/*,'public'*/);
             }
             unset($data['_token']);
 
