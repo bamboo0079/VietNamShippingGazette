@@ -21,7 +21,7 @@
                                 <label class="control-label col-sm-3 text-right">Banner</label>
                                 <div class="input-field col-sm-9">
                                     <input id="file" type="file" name="img1" class="form-control" onchange="previewFile(this);" />
-                                    <img id="previewImg" src="@if(isset($img1)) {{ $img1 }} @else https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png @endif?v={{ time() }}" alt="Placeholder">
+                                    <img id="previewImg" src="@if(isset($img1)){{ $img1 }}?v={{ time() }}@else https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png @endif" alt="Placeholder">
                                 </div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                                 <label class="control-label col-sm-3 text-right">Quảng cáo trái</label>
                                 <div class="input-field col-sm-9">
                                     <input id="file2" type="file" name="img2" class="form-control" onchange="previewFile2(this);" />
-                                    <img id="previewImg2" src="@if(isset($img2)) {{ $img2 }} @else https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png @endif?v={{ time() }}" alt="Placeholder">
+                                    <img id="previewImg2" src="@if(isset($img2)){{ $img2 }}?v={{ time() }}@else https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png @endif?v={{ time() }}" alt="Placeholder">
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                                 <label class="control-label col-sm-3 text-right">Quảng cáo phải</label>
                                 <div class="input-field col-sm-9">
                                     <input id="file3" type="file" name="img3" class="form-control" onchange="previewFile3(this);" />
-                                    <img id="previewImg3" src="@if(isset($img3)) {{ $img3 }} @else https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png @endif?v={{ time() }}" alt="Placeholder">
+                                    <img id="previewImg3" src="@if(isset($img3)){{ $img3 }}?v={{ time() }}@else https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png @endif" alt="Placeholder">
                                 </div>
                             </div>
                         </div>
