@@ -20,13 +20,13 @@
 
 <div id="sl1" class="sl1" style="top: 195px; max-width:120px; position: fixed; left: 30px;z-index: 9999;">
     <a rel="nofollow" href="#" target="_blank">
-        <img type=" max-width:120px; " border="0" alt="qc" src="/images/left_banner.jpg" >
+        <img type=" max-width:120px; " border="0" alt="qc" src="/images/left_banner.jpg?v={{time()}}" >
     </a>
 </div>
 
 <div id="sl2" style="top: 195px; position: fixed; max-width:120px; right: 30px;z-index: 9999;">
     <a rel="nofollow" href="#" target="_blank">
-        <img style=" max-width:120px; " border="0" alt="qc" src="/images/right_banner.jpg">
+        <img style=" max-width:120px; " border="0" alt="qc" src="/images/right_banner.jpg?v={{time()}}">
     </a>
 </div>
 
@@ -212,7 +212,7 @@
                         <img src="/src/asset/img/system/logo1.jpg" class="logo-image" alt="Viet Nam Shipping Gazete" srcset="/src/asset/img/system/Capture.PNG ,/src/asset/img/system/Capture.PNG 2x" width="176" height="35"/>
                     </h1>
                 </a>
-                <img style="margin-top: 7px;" border="0" alt="qc" src="/public/images/header_banner.jpg" >
+                <img style="margin-top: 7px;" border="0" alt="qc" src="/public/images/header_banner.jpg?v={{time()}}" >
             </div>
         </div>
     </div>
