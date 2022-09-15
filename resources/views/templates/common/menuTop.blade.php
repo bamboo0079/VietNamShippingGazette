@@ -26,7 +26,7 @@
 
 <div id="sl2" style="top: 195px; position: fixed; max-width:120px; right: 30px;z-index: 9999;">
     <a rel="nofollow" href="#" target="_blank">
-        <img style=" max-width:120px; " border="0" alt="qc" src="/images/left_banner.jpg">
+        <img style=" max-width:120px; " border="0" alt="qc" src="/images/right_banner.jpg">
     </a>
 </div>
 
