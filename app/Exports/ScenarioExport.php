@@ -175,6 +175,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     ]
                 ];
                 $cellRange = 'A1:F100'; // All headers
+                $cellRangeCustom = 'C1:C100'; // All C columns
                 $event->sheet->getSheetView()->setZoomScale(175);
                 $event->sheet->getColumnDimension('A')->setAutoSize(false)->setWidth(3);
                 $event->sheet->getColumnDimension('B')->setAutoSize(false)->setWidth(3);
@@ -185,28 +186,30 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Arial Narrow')->getColor()->setARGB($data['color']);
                 foreach ($data['header'] as $item){
                     $cellRange = 'A'.$item.':F'.$item;
-                    $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(10);
+                    $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(11);
+                    $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
                     $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold)->getAlignment()->setVertical('center');
+                    $event->sheet->getStyle($cellRangeCustom)->ApplyFromArray($styleBold);
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['locate'] as $item){
                     $cellRange = 'A'.$item.':F'.$item;
-                    $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(7);
+                    $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(8);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
                     $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold)->getAlignment()->setVertical('center');
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['transit'] as $item){
                     $cellRange = 'B'.$item.':F'.$item;
-                    $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(7);
+                    $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(8);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
                     $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold)->getAlignment()->setVertical('center');
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['detail'] as $item){
                     $cellRange = 'A'.$item.':F'.$item;
-                    $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(7);
+                    $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(8);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(6);
                     $event->sheet->getStyle($cellRange)->getAlignment()->setVertical('center');
                 }
