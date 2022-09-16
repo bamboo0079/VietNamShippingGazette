@@ -21,6 +21,9 @@
                                             <div id="youtubeModal{{$new->id}}" class="modal fade modal-video bd-example-modal-lg" data-youtube-url="{{ $new->youtube_url }}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
+                                                        <button style="background: #fff;color: #000;font-size: 20px;font-weight: bold;text-align: right;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
                                                         <div class="modal-body">
                                                             <iframe width="100%" height="300" src="{{ $new->youtube_url }}" title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                                         </div>
