@@ -79,5 +79,10 @@ class SupportsController extends Controller
         return redirect()->route('admin.supports')->with('status', 'Lưu thông tin thành công');
     }
 
+    public function delete($category_id){
+        Support::where('id', $category_id)->delete();
+        return redirect()->route('admin.supports')->with('status', 'Xóa thông tin thành công');
+    }
+
 
 }

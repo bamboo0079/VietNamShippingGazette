@@ -189,6 +189,7 @@ Route::middleware(['admin', 'web'])->namespace('Backend')->prefix('admin')->grou
     Route::any('/add-support/{id?}', 'SupportsController@add')->name('admin.support.add');
     Route::any('/process-support/{id?}', 'SupportsController@process')->name('admin.support.process');
     Route::any('/support-detail/{id?}', 'SupportsController@detail')->name('admin.support.detail');
+    Route::any('/support-delete/{id?}', 'SupportsController@delete')->name('admin.support.delete');
 
     Route::get('/contacts', 'ContactsController@index')->name('admin.contacts');
     Route::any('/contact-detail/{id?}', 'ContactsController@detail')->name('admin.contact.detail');
