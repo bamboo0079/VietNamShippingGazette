@@ -292,7 +292,7 @@
             $('.input-daterange input').each(function() {
 //                $(this).datepicker();
             });
-            $(".mask").mask("99/99/9999");
+            $(".mask").mask("99/99/2022", {placeholder: "__/__/____"});
             $(document).on("change", "#is_inbound", function () {
                 $("#frm_search").submit();
             });
