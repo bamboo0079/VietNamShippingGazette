@@ -122,8 +122,7 @@
                                     <div class="col-md-3">
                                         <button style="padding: 9px 5px;" type="submit" class="btn btn-primary mr-2"><i class="fas fa-filter"></i> Tìm kiếm</button>
                                         <button style="padding: 9px 10px;" type="button" class="btn btn-primary mr-2" title="Download File">
-                                            <i class="fa fa-download" aria-hidden="true"></i>
-                                            <a style="color: white;" href="{{ $download_link }}">DL</a>
+                                            <a style="color: white;text-decoration:none;" href="{{ $download_link }}"><i class="fa fa-download" aria-hidden="true"></i> DL</a>
                                         </button>
                                     </div>
                                 </div>
