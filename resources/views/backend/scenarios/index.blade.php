@@ -292,7 +292,7 @@
             $('.input-daterange input').each(function() {
 //                $(this).datepicker();
             });
-            $(".mask").mask("99/99/{{date('Y'}}", {placeholder: "__/__/____"});
+            $(".mask").mask("99/99/{{date('Y')}}", {placeholder: "__/__/____"});
             $(document).on("change", "#is_inbound", function () {
                 $("#frm_search").submit();
             });
