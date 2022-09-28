@@ -1078,7 +1078,7 @@
     }
 
     .s-dark:not(i), .site-s-dark, .site-s-dark .s-light {
-        --c-contrast-0: #000;
+        --c-contrast-0: #de333b;
         --c-contrast-10: #070707;
         --c-contrast-50: #111;
         --c-contrast-75: #151515;
@@ -3957,7 +3957,7 @@
     }
 
     .smart-head .logo-image {
-        padding: 10px 0;
+        padding: 0px 0 !important;
         max-height: var(--head-h);
         -o-object-fit: contain;
         object-fit: contain;
@@ -4850,7 +4850,7 @@
 
     .s-dark .smart-head-main .smart-head-top,
     .smart-head-main .s-dark.smart-head-top {
-        background-color: #0a0505;
+        background-color: #de333b;
     }
 
     .smart-head-main .smart-head-mid {

@@ -44,7 +44,7 @@
                                                 </a>
                                             </h4>
                                             <div class="post-meta-items meta-below">
-                                                <p class="price-p"><span>Giá</span>: Liên hệ</p>
+                                                <p class="price-p"><span>Giá</span>: {{ $new->price }}</p>
                                             </div>
                                         </div>
                                     </div>

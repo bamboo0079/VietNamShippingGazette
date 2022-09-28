@@ -65,6 +65,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     'title4' =>'',
                     'title5' =>'',
                     'title6' =>'',
+                    'title7' =>'',
                 ];
                 $last_name2 = '';
                 $last_name3 = '';
@@ -82,6 +83,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     'title4' =>'',
                     'title5' =>'',
                     'title6' =>'',
+                    'title7' =>'',
                 ];
                 $last_name3 = '';
             }
@@ -98,6 +100,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     'title4' =>'',
                     'title5' =>'',
                     'title6' =>'',
+                    'title7' =>'',
                 ];
             }
             $last_name3 = $current_name3;
@@ -107,10 +110,11 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             $data[] =  [
                 'title1' => ''.date("d-m", strtotime($item->departure_day)),
                 'title2' =>'('.substr(date("D", strtotime($item->departure_day)), 0, 2).')',
-                'title3' =>''.$item->ship->ship_nm_vn.'('.$item->agent->agent_nm_vn.')',
-                'title4' =>''.date("d-m", strtotime($item->arrival_date)),
-                'title5' =>'('.substr(date("D", strtotime($item->arrival_date)), 0, 2).')',
-                'title6' =>'('.$item->total_date.' days)',
+                'title3' =>''.$item->ship->ship_nm_vn,
+                'title4' =>'('.$item->agent->agent_nm_vn.')',
+                'title5' =>''.date("d-m", strtotime($item->arrival_date)),
+                'title6' =>'('.substr(date("D", strtotime($item->arrival_date)), 0, 2).')',
+                'title7' =>'('.$item->total_date.' days)',
             ];
         }
         return collect($data);
@@ -185,7 +189,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                 $event->sheet->getColumnDimension('F')->setAutoSize(false)->setWidth(5);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Arial Narrow')->getColor()->setARGB($data['color']);
                 foreach ($data['header'] as $item){
-                    $cellRange = 'A'.$item.':F'.$item;
+                    $cellRange = 'A'.$item.':G'.$item;
                     $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(11);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
@@ -194,25 +198,26 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['locate'] as $item){
-                    $cellRange = 'A'.$item.':F'.$item;
+                    $cellRange = 'A'.$item.':G'.$item;
                     $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(8);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
                     $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold)->getAlignment()->setVertical('center');
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['transit'] as $item){
-                    $cellRange = 'B'.$item.':F'.$item;
+                    $cellRange = 'B'.$item.':G'.$item;
                     $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(8);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
                     $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold)->getAlignment()->setVertical('center');
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['detail'] as $item){
-                    $cellRange = 'A'.$item.':F'.$item;
+                    $cellRange = 'A'.$item.':G'.$item;
                     $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(8);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(6);
                     $event->sheet->getStyle($cellRange)->getAlignment()->setVertical('center');
                 }
+                $event->sheet->mergeCells('C3:D3');
             },
         ];
     }

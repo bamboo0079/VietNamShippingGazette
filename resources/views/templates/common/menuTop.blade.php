@@ -35,9 +35,9 @@
     <div class="off-canvas-head">
         <a href="#" class="close"><i class="tsi tsi-times"></i></a>
         <div class="ts-logo">
-            <img class="logo-mobile logo-image logo-image-dark" src="/src/asset/img/system/Capture.PNG" width="176"
-                 height="35" alt="SmartMag ProMag"/>
-            <img class="logo-mobile logo-image" src="/src/asset/img/system/Capture.PNG" width="88" height="18" alt="SmartMag ProMag"/>
+            <img class="logo-mobile logo-image logo-image-dark" src="/src/asset/img/system/LOGO_VSG__white.png" width="176"
+                 height="35" alt="Viet Nam Shippinggazette"/>
+            <img class="logo-mobile logo-image" src="/src/asset/img/system/LOGO_VSG__white.png" alt="Viet Nam Shippinggazette" width="88" height="18"/>
         </div>
     </div>
     <div class="off-canvas-content">
@@ -99,9 +99,6 @@
                 class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'contact') current-menu-item @endif menu-item-object-custom menu-item-583">
                 <a rel="noopener" href="{{ route('contact') }}">{{ __("messages.CONTACT") }}</a>
             </li>
-
-
-
 
             @if(Session::has('member'))
                 <li id="menu-item-3534"
@@ -205,11 +202,11 @@
             <div class="items" style="padding-left: 20px; padding-top: 10px">
                 <a href="/" title="Viet Nam Shipping Gazete" rel="home" class="logo-link ts-logo logo-is-image">
                     <h1>
-                        <img src="/src/asset/img/system/Capture.PNG" class="logo-image logo-image-dark"
+                        <img src="/src/asset/img/system/logo_vietnamshippinggazette.png" class="logo-image logo-image-dark"
                              alt="Viet Nam Shipping Gazete"
-                             srcset="/src/asset/img/system/Capture.PNG ,/src/asset/img/system/Capture.PNG 2x"
-                             width="176" height="35"/>
-                        <img src="/src/asset/img/system/logo1.jpg" class="logo-image" alt="Viet Nam Shipping Gazete" srcset="/src/asset/img/system/Capture.PNG ,/src/asset/img/system/Capture.PNG 2x" width="176" height="35"/>
+                             srcset="/src/asset/img/system/logo_vietnamshippinggazette.png ,/src/asset/img/system/logo_vietnamshippinggazette.png 2x"
+                             width="250" height="35"/>
+                        <img src="/src/asset/img/system/logo1.jpg" class="logo-image" alt="Viet Nam Shipping Gazete" srcset="/src/asset/img/system/logo_vietnamshippinggazette.png ,/src/asset/img/system/logo_vietnamshippinggazette.png 2x" width="250" height="35"/>
                     </h1>
                 </a>
                 <img style="margin-top: 7px;" border="0" alt="qc" src="/public/images/header_banner.jpg?v={{time()}}" >
@@ -224,9 +221,6 @@
                         <ul id="menu-main-menu" class="menu">
                             <li id="menu-item-573" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home  @if(isset($menu_active) && $menu_active == 'index') current-menu-item @endif page_item page-item-6 current_page_item menu-item-573">
                                 <a href="/" aria-current="page">{{ __("messages.HOME") }}</a>
-                            </li>
-                            <li id="menu-item-583" class="menu-item @if(isset($menu_active) &&  $menu_active == 'schedule') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-583">
-                                <a rel="noopener" href="{{ route('lich.tau') }}">{{ __("messages.BOAT_SCHEDULE") }}</a>
                             </li>
                             <li id="menu-item-4536" class="menu-item @if(isset($menu_active) && $menu_active == 'news') current-menu-item @endif  menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
                                 <a href="#">{{ __("messages.NEWS") }}</a>
@@ -251,6 +245,20 @@
                                     @endforeach
                                 </ul>
                             </li>
+                            <li id="menu-item-583"
+                                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'event') current-menu-item @endif  menu-item-object-custom menu-item-583">
+                                <a rel="noopener" href="{{ route('the.loai', 1) }}">{{ __("messages.EVENTS") }}</a>
+                            </li>
+                            <li id="menu-item-583"
+                                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'svg') current-menu-item @endif menu-item-object-custom menu-item-583">
+                                <a rel="noopener" href="{{ route('tin.svg') }}">{{ __("messages.VSG_NEWS") }}</a>
+                            </li>
+                            <li id="menu-item-583" class="menu-item @if(isset($menu_active) &&  $menu_active == 'schedule') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-583">
+                                <a rel="noopener" href="{{ route('lich.tau') }}">{{ __("messages.BOAT_SCHEDULE") }}</a>
+                            </li>
+                            <li id="menu-item-583" class="menu-item @if(isset($menu_active) &&  $menu_active == 'doi_tac') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-583">
+                                <a rel="noopener" href="{{ route('doi.tac') }}">{{ __("messages.DOI_TAC") }}</a>
+                            </li>
                             <li id="menu-item-4536" class="menu-item  @if(isset($menu_active) && $menu_active == 'product') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
                                 <a href="#">{{ __("messages.PRODUCTS") }}</a>
                                 <ul class="sub-menu">
@@ -263,14 +271,7 @@
                                     @endforeach
                                 </ul>
                             </li>
-                            <li id="menu-item-583"
-                                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'event') current-menu-item @endif  menu-item-object-custom menu-item-583">
-                                <a rel="noopener" href="{{ route('the.loai', 1) }}">{{ __("messages.EVENTS") }}</a>
-                            </li>
-                            <li id="menu-item-583"
-                                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'svg') current-menu-item @endif menu-item-object-custom menu-item-583">
-                                <a rel="noopener" href="{{ route('tin.svg') }}">{{ __("messages.VSG_NEWS") }}</a>
-                            </li>
+
                             <li id="menu-item-583"
                                      class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'rec') current-menu-item @endif menu-item-object-custom menu-item-583">
                                 <a rel="noopener" href="{{ route('the.loai', 17) }}">{{ __("messages.RECRUITMENT") }}</a>
@@ -301,8 +302,8 @@
             <div class="items items-center ">
                 <a href="" title="SmartMag ProMag" rel="home" class="logo-link ts-logo logo-is-image">
 		            <span>
-                        <img class="logo-mobile logo-image logo-image-dark" src="/src/asset/img/system/Capture.PNG" width="176" height="35" alt="SmartMag ProMag"/>
-                        <img class="logo-mobile logo-image" src="/src/asset/img/system/logo1.jpg" width="88" height="18"  alt="SmartMag ProMag"/>
+                        <img class="logo-mobile logo-image logo-image-dark" src="/src/asset/img/system/LOGO_VSG__white.png" width="176" height="35" alt="Viet Nam Shippinggazette"/>
+                        <img class="logo-mobile logo-image" src="/src/asset/img/system/LOGO_VSG__white.png" width="88" height="18"  alt="Viet Nam Shippinggazette"/>
 					</span>
                 </a>
             </div>

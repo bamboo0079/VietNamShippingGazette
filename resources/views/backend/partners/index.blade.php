@@ -27,7 +27,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">STT</th>
-                                    <th class="text-left">Đối tác</th>
+                                    <th class="text-left">Đối tác (VN)</th>
+                                    <th class="text-left">Đối tác (EN)</th>
                                     <th class="text-left">Hình ảnh</th>
                                     <th class="text-left">Link</th>
                                     <th class="text-center">Hành động</th>
@@ -37,7 +38,8 @@
                             @forelse($books as $k => $book)
                                 <tr>
                                     <td class="text-center">{{ (($books->currentPage()-1)*$limit)+$k+1 }}</td>
-                                    <td class="text-left"><a href="{{ route('admin.partner.detail', $book->id) }}">{{ $book->name }}</a></td>
+                                    <td class="text-left"><a href="{{ route('admin.partner.detail', $book->id) }}">{{ $book->title_vn }}</a></td>
+                                    <td class="text-left"><a href="{{ route('admin.partner.detail', $book->id) }}">{{ $book->title_en }}</a></td>
                                     <td class="text-left"><img src="{{ $book->img }}" width="200" /></td>
                                     <td class="text-left"><a href="{{ $book->link }}" target="_blank">{{ $book->link }}</a></td>
                                     <td class="text-right">
@@ -47,7 +49,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5">Không có dữ liệu</td>
+                                    <td colspan="6">Không có dữ liệu</td>
                                 </tr>
                             @endforelse
                             </tbody>

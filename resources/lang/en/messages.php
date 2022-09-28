@@ -126,4 +126,9 @@ return [
     "ALL_SHIPPING_AGENT" => "All shipping lines",
     "SEARCH_SCHEDULE_TITLE" => "TRAIN SCHEDULE",
     "PRODUCT_LIST" => "Product List",
+    "DOI_TAC" => "Partner",
+    "UPDATING" => "Updating.",
+    "PARTNER_LIST" => "Partner List.",
+    "PARTNER_DETAIL_TITLE" => "Partner Detail",
+    "OTHER_PARTNER" => "Other Partner",
 ];

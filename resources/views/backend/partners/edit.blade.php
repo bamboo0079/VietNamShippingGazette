@@ -21,9 +21,38 @@
                         @endif
                         <div class="form-group">
                             <div class="row">
-                                <label class="control-label col-sm-3 text-right">Đối tác<span class="required-label">（<small>*</small>）</span></label>
+                                <label class="control-label col-sm-3 text-right">Đối Tác tiếng Việt<span class="required-label">（<small>*</small>）</span></label>
                                 <div class="input-field col-sm-9">
-                                    <input id="name" type="text" placeholder="Đối tác" class="input-space form-control @error('name') is-invalid @enderror" required name="name" value="{{ old('name') }}" autofocus>
+                                    <input type="text" placeholder="Đối tác" class="input-space form-control @error('name') is-invalid @enderror" required name="title_vn" value="{{ old('title_vn') }}" autofocus>
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Đối Tác tiếng Anh<span class="required-label">（<small>*</small>）</span></label>
+                                <div class="input-field col-sm-9">
+                                    <input type="text" placeholder="Đối tác" class="input-space form-control @error('name') is-invalid @enderror" required name="title_en" value="{{ old('title_en') }}" autofocus>
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group self-process">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Thông Tin Đối Tác Tiếng Việt<span class="required-label">（<small>*</small>）</span></label>
+                                <div class="input-field col-sm-9">
+                                    <textarea id="content_vn" rows="6" name="content_vn" placeholder="Nội dung tiếng việt" class="summernote input-space form-control"  required>{{ old('content_vn') }}</textarea>
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group self-process">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Thông Tin Đối Tác Tiếng Anh<span class="required-label">（<small>*</small>）</span></label>
+                                <div class="input-field col-sm-9">
+                                    <textarea id="content_en" rows="6" name="content_en" placeholder="Nội dung tiếng anh" class="summernote input-space form-control" required>{{ old('content_en') }}</textarea>
                                     <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
                                 </div>
                             </div>
@@ -79,6 +108,44 @@
                 reader.readAsDataURL(file);
             }
         }
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                disableDragAndDrop: true,
+                height: 300,
+                callbacks: {
+                    onImageUpload: function(files, welEditable) {
+                        var editor = $(this);
+                        sendFile(files[0], editor, welEditable);
+                    }
+                }
+                /*,
+                emptyPara: '',
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'image', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]*/
+            });
+            function sendFile(file, editor, welEditable) {
+                data = new FormData();
+                data.append("img", file);
+                $.ajax({
+                    data: data,
+                    type: "POST",
+                    url: "/admin/upload-file",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(url) {
+                        editor.summernote('insertImage', url);
+                    }
+                });
+            }
+        });
     </script>
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields

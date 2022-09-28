@@ -11,6 +11,6 @@ class Partner extends Model
     protected $table = 'partners';
 
     protected $fillable = [
-        'img','link','name','is_show','type'
+        'title_vn','title_en','content_vn','content_en','img','link','is_show','type'
     ];
 }

@@ -88,20 +88,23 @@ class PartnersController extends Controller
 
         $data = $request->all();
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'title_vn' => ['required', 'string', 'max:255'],
+            'title_en' => ['required', 'string', 'max:255'],
             'link' => ['required', 'string', 'max:255'],
         ]);
         if($request->has('img')){
             $extension = $request->file('img')->extension();
             $file_name = uniqid().'.'.$extension;
             $data['img'] = '/'.request()->file('img')->storeAs('certificates',$file_name,'public');
-//            $data['img'] = '/'.request()->file('img')->store('certificates','public');
         }else{
             $data['img'] = '';
         }
         if (isset($data['id']) && $data['id']) {
             $update = [
-                'name' => $data['name'],
+                'title_vn' => $data['title_vn'],
+                'title_en' => $data['title_vn'],
+                'content_vn' => $data['content_vn'],
+                'content_en' => $data['content_en'],
                 'link' => $data['link'],
             ];
             if($data['img']){
@@ -110,7 +113,10 @@ class PartnersController extends Controller
             Partner::where('id', $data['id'])->update($update);
         } else {
             Partner::create([
-                'name' => $data['name'],
+                'title_vn' => $data['title_vn'],
+                'title_en' => $data['title_en'],
+                'content_vn' => $data['content_vn'],
+                'content_en' => $data['content_en'],
                 'link' => $data['link'],
                 'img' => $data['img'],
             ]);

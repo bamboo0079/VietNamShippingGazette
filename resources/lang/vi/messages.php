@@ -125,4 +125,9 @@ return [
     "ALL_SHIPPING_AGENT" => "Tất cả các hãng tàu",
     "SEARCH_SCHEDULE_TITLE" => "TRA CỨU LỊCH TÀU CONTAINER",
     "PRODUCT_LIST" => "Danh Sách Sản Phẩm",
+    "DOI_TAC" => "Đối Tác",
+    "UPDATING" => "Đang cập nhật.",
+    "PARTNER_LIST" => "Danh Sách Đối Tác",
+    "PARTNER_DETAIL_TITLE" => "Chi Tiết Đối Tác",
+    "OTHER_PARTNER" => "Đối Tác Khác",
 ];

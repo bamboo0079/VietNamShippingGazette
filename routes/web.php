@@ -44,6 +44,8 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/loai-san-pham/{id?}', 'HomeController@productCategory')->name('loai.san.pham');
     Route::any('/chi-tiet-san-pham/{id?}', 'HomeController@productDetail')->name('product.detail');
     Route::any('/tin-svg', 'HomeController@svgNews')->name('tin.svg');
+    Route::any('/doi-tac', 'HomeController@partner')->name('doi.tac');
+    Route::any('/thong-tin-doi-tac/{id?}', 'HomeController@partnerDetail')->name('partner.detail');
 });
 
 // Route BackEnd

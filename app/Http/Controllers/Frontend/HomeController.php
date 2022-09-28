@@ -660,4 +660,20 @@ class HomeController extends Controller
         $data['menu_active'] = 'svg';
         return view('templates.news.svgNews', $data);
     }
+
+    public function partner(Request $request) {
+        $data = $this->commonMenuData();
+        $data['partners'] = Partner::where('type', 1)->orderBy('id','DESC')->get();
+        $data['menu_active'] = 'doi_tac';
+        return view('templates.partners.partnerList', $data);
+    }
+
+    public function partnerDetail(Request $request, $id = 0) {
+        $data = $this->commonMenuData();
+        $data['partners'] = Partner::where('id', $id)->get();
+        $data['partnersRelationship'] = Partner::where('type', 1)->where('id','<>', $id)->where('is_show','=', 1)->get();
+
+        $data['menu_active'] = 'doi_tac';
+        return view('templates.partners.partnerDetail', $data);
+    }
 }
