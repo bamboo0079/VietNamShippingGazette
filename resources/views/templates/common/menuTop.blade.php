@@ -45,9 +45,6 @@
             <li id="menu-item-573" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home  @if(isset($menu_active) && $menu_active == 'index') current-menu-item @endif page_item page-item-6 current_page_item menu-item-573">
                 <a href="/" aria-current="page">{{ __("messages.HOME") }}</a>
             </li>
-            <li id="menu-item-583" class="menu-item @if(isset($menu_active) &&  $menu_active == 'schedule') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-583">
-                <a rel="noopener" href="{{ route('lich.tau') }}">{{ __("messages.BOAT_SCHEDULE") }}</a>
-            </li>
             <li id="menu-item-4536" class="menu-item @if(isset($menu_active) && $menu_active == 'news') current-menu-item @endif  menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
                 <a href="#">{{ __("messages.NEWS") }}</a>
                 <ul class="sub-menu">
@@ -71,6 +68,17 @@
                     @endforeach
                 </ul>
             </li>
+            <li id="menu-item-583"
+                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'event') current-menu-item @endif  menu-item-object-custom menu-item-583">
+                <a rel="noopener" href="{{ route('the.loai', 1) }}">{{ __("messages.EVENTS") }}</a>
+            </li>
+            <li id="menu-item-583"
+                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'svg') current-menu-item @endif menu-item-object-custom menu-item-583">
+                <a rel="noopener" href="{{ route('tin.svg') }}">{{ __("messages.VSG_NEWS") }}</a>
+            </li>
+            <li id="menu-item-583" class="menu-item @if(isset($menu_active) &&  $menu_active == 'schedule') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-583">
+                <a rel="noopener" href="{{ route('lich.tau') }}">{{ __("messages.BOAT_SCHEDULE") }}</a>
+            </li>
             <li id="menu-item-583" class="menu-item @if(isset($menu_active) &&  $menu_active == 'doi_tac') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-583">
                 <a rel="noopener" href="{{ route('doi.tac') }}">{{ __("messages.DOI_TAC") }}</a>
             </li>
@@ -85,14 +93,6 @@
                         </li>
                     @endforeach
                 </ul>
-            </li>
-            <li id="menu-item-583"
-                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'event') current-menu-item @endif  menu-item-object-custom menu-item-583">
-                <a rel="noopener" href="{{ route('the.loai', 1) }}">{{ __("messages.EVENTS") }}</a>
-            </li>
-            <li id="menu-item-583"
-                class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'svg') current-menu-item @endif menu-item-object-custom menu-item-583">
-                <a rel="noopener" href="{{ route('tin.svg') }}">{{ __("messages.VSG_NEWS") }}</a>
             </li>
             <li id="menu-item-583"
                 class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'rec') current-menu-item @endif menu-item-object-custom menu-item-583">
