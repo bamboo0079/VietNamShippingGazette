@@ -167,13 +167,13 @@
                 <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
                    href="{{ route('admin.app.news') }}?category_id=4">
                     <i class="fa fas fa fa-newspaper"></i>
-                    <span>Tin mua</span></a>
+                    <span>Giới Thiệu Dịch Vụ</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
                    href="{{ route('admin.app.news') }}?category_id=5">
                     <i class="fa fas fa fa-newspaper"></i>
-                    <span>Tin bán</span></a>
+                    <span>Giới Thiệu Sản Phẩm</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
