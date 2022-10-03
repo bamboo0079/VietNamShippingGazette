@@ -389,6 +389,7 @@ class HomeController extends Controller
                         $member->name = $submit_data['name'];
                         $member->email = $submit_data['email'];
                         $member->phone = $submit_data['phone'];
+                        $member->company = $submit_data['company'];
                         $member->password = md5($submit_data['password']);
                         $member->save();
                         Session::flash('successMsg', __("messages.SUCCESS_REGISTER_ACCOUNT"));

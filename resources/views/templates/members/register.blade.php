@@ -89,6 +89,9 @@
                                 <input name="phone" type="text" placeholder="{{ __("messages.PHONE_NUMBER") }} *" value="@if(Session::has('phone')) {{ Session::get('phone') }} @endif" size="11" maxlength="11" required="required">
                             </p>
                             <p class="form-field comment-form-url">
+                                <input name="company" type="text" placeholder="{{ __("messages.COMPANY") }} *" value="@if(Session::has('company')) {{ Session::get('company') }} @endif" size="100" maxlength="100" >
+                            </p>
+                            <p class="form-field comment-form-url">
                                 <input name="password" type="password" placeholder="{{ __("messages.PASSWORD") }} *" value="" size="30" maxlength="30" required="required">
                             </p>
                             <p class="form-field comment-form-url">

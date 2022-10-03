@@ -12,6 +12,7 @@ class Member extends Model
         'name',
         'email',
         'phone',
+        'company',
         'block',
         'email_verified_at',
         'password',
