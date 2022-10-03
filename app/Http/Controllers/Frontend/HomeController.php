@@ -280,7 +280,7 @@ class HomeController extends Controller
             return false;
         }
 
-        if(!preg_match("/^0(1\d{9}|9\d{8})$/", $submit_data['phone'])) {
+        if(strlen($submit_data['phone']) < 8) {
             Session::flash('errMsg', __("messages.FORMAT_PHONE_ERROR_MSG"));
             return false;
         }
@@ -358,7 +358,7 @@ class HomeController extends Controller
             return false;
         }
 
-        if(!preg_match("/^0(1\d{9}|9\d{8})$/", $submit_data['phone'])) {
+        if(strlen($submit_data['phone']) < 8) {
             Session::flash('errMsg', __("messages.FORMAT_PHONE_ERROR_MSG"));
             return false;
         }
@@ -423,7 +423,7 @@ class HomeController extends Controller
             return false;
         }
 
-        if(!preg_match("/^0(1\d{9}|9\d{8})$/", $submit_data['phone'])) {
+        if(strlen($submit_data['phone']) < 8) {
             Session::flash('errMsg', __("messages.FORMAT_PHONE_ERROR_MSG"));
             return false;
         }
