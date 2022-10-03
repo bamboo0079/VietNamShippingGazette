@@ -11,7 +11,7 @@
     .menu-item:hover #hidden {
         display: block;
     }
-    @media only screen and (max-width: 1175px) {
+    @media only screen and (max-width: 1419px) {
         #sl1, #sl2{
             display: none !important;
         }
