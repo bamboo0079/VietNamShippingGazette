@@ -14,9 +14,9 @@
                     @if(isset($book->category_id) && $book->category_id == 3)
                         <h5 class="m-0 font-weight-bold text-primary">Duyệt Yêu Cầu Báo Giá</h5>
                     @elseif(isset($book->category_id) && $book->category_id == 4)
-                        <h5 class="m-0 font-weight-bold text-primary">Duyệt Chào Mua</h5>
+                        <h5 class="m-0 font-weight-bold text-primary">Duyệt Giới Thiệu Dịch Vụ</h5>
                     @else
-                        <h5 class="m-0 font-weight-bold text-primary">Duyệt Chào Bán</h5>
+                        <h5 class="m-0 font-weight-bold text-primary">Duyệt Giới Thiệu Sản Phẩm</h5>
                     @endif
                 </div>
                 <div class="card-body">
