@@ -120,6 +120,7 @@ return [
     "PRODUCT_UPDATING" => "Updating...",
     "CONTACT_TITLE" => "Title",
     "SEND_CONTACT" => "Send Contact",
+    "SEND_CONTACT_CUSTOM" => "Send Contact",
     "ERROR_EMPTY_CONTENT" => "Please input content contact.",
     "SUCCESS_CONTACT" => "Success send contact message.",
     "VSG_NEWS_TITLE" => "VSG News",
