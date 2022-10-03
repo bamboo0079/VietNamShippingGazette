@@ -61,7 +61,7 @@
     <div class="main ts-contain cf right-sidebar">
         <div class="ts-row">
             <div class="col-8 main-content">
-                <h1 class="archive-heading"><span>{{ __("messages.SEND_CONTACT") }}</span></h1>
+                <h1 class="archive-heading"><span>{{ __("messages.SEND_CONTACT_CUSTOM") }}</span></h1>
                 <section class="block-wrap block-grid mb-none" data-id="8">
                     <div class="block-content form-body-register">
                         @if(Session::has('errMsg') && ! Session::has('successMsg'))
