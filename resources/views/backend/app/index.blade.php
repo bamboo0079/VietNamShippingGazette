@@ -14,9 +14,9 @@
                     @if(isset($_GET['category_id']) && $_GET['category_id'] == 3)
                         <h5 class="m-0 font-weight-bold text-primary">Yêu Cầu Báo Giá</h5>
                     @elseif(isset($_GET['category_id']) && $_GET['category_id'] == 4)
-                        <h5 class="m-0 font-weight-bold text-primary">Chào Mua</h5>
+                        <h5 class="m-0 font-weight-bold text-primary">Giới Thiệu Dịch Vụ</h5>
                     @else
-                        <h5 class="m-0 font-weight-bold text-primary">Chào Bán</h5>
+                        <h5 class="m-0 font-weight-bold text-primary">Giới Thiệu Sản Phẩm</h5>
                     @endif
                 </div>
                 <div class="card-body">
