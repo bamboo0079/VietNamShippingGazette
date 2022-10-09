@@ -52,8 +52,8 @@
                                         </select>
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <select name="ship_id" data-placeholder="Hãng Tàu" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
-                                            <option value="0">Hãng Tàu</option>
+                                        <select name="ship_id" data-placeholder="Tên Tàu" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
+                                            <option value="0">Tên Tàu</option>
                                             @foreach($ships as $ship)
                                                 <option @if(isset($scenario->ship_id) && $scenario->ship_id == $ship->id) selected @endif value="{{ $ship->id }}">{{ $ship->ship_nm_vn }}</option>
                                             @endforeach
