@@ -14,6 +14,7 @@ class Member extends Model
         'phone',
         'company',
         'block',
+        'active',
         'email_verified_at',
         'password',
     ];

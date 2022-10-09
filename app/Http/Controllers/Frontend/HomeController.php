@@ -459,7 +459,7 @@ class HomeController extends Controller
                 Session::flash('errLoginMsg', __("messages.EMPTY_DATA_LOGIN"));
             } else {
                 $member = Member::where('email', $submit_data['email'])->where('password', md5($submit_data['password']))->first();
-                if(!isset($member->id)){
+                if(!isset($member->id) || $member->active == 0){
                     Session::flash('errLoginMsg', __("messages.ERROR_LOGIN_MSG"));
                 } else {
                     Session::flash('successLoginMsg', __("messages.SUCCESS_LOGIN_MSG"));
