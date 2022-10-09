@@ -62,7 +62,7 @@ return [
     'PASSWORD_MORE_SIX_CHARACTERS_ERROR_MSG' => "Mật khẩu tối thiểu 6 ký tự",
     'PASSWORD_AND_REPASSWORD_NOT_MATCH_ERROR_MSG' => "Mật khẩu xác nhận không đúng.",
     'ACCOUNT_EXISTS_ERROR_MSG' => 'Tài khoảng đã tồn tại.',
-    'SUCCESS_REGISTER_ACCOUNT' => 'Đăng ký thành công. Vui lòng đăng nhập ',
+    'SUCCESS_REGISTER_ACCOUNT' => 'Đăng ký thành công. Vui lòng chờ quản trị viên xét duyệt tài khoản.',
     'EXCEPTION_REGISTER_ERROR_MSG' => 'Đăng ký không thành công, vui lòng đăng ký lại.',
     'HERE' => 'tại đây',
     'EMPTY_DATA_LOGIN' => 'Vui lòng nhập đầy đủ thông tin.',

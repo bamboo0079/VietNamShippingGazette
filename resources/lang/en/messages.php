@@ -63,7 +63,7 @@ return [
     'PASSWORD_MORE_SIX_CHARACTERS_ERROR_MSG' => "Password must be more than 6 characters.",
     'PASSWORD_AND_REPASSWORD_NOT_MATCH_ERROR_MSG' => "Confirm password invalid.",
     'ACCOUNT_EXISTS_ERROR_MSG' => 'Account already exists.',
-    'SUCCESS_REGISTER_ACCOUNT' => 'Register is successfully.',
+    'SUCCESS_REGISTER_ACCOUNT' => 'Register is successfully. Please wait admin active your account!',
     'EXCEPTION_REGISTER_ERROR_MSG' => 'Error occur, please register again.',
     'HERE' => 'here',
     'EMPTY_DATA_LOGIN' => 'Please input email and password.',
