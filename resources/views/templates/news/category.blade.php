@@ -4,7 +4,14 @@
     <div class="main ts-contain cf right-sidebar spc-alp-main">
         <div class="ts-row">
             <div class="col-8 main-content">
-                <h1 class="archive-heading"><span>@if(Session::get('locale') == 'vi') {{ $category->name_vn }} @else {{ $category->name_en }} @endif</span></h1>
+                @if($id == 345)
+                    <h1 class="archive-heading"><span>{{ __("messages.TRADE") }}</span></h1>
+                @elseif($id == 0)
+                    <h1 class="archive-heading"><span>{{ __("messages.NEWS") }}</span></h1>
+                @else
+                    <h1 class="archive-heading"><span>@if(Session::get('locale') == 'vi') {{ $category->name_vn }} @else {{ $category->name_en }} @endif</span></h1>
+                @endif
+
                 <section class="block-wrap block-grid mb-none" data-id="8">
                     <div class="block-content">
                         @if(count($news))

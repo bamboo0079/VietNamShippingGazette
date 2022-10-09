@@ -101,11 +101,18 @@ class HomeController extends Controller
     {
         $data = [];
         $category = Category::where('id', $id)->first();
-        $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+        if($id == 345){
+            $news = News::whereIn('category_id', [3,4,5])->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+        }elseif($id == 0){
+            $news = News::where('category_id','<>', 0)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+        }else{
+            $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+        }
         if(isset($_GET['s']) && $_GET['s']){
             $category = Category::where('id','>', 0)->first();
             $news = News::where('title_vn', 'like', '%'.$_GET['s'].'%')->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
         }
+        $data['id'] = $id;
         $data['category'] = $category;
         $data['news'] = $news;
         $data['categories'] = Category::get();
