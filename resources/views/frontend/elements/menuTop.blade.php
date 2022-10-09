@@ -137,7 +137,7 @@
                             </li>
                             <li id="menu-item-4536"
                                 class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
-                                <a href="#">{{ __("messages.NEWS") }}</a>
+                                <a href="{{ route('the.loai', 0) }}">{{ __("messages.NEWS") }}</a>
                                 <ul class="sub-menu">
                                     @foreach($categories_menu as $menu)
                                         <li id="menu-item-4588"
@@ -149,7 +149,7 @@
                             </li>
                             <li id="menu-item-4536"
                                 class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
-                                <a href="#">{{ __("messages.TRADE") }}</a>
+                                <a href="{{ route('the.loai', 345) }}">{{ __("messages.TRADE") }}</a>
                                 <ul class="sub-menu">
                                     @foreach($trades_menu as $menu)
                                         <li id="menu-item-4588"
@@ -161,7 +161,7 @@
                             </li>
                             <li id="menu-item-4536"
                                 class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
-                                <a href="#">{{ __("messages.PRODUCTS") }}</a>
+                                <a href="{{ route('loai.san.pham', 0) }}">{{ __("messages.PRODUCTS") }}</a>
                                 <ul class="sub-menu">
 
                                     @foreach($product_categories_menu as $menu)
