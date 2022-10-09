@@ -187,7 +187,11 @@ class HomeController extends Controller
     public function productCategory(Request $request, $id = 0)
     {
         $data = $this->commonMenuData();
-        $data['news'] = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
+        if($id){
+            $data['news'] = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
+        }else{
+            $data['news'] = News::where('product_category_id','>', 0)->where('approved', 1)->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
+        }
         $data['hot_news'] = News::where('product_category_id', $id)->where('approved', 1)->orderBy('id','DESC')->limit(6)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['menu_active'] = 'product';
