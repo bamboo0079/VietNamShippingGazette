@@ -132,4 +132,5 @@ return [
     "PARTNER_DETAIL_TITLE" => "Chi Tiết Đối Tác",
     "OTHER_PARTNER" => "Đối Tác Khác",
     "PLEASE_LOGIN_TO_VIEW_CONTENT" => "Vui lòng đăng nhập để xem nội dung",
+    "PLEASE_ACTIVE_YOUR_ACCOUNT" => "Tài khoản đang chờ duyệt, vui lòng chờ",
 ];

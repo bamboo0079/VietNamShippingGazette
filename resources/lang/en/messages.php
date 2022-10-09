@@ -133,4 +133,5 @@ return [
     "PARTNER_DETAIL_TITLE" => "Partner Detail",
     "OTHER_PARTNER" => "Other Partner",
     "PLEASE_LOGIN_TO_VIEW_CONTENT" => "Please login to view content",
+    "PLEASE_ACTIVE_YOUR_ACCOUNT" => "Please wait admin active your account",
 ];
