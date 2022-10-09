@@ -60,6 +60,22 @@
                 <h1 class="archive-heading"><span>{{ __("messages.Login") }}</span></h1>
                 <section class="block-wrap block-grid mb-none" data-id="8">
                     <div class="block-content form-body-register">
+                        @if(Session::has('errMsg') && ! Session::has('successMsg'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ Session::get('errMsg') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @endif
+                        @if(Session::has('successMsg'))
+                            <div class="alert alert-success" role="alert">
+                                {{ Session::get('successMsg') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @endif
                         @if(Session::has('errLoginMsg') && ! Session::has('successLoginMsg'))
                             <div class="alert alert-danger" role="alert">
                                 {{ Session::get('errLoginMsg') }}

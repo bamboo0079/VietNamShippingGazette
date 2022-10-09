@@ -102,11 +102,21 @@ class HomeController extends Controller
         $data = [];
         $category = Category::where('id', $id)->first();
         if($id == 345){
+            if(!Session::has('member')){
+                Session::flash('errMsg', __("messages.PLEASE_LOGIN_TO_VIEW_CONTENT"));
+                return redirect()->route('login');
+            }
             $news = News::whereIn('category_id', [3,4,5])->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
         }elseif($id == 0){
             $news = News::where('category_id','<>', 0)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
         }else{
             $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+        }
+        if(in_array($id,[3,4,5])){
+            if(!Session::has('member')){
+                Session::flash('errMsg', __("messages.PLEASE_LOGIN_TO_VIEW_CONTENT"));
+                return redirect()->route('login');
+            }
         }
         if(isset($_GET['s']) && $_GET['s']){
             $category = Category::where('id','>', 0)->first();
@@ -138,6 +148,10 @@ class HomeController extends Controller
 
     public function schedule(Request $request, $id = 0)
     {
+        if(!Session::has('member')){
+            Session::flash('errMsg', __("messages.PLEASE_LOGIN_TO_VIEW_CONTENT"));
+            return redirect()->route('login');
+        }
         $data = [];
         $data['list_scenarios']=[];
         $category = Category::where('id', '>', 0)->first();
