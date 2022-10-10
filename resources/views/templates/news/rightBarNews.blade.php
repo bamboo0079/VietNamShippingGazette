@@ -1,5 +1,5 @@
-<aside class="col-4 main-sidebar has-sep" data-sticky="1" style="margin-bottom: 100px; margin-top: 33px">
-    <div class="inner theiaStickySidebar">
+<aside class="col-4 main-sidebar has-sep"style="margin-bottom: 100px; margin-top: 33px">
+    <div class="inner">
         <div id="smartmag-block-posts-small-6" class="widget ts-block-widget smartmag-widget-posts-small">
             <div class="block">
                 @if(count($hot_news))
