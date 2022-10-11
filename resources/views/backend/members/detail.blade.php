@@ -78,8 +78,8 @@
                                 <label class="control-label col-sm-3 text-right">Trạng thái</label>
                                 <div class="input-field col-sm-9">
                                     <select name="block" class="form-control">
-                                        <option value="0" @if($user->block == 0) selected @endif>Đang hoạt động</option>
-                                        <option value="1" @if($user->block == 1) selected @endif>Bị khóa</option>
+                                        <option value="0" @if($user->active == 0) selected @endif>Chưa kích hoạt</option>
+                                        <option value="1" @if($user->active == 1) selected @endif>Đang hoạt động</option>
                                     </select>
                                 </div>
                             </div>

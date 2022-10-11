@@ -36,7 +36,7 @@ class MembersController extends Controller
             });
         }
         if (isset($submit_data['status']) && $submit_data['status'] != -1) {
-            $user->where('block', $submit_data['status']);
+            $user->where('active', $submit_data['status']);
         }
 
         $data['users'] = $user->orderBy('id', 'DESC')->paginate($this->limit);
@@ -58,7 +58,7 @@ class MembersController extends Controller
             });
         }
         if (isset($submit_data['status']) && $submit_data['status'] != -1) {
-            $user->where('block', $submit_data['status']);
+            $user->where('active', $submit_data['status']);
         }
 
         $data['users'] = $user->orderBy('id', 'DESC')->paginate($this->limit);
@@ -160,7 +160,7 @@ class MembersController extends Controller
                 'email' => $data['email'],
                 'phone' => isset($data['tel'])?$data['tel']:'',
 //                'role' => $data['role'],
-                'block' => isset($data['block']) ? $data['block'] : 0,
+                'active' => isset($data['block']) ? $data['block'] : 0,
             ];
             if(isset($data['password']) && strlen($data['password']) > 5){
                 $update['password'] = Hash::make($data['password']);

@@ -25,8 +25,8 @@
                                     <div class="form-group">
                                         <select name="status" class="form-control">
                                             <option value="-1">Trạng thái</option>
-                                            <option value="0" {{ (isset($_GET['status']) && $_GET['status'] == 0)?'selected':''}}>Đang hoạt động</option>
-                                            <option value="1" {{ (isset($_GET['status']) && $_GET['status'] == 1)?'selected':''}}>Bị khóa</option>
+                                            <option value="0" {{ (isset($_GET['status']) && $_GET['status'] == 0)?'selected':''}}>Chưa kích hoạt</option>
+                                            <option value="1" {{ (isset($_GET['status']) && $_GET['status'] == 1)?'selected':''}}>Đang hoạt động</option>
                                         </select>
                                     </div>
                                 </div>
@@ -66,10 +66,10 @@
                                     <td>{{ $user->email }}</td>
                                     {{--<td class="text-center text-nowrap">{{ $user->tel }}</td>--}}
                                     <td class="text-left">
-                                        @if($user->block == 1)
-                                            <span class="badge badge-light">Bị khóa</span>
-                                        @else
+                                        @if($user->active == 1)
                                             <span class="badge badge-info">Đang hoạt động</span>
+                                        @else
+                                            <span class="badge badge-light">Chưa kích hoạt</span>
                                         @endif
                                     </td>
                                     <td class="text-right text-nowrap">
