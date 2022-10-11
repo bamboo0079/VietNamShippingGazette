@@ -683,7 +683,7 @@ class HomeController extends Controller
     public function svgNews(Request $request) {
         $data = $this->commonMenuData();
         $data['news'] = News::where('category_id', 2)->where('approved', 1)->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
-        $data['hot_news'] = News::where('product_category_id', 0)->where('approved', 1)->orderBy('id','DESC')->limit(6)->get();
+        $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['menu_active'] = 'svg';
         return view('templates.news.svgNews', $data);
