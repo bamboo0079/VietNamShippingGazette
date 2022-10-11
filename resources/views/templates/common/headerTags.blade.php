@@ -3855,6 +3855,10 @@
         line-height: 1;
     }
 
+    .navigation-small .menu > li > a:hover{
+        color:#95999c !important;
+    }
+
     .live-search-results {
         visibility: hidden;
         opacity: 0;
@@ -4874,6 +4878,10 @@
         transform: scale(0.75);
     }
 
+    .smart-head-main .offcanvas-toggle:hover{
+        color:#95999c !important;
+    }
+
     .post-meta .meta-item, .post-meta .text-in {
         font-size: 11px;
         font-weight: normal;
@@ -5406,6 +5414,7 @@
     }
 
     .tsi {
+        color: white !important;
         display: inline-block;
         font: normal normal normal 14px/1 ts-icons;
         font-size: inherit;

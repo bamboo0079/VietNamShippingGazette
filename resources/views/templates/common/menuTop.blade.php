@@ -303,7 +303,7 @@
                 </button>
             </div>
             <div class="items items-center ">
-                <a href="" title="SmartMag ProMag" rel="home" class="logo-link ts-logo logo-is-image">
+                <a href="/" rel="home" class="logo-link ts-logo logo-is-image">
 		            <span>
                         <img class="logo-mobile logo-image logo-image-dark" src="/src/asset/img/system/LOGO_VSG__white.png" width="176" height="35" alt="Viet Nam Shippinggazette"/>
                         <img class="logo-mobile logo-image" src="/src/asset/img/system/LOGO_VSG__white.png" width="88" height="18"  alt="Viet Nam Shippinggazette"/>

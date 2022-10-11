@@ -207,23 +207,11 @@
                                         <h4 class="heading"><span class="color">{{ __("messages.LatestPublications") }}</span></h4>
                                     </div>
                                     <div class="block-content">
-                                        <div class="loop loop-grid loop-grid-base has-nums has-nums-a grid grid-1 md:grid-1 xs:grid-1">
-                                            @foreach($anpham as $item)
-                                                <article class="l-post  grid-base-post grid-post">
-                                                    <div class="media" style="width: 335px; height: 250px">
-                                                        <a target="_blank" style="width: 335px; height: 250px" href="{{ $item->link }}"
-                                                           class="image-link media-ratio ratio-3-2"
-                                                           title="{{ $item->name }}">
-                                                    <span data-bgsrc="{{ $item->img }}"
-                                                          class="img bg-cover wp-post-image attachment-medium size-medium lazyloaded"
-                                                          data-bgset="{{ $item->img }}"
-                                                          style="background-image: url('{{ $item->img }}');">
-                                                    </span>
-                                                        </a>
-                                                    </div>
-                                                </article>
-                                            @endforeach
-                                        </div>
+                                        @foreach($anpham as $item)
+                                            <a target="_blank" href="{{ $item->link }}" title="{{ $item->name }}">
+                                                <img style="width: 350px" src="{{ $item->img }}">
+                                            </a>
+                                        @endforeach
                                     </div>
                                 </section>
                             @endif
@@ -321,7 +309,7 @@
                                                                                     <span class="meta-item post-author">
                                                                                         <a href="javascript:void(0)" rel="author">{{ __("messages.POST_DATE") }}</a>
                                                                                     </span>
-                                                                                                <span class="meta-item date">
+                                                                                    <span class="meta-item date">
                                                                                         <span class="date-link">
                                                                                             <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
                                                                                         </span>
@@ -370,7 +358,7 @@
                                                                                     <span class="meta-item post-author">
                                                                                         <a href="javascript:void(0)" rel="author">{{ __("messages.POST_DATE") }}</a>
                                                                                     </span>
-                                                                                                <span class="meta-item date">
+                                                                                    <span class="meta-item date">
                                                                                         <span class="date-link">
                                                                                             <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
                                                                                         </span>
@@ -455,355 +443,355 @@
     </section>
 
 
-@if(count($vsg_news))
-<section
-        class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-75af90f elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-        data-id="75af90f" data-element_type="section"
-        data-settings="{&quot;background_background&quot;:&quot;classic&quot;}"
-        style="
+    @if(count($vsg_news))
+        <section
+                class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-75af90f elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                data-id="75af90f" data-element_type="section"
+                data-settings="{&quot;background_background&quot;:&quot;classic&quot;}"
+                style="
             background-color: #131312;
             transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
             margin-top: 0px;
             margin-bottom: 60px;
             padding: 60px 0px 20px 0px;
         ">
-    <div class="elementor-container elementor-column-gap-no">
-        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-8af8a1b"
-             data-id="8af8a1b" data-element_type="column">
-            <div class="elementor-widget-wrap elementor-element-populated">
-                <div class="elementor-element elementor-element-8c27b1f elementor-widget elementor-widget-smartmag-grid"
-                     data-id="8c27b1f" data-element_type="widget"
-                     data-widget_type="smartmag-grid.default">
-                    <div class="elementor-widget-container">
-                        <section class="block-wrap block-grid block-sc s-dark mb-sm" data-id="13">
-                            <div class="block-head block-head-ac block-head-e block-head-e2 is-left">
-                                <h4 class="heading">{{ __("messages.VSG_NEWS") }}</h4>
-                            </div>
-                            <div class="block-content">
-                                <div class="loop loop-grid loop-grid-base grid grid-3 md:grid-2 xs:grid-1">
-                                    @foreach($vsg_news as $k => $new)
-                                        <article class="l-post  grid-base-post grid-post">
-                                            <div class="media">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#youtubeModal{{$new->id}}" data-toggle="modal"
-                                                   class="image-link media-ratio ratio-4-3"
-                                                   title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
+            <div class="elementor-container elementor-column-gap-no">
+                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-8af8a1b"
+                     data-id="8af8a1b" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-8c27b1f elementor-widget elementor-widget-smartmag-grid"
+                             data-id="8c27b1f" data-element_type="widget"
+                             data-widget_type="smartmag-grid.default">
+                            <div class="elementor-widget-container">
+                                <section class="block-wrap block-grid block-sc s-dark mb-sm" data-id="13">
+                                    <div class="block-head block-head-ac block-head-e block-head-e2 is-left">
+                                        <h4 class="heading">{{ __("messages.VSG_NEWS") }}</h4>
+                                    </div>
+                                    <div class="block-content">
+                                        <div class="loop loop-grid loop-grid-base grid grid-3 md:grid-2 xs:grid-1">
+                                            @foreach($vsg_news as $k => $new)
+                                                <article class="l-post  grid-base-post grid-post">
+                                                    <div class="media">
+                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#youtubeModal{{$new->id}}" data-toggle="modal"
+                                                           class="image-link media-ratio ratio-4-3"
+                                                           title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
                                                     <span data-bgsrc="{{ $new->img }}"
                                                           class="img bg-cover wp-post-image attachment-medium size-medium lazyloaded"
                                                           data-bgset="{{ $new->img }}"
                                                           data-sizes="(max-width: 116px) 100vw, 116px"
                                                           style="background-image: url(&quot;{{ $new->img }}&quot;);">
                                                     </span>
-                                                </a>
-                                                <div id="youtubeModal{{$new->id}}" class="modal fade modal-video" data-youtube-url="{{ $new->youtube_url }}">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                            <div class="modal-body">
-                                                                <iframe width="100%" height="300" src="{{ $new->youtube_url }}" title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                        </a>
+                                                        <div id="youtubeModal{{$new->id}}" class="modal fade modal-video" data-youtube-url="{{ $new->youtube_url }}">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    <div class="modal-body">
+                                                                        <iframe width="100%" height="300" src="{{ $new->youtube_url }}" title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="content">
-                                                <div class="post-meta post-meta-a has-below"><h2
-                                                            class="is-title post-title"><a href="#" data-bs-toggle="modal" data-bs-target="#youtubeModal{{$new->id}}" data-toggle="modal">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
-                                                    </h2>
-                                                    <div class="post-meta-items meta-below item-margin-booton" >
+                                                    <div class="content">
+                                                        <div class="post-meta post-meta-a has-below"><h2
+                                                                    class="is-title post-title"><a href="#" data-bs-toggle="modal" data-bs-target="#youtubeModal{{$new->id}}" data-toggle="modal">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
+                                                            </h2>
+                                                            <div class="post-meta-items meta-below item-margin-booton" >
                                                         <span class="meta-item post-author">
                                                             <a href="javascript:void(0)" rel="author">{{ __("messages.POST_DATE") }}</a>
                                                         </span>
-                                                        <span class="meta-item date">
+                                                                <span class="meta-item date">
                                                             <span class="date-link">
                                                                 <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
                                                             </span>
                                                         </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    @endforeach
-                                </div>
+                                                </article>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
-                        </section>
+                        </div>
+
                     </div>
                 </div>
-
             </div>
-        </div>
-    </div>
-</section>
-<!-- VSG NEWS -->
-@endif
-<!-- Bao Gia -->
-@if(count($req_news) && count($forbuy_news) && count($forsell_news))
-<section
-        class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-8c5b8a1 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-        data-id="8c5b8a1" data-element_type="section">
-    <div class="elementor-container elementor-column-gap-no">
-        <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-ded5d6e"
-             data-id="ded5d6e" data-element_type="column">
-            <div class="elementor-widget-wrap elementor-element-populated">
-                <div class="elementor-element elementor-element-81e61b8 elementor-widget elementor-widget-smartmag-highlights"
-                     data-id="81e61b8" data-element_type="widget"
-                     data-widget_type="smartmag-highlights.default">
-                    <div class="elementor-widget-container">
-                        <section class="block-wrap block-highlights block-sc mb-none" data-id="13">
-                            <div class="block-head block-head-e block-head-e2 is-left term-color-56">
-                                <h4 class="heading">
-                                    <span class="color-header">{{ __("messages.RequestAQuote") }}</span>
-                                </h4>
-                            </div>
-                            <div class="block-content">
-                                <div>
-                                    <div class="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
-                                        @foreach($req_news as $k => $new)
-                                            <article class="l-post  small-a-post m-pos-left small-post">
-                                            <div class="media">
-                                                <a href="{{ route('tin.tuc', $new->id) }}"
-                                                   class="image-link media-ratio ar-bunyad-thumb"
-                                                   title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
+        </section>
+        <!-- VSG NEWS -->
+    @endif
+    <!-- Bao Gia -->
+    @if(count($req_news) && count($forbuy_news) && count($forsell_news))
+        <section
+                class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-8c5b8a1 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                data-id="8c5b8a1" data-element_type="section">
+            <div class="elementor-container elementor-column-gap-no">
+                <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-ded5d6e"
+                     data-id="ded5d6e" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-81e61b8 elementor-widget elementor-widget-smartmag-highlights"
+                             data-id="81e61b8" data-element_type="widget"
+                             data-widget_type="smartmag-highlights.default">
+                            <div class="elementor-widget-container">
+                                <section class="block-wrap block-highlights block-sc mb-none" data-id="13">
+                                    <div class="block-head block-head-e block-head-e2 is-left term-color-56">
+                                        <h4 class="heading">
+                                            <span class="color-header">{{ __("messages.RequestAQuote") }}</span>
+                                        </h4>
+                                    </div>
+                                    <div class="block-content">
+                                        <div>
+                                            <div class="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
+                                                @foreach($req_news as $k => $new)
+                                                    <article class="l-post  small-a-post m-pos-left small-post">
+                                                        <div class="media">
+                                                            <a href="{{ route('tin.tuc', $new->id) }}"
+                                                               class="image-link media-ratio ar-bunyad-thumb"
+                                                               title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
                                                     <span data-bgsrc="{{ $new->img }}"
                                                           class="img bg-cover wp-post-image attachment-medium size-medium lazyloaded"
                                                           data-bgset="{{ $new->img }}"
                                                           data-sizes="(max-width: 110px) 100vw, 110px"
                                                           style="background-image: url(&quot;{{ $new->img }}&quot;);">
                                                     </span>
-                                                </a>
-                                            </div>
-                                            <div class="content">
-                                                <div class="post-meta post-meta-a post-meta-left has-below">
-                                                    <h4 class="is-title post-title">
-                                                        <a href="{{ route('tin.tuc', $new->id) }}">  @if(Session::get('locale') == 'vi')
-                                                                {!! \App\Helpers\Helper::limitCharacters($new->title_vn, \App\ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) !!}
-                                                            @else
-                                                                {!! \App\Helpers\Helper::limitCharacters($new->title_en, \App\ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) !!}
-                                                            @endif</a>
-                                                    </h4>
-                                                    <div class="post-meta-items meta-below">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <div class="post-meta post-meta-a post-meta-left has-below">
+                                                                <h4 class="is-title post-title">
+                                                                    <a href="{{ route('tin.tuc', $new->id) }}">  @if(Session::get('locale') == 'vi')
+                                                                            {!! \App\Helpers\Helper::limitCharacters($new->title_vn, \App\ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) !!}
+                                                                        @else
+                                                                            {!! \App\Helpers\Helper::limitCharacters($new->title_en, \App\ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) !!}
+                                                                        @endif</a>
+                                                                </h4>
+                                                                <div class="post-meta-items meta-below">
                                                         <span class="meta-item date">
                                                             <span class="date-link">
                                                                 <time class="post-date"
                                                                       datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
                                                             </span>
                                                         </span>
-                                                    </div>
-                                                </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                @endforeach
                                             </div>
-                                        </article>
-                                        @endforeach
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                        </section>
+                                </section>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-ded5d6e"
-             data-id="ded5d6e" data-element_type="column">
-            <div class="elementor-widget-wrap elementor-element-populated">
-                <div class="elementor-element elementor-element-81e61b8 elementor-widget elementor-widget-smartmag-highlights"
-                     data-id="81e61b8" data-element_type="widget"
-                     data-widget_type="smartmag-highlights.default">
-                    <div class="elementor-widget-container">
-                        <section class="block-wrap block-highlights block-sc mb-none" data-id="13">
-                            <div class="block-head block-head-e block-head-e2 is-left term-color-56">
-                                <h4 class="heading"><span class="color-header">{{ __("messages.ForBuy") }}</span></h4>
-                            </div>
-                            <div class="block-content">
-                                <div>
-                                    <div class="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
-                                        @foreach($forbuy_news as $k => $new)
-                                            <article class="l-post  small-a-post m-pos-left small-post">
-                                                <div class="media">
-                                                    <a href="{{ route('tin.tuc', $new->id) }}"
-                                                       class="image-link media-ratio ar-bunyad-thumb"
-                                                       title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
+                <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-ded5d6e"
+                     data-id="ded5d6e" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-81e61b8 elementor-widget elementor-widget-smartmag-highlights"
+                             data-id="81e61b8" data-element_type="widget"
+                             data-widget_type="smartmag-highlights.default">
+                            <div class="elementor-widget-container">
+                                <section class="block-wrap block-highlights block-sc mb-none" data-id="13">
+                                    <div class="block-head block-head-e block-head-e2 is-left term-color-56">
+                                        <h4 class="heading"><span class="color-header">{{ __("messages.ForBuy") }}</span></h4>
+                                    </div>
+                                    <div class="block-content">
+                                        <div>
+                                            <div class="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
+                                                @foreach($forbuy_news as $k => $new)
+                                                    <article class="l-post  small-a-post m-pos-left small-post">
+                                                        <div class="media">
+                                                            <a href="{{ route('tin.tuc', $new->id) }}"
+                                                               class="image-link media-ratio ar-bunyad-thumb"
+                                                               title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
                                                         <span data-bgsrc="{{ $new->img }}"
                                                               class="img bg-cover wp-post-image attachment-medium size-medium lazyloaded"
                                                               data-bgset="{{ $new->img }}"
                                                               data-sizes="(max-width: 110px) 100vw, 110px"
                                                               style="background-image: url(&quot;{{ $new->img }}&quot;);">
                                                         </span>
-                                                    </a>
-                                                </div>
-                                                <div class="content">
-                                                    <div class="post-meta post-meta-a post-meta-left has-below">
-                                                        <h4 class="is-title post-title">
-                                                            <a href="{{ route('tin.tuc', $new->id) }}">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
-                                                        </h4>
-                                                        <div class="post-meta-items meta-below">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <div class="post-meta post-meta-a post-meta-left has-below">
+                                                                <h4 class="is-title post-title">
+                                                                    <a href="{{ route('tin.tuc', $new->id) }}">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
+                                                                </h4>
+                                                                <div class="post-meta-items meta-below">
                                                             <span class="meta-item date">
                                                                 <span class="date-link">
                                                                     <time class="post-date"
                                                                           datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
                                                                 </span>
                                                             </span>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        @endforeach
+                                                    </article>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                        </section>
+                                </section>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-ded5d6e"
-             data-id="ded5d6e" data-element_type="column">
-            <div class="elementor-widget-wrap elementor-element-populated">
-                <div class="elementor-element elementor-element-81e61b8 elementor-widget elementor-widget-smartmag-highlights"
-                     data-id="81e61b8" data-element_type="widget"
-                     data-widget_type="smartmag-highlights.default">
-                    <div class="elementor-widget-container">
-                        <section class="block-wrap block-highlights block-sc mb-none" data-id="13">
-                            <div class="block-head block-head-e block-head-e2 is-left term-color-56">
-                                <h4 class="heading"><span class="color-header">{{ __("messages.ForSell") }}</span></a>
-                                </h4>
-                            </div>
-                            <div class="block-content">
-                                <div>
-                                    <div class="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
-                                        @foreach($forsell_news as $k => $new)
-                                            <article class="l-post  small-a-post m-pos-left small-post">
-                                                <div class="media">
-                                                    <a href="{{ route('tin.tuc', $new->id) }}"
-                                                       class="image-link media-ratio ar-bunyad-thumb"
-                                                       title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
+                <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-ded5d6e"
+                     data-id="ded5d6e" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-81e61b8 elementor-widget elementor-widget-smartmag-highlights"
+                             data-id="81e61b8" data-element_type="widget"
+                             data-widget_type="smartmag-highlights.default">
+                            <div class="elementor-widget-container">
+                                <section class="block-wrap block-highlights block-sc mb-none" data-id="13">
+                                    <div class="block-head block-head-e block-head-e2 is-left term-color-56">
+                                        <h4 class="heading"><span class="color-header">{{ __("messages.ForSell") }}</span></a>
+                                        </h4>
+                                    </div>
+                                    <div class="block-content">
+                                        <div>
+                                            <div class="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
+                                                @foreach($forsell_news as $k => $new)
+                                                    <article class="l-post  small-a-post m-pos-left small-post">
+                                                        <div class="media">
+                                                            <a href="{{ route('tin.tuc', $new->id) }}"
+                                                               class="image-link media-ratio ar-bunyad-thumb"
+                                                               title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
                                                             <span data-bgsrc="{{ $new->img }}"
                                                                   class="img bg-cover wp-post-image attachment-medium size-medium lazyloaded"
                                                                   data-bgset="{{ $new->img }}"
                                                                   data-sizes="(max-width: 110px) 100vw, 110px"
                                                                   style="background-image: url(&quot;{{ $new->img }}&quot;);">
                                                             </span>
-                                                    </a>
-                                                </div>
-                                                <div class="content">
-                                                    <div class="post-meta post-meta-a post-meta-left has-below">
-                                                        <h4 class="is-title post-title">
-                                                            <a href="{{ route('tin.tuc', $new->id) }}">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
-                                                        </h4>
-                                                        <div class="post-meta-items meta-below">
+                                                            </a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <div class="post-meta post-meta-a post-meta-left has-below">
+                                                                <h4 class="is-title post-title">
+                                                                    <a href="{{ route('tin.tuc', $new->id) }}">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
+                                                                </h4>
+                                                                <div class="post-meta-items meta-below">
                                                             <span class="meta-item date">
                                                                 <span class="date-link">
                                                                     <time class="post-date"
                                                                           datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
                                                                 </span>
                                                             </span>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        @endforeach
+                                                    </article>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                        </section>
+                                </section>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-    </div>
-</section>
-@endif
-<!-- Bao Gia -->
-@foreach($categories_menu as $menu)
-    @if(count($other[$menu->id]))
-<!-- Duong bo -->
-<section class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-b168f55 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-        data-id="b168f55" data-element_type="section">
-    <div class="elementor-container elementor-column-gap-no">
-        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2ce19b0"
-             data-id="2ce19b0" data-element_type="column">
-            <div class="elementor-widget-wrap elementor-element-populated">
-                <div class="elementor-element elementor-element-ba78f64 elementor-widget elementor-widget-smartmag-grid"
-                     data-id="ba78f64" data-element_type="widget"
-                     data-widget_type="smartmag-grid.default">
-                    <div class="elementor-widget-container">
-                        <section class="block-wrap block-grid block-sc mb-none" data-id="8">
-                            <div style="margin-top: 20px; !important;"
-                                 class="block-head block-head-ac block-head-e block-head-e2 is-left">
-                                <h4 class="heading"><span class="color-header">@if(Session::get('locale') == 'vi') {{ $menu->name_vn }} @else {{ $menu->name_en }} @endif</span>
-                                </h4>
-                            </div>
-                            <div class="block-content">
-                                <div class="loop loop-grid loop-grid-base has-nums has-nums-c grid grid-4 md:grid-2 xs:grid-1">
-                                    @foreach($other[$menu->id] as $k => $new)
-                                        <article class="l-post  grid-base-post grid-post">
-                                            <div class="media">
-                                                <a href="{{ route('tin.tuc', $new->id) }}" class="image-link media-ratio ratio-3-2"
-                                                   title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
+            </div>
+        </section>
+    @endif
+    <!-- Bao Gia -->
+    @foreach($categories_menu as $menu)
+        @if(count($other[$menu->id]))
+            <!-- Duong bo -->
+            <section class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-b168f55 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                     data-id="b168f55" data-element_type="section">
+                <div class="elementor-container elementor-column-gap-no">
+                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2ce19b0"
+                         data-id="2ce19b0" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div class="elementor-element elementor-element-ba78f64 elementor-widget elementor-widget-smartmag-grid"
+                                 data-id="ba78f64" data-element_type="widget"
+                                 data-widget_type="smartmag-grid.default">
+                                <div class="elementor-widget-container">
+                                    <section class="block-wrap block-grid block-sc mb-none" data-id="8">
+                                        <div style="margin-top: 20px; !important;"
+                                             class="block-head block-head-ac block-head-e block-head-e2 is-left">
+                                            <h4 class="heading"><span class="color-header">@if(Session::get('locale') == 'vi') {{ $menu->name_vn }} @else {{ $menu->name_en }} @endif</span>
+                                            </h4>
+                                        </div>
+                                        <div class="block-content">
+                                            <div class="loop loop-grid loop-grid-base has-nums has-nums-c grid grid-4 md:grid-2 xs:grid-1">
+                                                @foreach($other[$menu->id] as $k => $new)
+                                                    <article class="l-post  grid-base-post grid-post">
+                                                        <div class="media">
+                                                            <a href="{{ route('tin.tuc', $new->id) }}" class="image-link media-ratio ratio-3-2"
+                                                               title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
                                                     <span data-bgsrc="{{ $new->img }}"
                                                           class="img bg-cover wp-post-image attachment-medium size-medium lazyloaded"
                                                           data-bgset="{{ $new->img }}"
                                                           data-sizes="(max-width: 358px) 100vw, 358px"
                                                           style="background-image: url(&quot;{{ $new->img }}&quot;);">
                                                     </span>
-                                                </a>
-                                            </div>
-                                            <div class="content">
-                                                <div class="post-meta post-meta-a has-below">
-                                                    <h2 class="is-title post-title limit-lines l-lines-2">
-                                                        <a href="{{ route('tin.tuc', $new->id) }}">
-                                                            @if(Session::get('locale') == 'vi')
-                                                                {!! \App\Helpers\Helper::limitCharacters($new->title_vn, \App\ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) !!}
-                                                            @else
-                                                                {!! \App\Helpers\Helper::limitCharacters($new->title_en, \App\ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) !!}
-                                                            @endif
-                                                        </a>
-                                                    </h2>
-                                                    <div class="post-meta-items meta-below item-margin-booton" >
+                                                            </a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <div class="post-meta post-meta-a has-below">
+                                                                <h2 class="is-title post-title limit-lines l-lines-2">
+                                                                    <a href="{{ route('tin.tuc', $new->id) }}">
+                                                                        @if(Session::get('locale') == 'vi')
+                                                                            {!! \App\Helpers\Helper::limitCharacters($new->title_vn, \App\ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) !!}
+                                                                        @else
+                                                                            {!! \App\Helpers\Helper::limitCharacters($new->title_en, \App\ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) !!}
+                                                                        @endif
+                                                                    </a>
+                                                                </h2>
+                                                                <div class="post-meta-items meta-below item-margin-booton" >
                                                         <span class="meta-item post-author">
                                                             <a href="javascript:void(0)" rel="author">{{ __("messages.POST_DATE") }}</a>
                                                         </span>
-                                                        <span class="meta-item date">
+                                                                    <span class="meta-item date">
                                                             <span class="date-link">
                                                                 <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
                                                             </span>
                                                         </span>
-                                                    </div>
-                                                    <div class="post-meta-items meta-below">
-                                                        <p style="font-size: 14px">@if(Session::get('locale') == 'vi')
-                                                                {!! \App\Helpers\Helper::limitCharacters($new->content_vn, \App\ConstApp::NUMBER_CHARACTERS_NEW_CONTENT) !!}
-                                                            @else {!! \App\Helpers\Helper::limitCharacters($new->content_en, \App\ConstApp::NUMBER_CHARACTERS_NEW_CONTENT) !!} @endif</p>
-                                                    </div>
-                                                </div>
+                                                                </div>
+                                                                <div class="post-meta-items meta-below">
+                                                                    <p style="font-size: 14px">@if(Session::get('locale') == 'vi')
+                                                                            {!! \App\Helpers\Helper::limitCharacters($new->content_vn, \App\ConstApp::NUMBER_CHARACTERS_NEW_CONTENT) !!}
+                                                                        @else {!! \App\Helpers\Helper::limitCharacters($new->content_en, \App\ConstApp::NUMBER_CHARACTERS_NEW_CONTENT) !!} @endif</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                @endforeach
                                             </div>
-                                        </article>
-                                    @endforeach
+
+
+                                        </div>
+
+                                    </section>
                                 </div>
-
-
                             </div>
-
-                        </section>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-@endif
-<!-- Duong bo -->
-@endforeach
-<style>
-    button.close{
-        background: #fff;
-        color: #000;
-        float: right;
-        text-align: right;
-        font-size: 20px;
-        font-weight: bold;
-    }
-</style>
+            </section>
+        @endif
+        <!-- Duong bo -->
+    @endforeach
+    <style>
+        button.close{
+            background: #fff;
+            color: #000;
+            float: right;
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
 @stop
