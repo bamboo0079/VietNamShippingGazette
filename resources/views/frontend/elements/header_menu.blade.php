@@ -85,7 +85,7 @@
                 <a rel="noopener" href="{{ route('doi.tac') }}">{{ __("messages.DOI_TAC") }}</a>
             </li>
             <li id="menu-item-4536" class="menu-item  @if(isset($menu_active) && $menu_active == 'product') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
-                <a href="#">{{ __("messages.PRODUCTS") }}</a>
+                <a href="{{ route('loai.san.pham', 0) }}">{{ __("messages.PRODUCTS") }}</a>
                 <ul class="sub-menu">
 
                     @foreach($product_categories_menu as $menu)
@@ -277,7 +277,7 @@
                                 <a rel="noopener" href="{{ route('doi.tac') }}">{{ __("messages.DOI_TAC") }}</a>
                             </li>
                             <li id="menu-item-4536" class="menu-item  @if(isset($menu_active) && $menu_active == 'product') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
-                                <a href="#">{{ __("messages.PRODUCTS") }}</a>
+                                <a href="{{ route('loai.san.pham', 0) }}">{{ __("messages.PRODUCTS") }}</a>
                                 <ul class="sub-menu">
 
                                     @foreach($product_categories_menu as $menu)
