@@ -108,7 +108,8 @@ class HomeController extends Controller
             }
             $news = News::whereIn('category_id', [3,4,5])->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
         }elseif($id == 0){
-            $news = News::where('category_id','<>', 0)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+            $cate_list = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get()->pluck('id')->toArray();
+            $news = News::where('category_id','<>', 0)->whereIn('category_id',$cate_list)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
         }else{
             $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
         }
