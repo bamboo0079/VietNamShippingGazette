@@ -2174,7 +2174,8 @@
     /*}*/
 
     .l-post img {
-        max-width: initial;
+        /*max-width: initial;*/
+        max-width: -webkit-fill-available;
     }
 
     .l-post .image-link {
