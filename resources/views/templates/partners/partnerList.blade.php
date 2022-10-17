@@ -58,7 +58,7 @@
                             @forelse($partners as $new)
                                 <article class="l-post grid-base-post grid-post product-items">
                                     <div class="media product-media" style="height: 240px;">
-                                        <a href="{{ route('product.detail', $new->id) }}" title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
+                                        <a href="{{ route('partner.detail', $new->id) }}" title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
                                             <img class="media-img" style="height: 240px"  src="{{ $new->img }}">
                                         </a>
                                     </div>

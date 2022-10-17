@@ -19,12 +19,8 @@
                             @forelse($news as $new)
                                 <article class="l-post  grid-base-post grid-post">
                                     <div class="media">
-                                        <a href="{{ route('tin.tuc', $new->id) }}" data-bs-target="#youtubeModal{{$new->id}}" data-toggle="modal" class="image-link media-ratio ratio-16-9" title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
-                                        <span
-                                                data-bgsrc="{{ $new->img }}"
-                                                class="img bg-cover wp-post-image attachment-bunyad-medium size-bunyad-medium lazyload"
-                                                data-bgset="{{ $new->img }}"
-                                                data-sizes="(max-width: 358px) 100vw, 358px"></span>
+                                        <a href="{{ route('tin.tuc', $new->id) }}"  title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
+                                            <img src="{{ $new->img }}">
                                         </a>
                                     </div>
                                     <div class="content">
