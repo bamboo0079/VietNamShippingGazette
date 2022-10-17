@@ -3,7 +3,15 @@
 
     <div class="main ts-contain cf right-sidebar spc-alp-main">
         <div class="ts-row">
-            <div class="col-8 main-content">
+            @php
+            $class = 'w-100';
+            $col = 'grid-3 md:grid-3';
+            if(isset($hot_news) && isset($paid_news) && count($hot_news) && count($paid_news)){
+                $class = '';
+                $col = 'grid-2 md:grid-2';
+            }
+            @endphp
+            <div class="col-8 main-content {{ $class }}">
                 @if($id == 345)
                     <h1 class="archive-heading"><span>{{ __("messages.TRADE") }}</span></h1>
                 @elseif($id == 0)
@@ -15,7 +23,7 @@
                 <section class="block-wrap block-grid mb-none" data-id="8">
                     <div class="block-content">
                         @if(count($news))
-                        <div class="loop loop-grid loop-grid-base grid grid-2 md:grid-2 xs:grid-1">
+                        <div class="loop loop-grid loop-grid-base grid {{ $col }} xs:grid-1">
                             @forelse($news as $new)
                                 <article class="l-post  grid-base-post grid-post">
                                     <div class="media">
