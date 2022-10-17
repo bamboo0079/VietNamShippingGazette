@@ -73,7 +73,7 @@ class HomeController extends Controller
         $data['other_news'] = News::where('category_id', 10)->where('approved', 1)->orderBy('id','DESC')->limit(4)->get();
         $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
-        $data['partners'] = Partner::where('type', 1)->orderBy('id','DESC')->limit(3)->get();
+        $data['partners'] = Partner::where('type', 1)->orderBy('id','DESC')->get();
         $data['anpham'] = Partner::where('type', 2)->where('is_show', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['supports'] = Support::where('is_show',1)->get();
         $data['other'] = [];
