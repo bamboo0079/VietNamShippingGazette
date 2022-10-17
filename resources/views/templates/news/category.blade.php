@@ -65,6 +65,8 @@
             -webkit-transform: scale(1);
             transform: scale(1);
             transition: all 300ms ease-in-out;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         .l-post img{
             width: 100%;
@@ -75,6 +77,7 @@
             position: absolute;
             top: 0px;
             left: 0px;
+            padding: 5px;
         }
     </style>
 @stop
