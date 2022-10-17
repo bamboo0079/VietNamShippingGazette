@@ -57,5 +57,24 @@
             @include('templates.news.rightBarNews')
         </div>
     </div>
-
+    <style>
+        .grid-post .media{
+            display: block;
+            padding-top: 100%;
+            position: relative;
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            transition: all 300ms ease-in-out;
+        }
+        .l-post img{
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            object-position: center center;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
 @stop
