@@ -26,9 +26,9 @@
                         <div class="loop loop-grid loop-grid-base grid {{ $col }} xs:grid-1">
                             @forelse($news as $new)
                                 <article class="l-post  grid-base-post grid-post">
-                                    <div class="media">
+                                    <div class="media" style="background-image: url('{{ $new->img }}');">
                                         <a href="{{ route('tin.tuc', $new->id) }}"  title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
-                                            <img src="{{ $new->img }}">
+                                            {{--<img src="{{ $new->img }}">--}}
                                         </a>
                                     </div>
                                     <div class="content">
@@ -67,6 +67,8 @@
             transition: all 300ms ease-in-out;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
         .l-post img{
             width: 100%;
