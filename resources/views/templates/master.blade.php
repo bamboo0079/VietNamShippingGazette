@@ -31,13 +31,21 @@
 <link rel="stylesheet" href="/public/css/jquery-ui.css">
 <script src="/public/src/asset/js/frontend/jquery-3.6.0.min.js"></script>
 <script src="/public/frontend/assets/js/jquery/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#datetimepicker1" ).datepicker({dateFormat: 'dd/mm/yy'});
+            $( "#datetimepicker2" ).datepicker({dateFormat: 'dd/mm/yy'});
+        } );
+    </script>
+
+<link rel="stylesheet" href="/public/css/prism.css">
+<link rel="stylesheet" href="/public/css/chosen.css">
+<script src="/public/js/chosen.jquery.js" type="text/javascript"></script>
+{{--<script src="https://harvesthq.github.io/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>--}}
+<script src="/public/js/init.js" type="text/javascript" charset="utf-8"></script>
+
 <script>
-    $( function() {
-        $( "#datetimepicker1" ).datepicker({dateFormat: 'dd/mm/yy'});
-        $( "#datetimepicker2" ).datepicker({dateFormat: 'dd/mm/yy'});
-    } );
-</script>
-<script>
+
     $(document).ready(function(){
         $(".modal-video").on('hide.bs.modal', function(){
             $("iframe").attr('src', '');

@@ -19,6 +19,16 @@
         .chosen-container-single .chosen-single div b {
             background-position-y: 10px;
         }
+        .chosen-container {
+            height: 35px !important;
+        }
+        .chosen-container a.chosen-single {
+            height: 35px !important;
+            line-height: 35px;
+        }
+        .chosen-container a.chosen-single b{
+            margin-top: 6px !important;
+        }
     </style>
     <div class="main ts-contain cf right-sidebar">
         <div class="ts-row">
@@ -31,7 +41,7 @@
                         <form class="information_search col-12" id="schedule-full-form" action="" method="get">
                             <div class="row top-row">
                                 <div class="col-4">
-                                    <select id="ship_id" class="chosen-select input-block-level select2-hidden-accessible form-control" name="ship_id" tabindex="-1" aria-hidden="true">
+                                    <select id="ship_id" class="chosen-select form-control" name="ship_id" tabindex="-1" aria-hidden="true">
                                         <option value=""> {{ __("messages.ALL_SHIPPING_AGENT") }}</option>
                                         @foreach($list_ship as $ship)
                                             @if(Session::get('locale') == 'vi')
@@ -43,7 +53,7 @@
                                     </select>
                                 </div>
                                 <div class="col-4">
-                                    <select id="boss_port_id" class="chosen-select input-block-level select2-hidden-accessible form-control" name="boss_port_id" tabindex="-1" aria-hidden="true">
+                                    <select id="boss_port_id" class="chosen-select form-control" name="boss_port_id" tabindex="-1" aria-hidden="true">
                                         <option value="">POL</option>
                                         @foreach($list_port as $port)
                                             @if(Session::get('locale') == 'vi')
@@ -55,7 +65,7 @@
                                     </select>
                                 </div>
                                 <div class="col-4">
-                                    <select id="unloading_port_id" class="chosen-select input-block-level select2-hidden-accessible form-control" name="unloading_port_id" tabindex="-1" aria-hidden="true">
+                                    <select id="unloading_port_id" class="chosen-select form-control" name="unloading_port_id" tabindex="-1" aria-hidden="true">
                                         <option value="">POD</option>
                                         @foreach($list_port as $port)
                                             @if(Session::get('locale') == 'vi')

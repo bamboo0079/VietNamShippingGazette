@@ -49,7 +49,7 @@
     <div class="main ts-contain cf right-sidebar">
         <div class="elementor-element elementor-element-3d4c96b elementor-widget elementor-widget-smartmag-grid">
             <div class="elementor-widget-container">
-                <h1 class="archive-heading"><span>{{ __("messages.PARTNER_LIST") }}</span></h1>
+                <h1 class="archive-heading"><span>{{ __("messages.RECRUITMENT") }}</span></h1>
                 <section class="block-wrap block-grid block-sc s-dark" data-id="12">
                     <div class="block-content">
                         <div class="loop loop-grid loop-grid-base grid grid-4 md:grid-4 xs:grid-1">
