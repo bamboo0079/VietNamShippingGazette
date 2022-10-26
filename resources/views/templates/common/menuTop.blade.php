@@ -96,7 +96,7 @@
             </li>
             <li id="menu-item-583"
                 class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'rec') current-menu-item @endif menu-item-object-custom menu-item-583">
-                <a rel="noopener" href="{{ route('the.loai', 17) }}">{{ __("messages.RECRUITMENT") }}</a>
+                <a rel="noopener" href="{{ route('tuyen.dung', 17) }}">{{ __("messages.RECRUITMENT") }}</a>
             </li>
             <li id="menu-item-583"
                 class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'contact') current-menu-item @endif menu-item-object-custom menu-item-583">
@@ -277,7 +277,7 @@
 
                             <li id="menu-item-583"
                                      class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'rec') current-menu-item @endif menu-item-object-custom menu-item-583">
-                                <a rel="noopener" href="{{ route('the.loai', 17) }}">{{ __("messages.RECRUITMENT") }}</a>
+                                <a rel="noopener" href="{{ route('tuyen.dung', 17) }}">{{ __("messages.RECRUITMENT") }}</a>
                             </li>
                             <li id="menu-item-583"
                                 class="menu-item menu-item-type-custom @if(isset($menu_active) && $menu_active == 'contact') current-menu-item @endif menu-item-object-custom menu-item-583">

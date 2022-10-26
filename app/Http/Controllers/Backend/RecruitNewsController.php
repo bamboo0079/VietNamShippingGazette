@@ -132,6 +132,7 @@ class RecruitNewsController extends Controller
                 'is_hot' => isset($data['is_hot']) ? $data['is_hot'] : 0,
                 'is_new' => isset($data['is_new']) ? $data['is_new'] : 0,
                 'is_paid' => isset($data['is_paid']) ? $data['is_paid'] : 0,
+                'reject_reason' => 0,
             ]);
         }
         return redirect()->route('admin.recruit.news')->with('status', 'Lưu thông tin thành công');

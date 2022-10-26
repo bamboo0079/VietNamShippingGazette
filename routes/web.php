@@ -31,6 +31,7 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/tin-tuc/{id?}', 'HomeController@newsDetail')->name('tin.tuc');
     Route::any('/lich-tau', 'HomeController@schedule')->name('lich.tau');
     Route::any('/the-loai/{id?}', 'HomeController@category')->name('the.loai');
+    Route::any('/tuyen-dung/{id?}', 'HomeController@recruitment')->name('tuyen.dung');
     Route::any('/lien-he', 'HomeController@contact')->name('contact');
     Route::any('/my-account', 'HomeController@memberInfo')->name('memberInfo');
     Route::any('/reset-password', 'HomeController@resetPassword')->name('reset.password');

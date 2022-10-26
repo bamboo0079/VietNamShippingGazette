@@ -697,6 +697,14 @@ class HomeController extends Controller
         return view('templates.partners.partnerList', $data);
     }
 
+    public function recruitment(Request $request, $id = 0) {
+
+        $data = $this->commonMenuData();
+        $data['recruitments'] =  News::whereIn('category_id', [17])->where('approved', 1)->orderBy('id', 'DESC')->paginate(100);
+        $data['menu_active'] = 'rec';
+        return view('templates.recruitments.recruitmentList', $data);
+    }
+
     public function partnerDetail(Request $request, $id = 0) {
         $data = $this->commonMenuData();
         $data['partners'] = Partner::where('id', $id)->get();

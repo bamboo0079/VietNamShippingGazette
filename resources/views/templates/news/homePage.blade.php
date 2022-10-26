@@ -9,7 +9,7 @@
             justify-content: center;
         }
     </style>
-    <section class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-ac3b37e elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+    <section style="margin-bottom: 15px" class="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-ac3b37e elementor-section-boxed elementor-section-height-default elementor-section-height-default"
              data-id="ac3b37e" data-element_type="section">
         <div class="elementor-container elementor-column-gap-no">
             <div class="elementor-column elementor-col-66 elementor-top-column elementor-element elementor-element-fd8591e main-content"

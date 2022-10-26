@@ -5,10 +5,10 @@
         <div class="ts-row">
             @php
             $class = 'w-100';
-            $col = 'grid-3 md:grid-3';
+            $col = 'grid-4 md:grid-4';
             if(isset($hot_news) && isset($paid_news) && count($hot_news) && count($paid_news)){
                 $class = '';
-                $col = 'grid-2 md:grid-2';
+                $col = 'grid-3 md:grid-3';
             }
             @endphp
             <div class="col-8 main-content {{ $class }}">
