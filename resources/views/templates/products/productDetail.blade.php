@@ -162,6 +162,22 @@
             <div class="col-8 main-content">
                 <h1 class="archive-heading"><span>  {{ __("messages.PRODUCT_DETAIL_TITLE") }} </span></h1>
                 <div class="card">
+                    @if(Session::has('errMsg') && ! Session::has('successMsg'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ Session::get('errMsg') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    @endif
+                    @if(Session::has('successMsg'))
+                        <div class="alert alert-success" role="alert">
+                            {{ Session::get('successMsg') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    @endif
                     <div class="container-fliud">
                         <div class="wrapper row">
                             <div class="preview col-md-6">
