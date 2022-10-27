@@ -133,4 +133,10 @@ return [
     "OTHER_PARTNER" => "Đối Tác Khác",
     "PLEASE_LOGIN_TO_VIEW_CONTENT" => "Vui lòng đăng nhập để xem nội dung",
     "PLEASE_ACTIVE_YOUR_ACCOUNT" => "Tài khoản đang chờ duyệt, vui lòng chờ",
+    "COMPANY_NAME" => "Tên công ty",
+    "COMPANY_TAX" => "Mã số thuế",
+    "COMPANY_TAX_ADDRESS" => "Địa chỉ xuất hóa đơn",
+    "ADDRESS_RECEIVED" => "Địa chỉ giao tạp chí",
+    "BUY" => "Đặt mua",
+    "SUCCESS_BUY" => "Đặt mua thành công!",
 ];

@@ -12,6 +12,7 @@ use App\Models\Contact;
 use App\Models\Member;
 use App\Models\News;
 use App\Models\Notify;
+use App\Models\Order;
 use App\Models\Partner;
 use App\Models\Port;
 use App\Models\ProductCategory;
@@ -712,5 +713,11 @@ class HomeController extends Controller
 
         $data['menu_active'] = 'doi_tac';
         return view('templates.partners.partnerDetail', $data);
+    }
+    public function buyProcess(Request $request){
+        $submit_data = $request->all();
+        Order::create($submit_data);
+        Session::flash('successMsg',  __("messages.SUCCESS_BUY"));
+        return redirect()->back();
     }
 }

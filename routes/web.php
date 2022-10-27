@@ -47,6 +47,7 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/tin-svg', 'HomeController@svgNews')->name('tin.svg');
     Route::any('/doi-tac', 'HomeController@partner')->name('doi.tac');
     Route::any('/thong-tin-doi-tac/{id?}', 'HomeController@partnerDetail')->name('partner.detail');
+    Route::any('/dat-mua', 'HomeController@buyProcess')->name('buy.process');
 });
 
 // Route BackEnd

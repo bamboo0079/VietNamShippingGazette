@@ -134,4 +134,10 @@ return [
     "OTHER_PARTNER" => "Other Partner",
     "PLEASE_LOGIN_TO_VIEW_CONTENT" => "Please login to view content",
     "PLEASE_ACTIVE_YOUR_ACCOUNT" => "Please wait admin active your account",
+    "COMPANY_NAME" => "Company name",
+    "COMPANY_TAX" => "Tax",
+    "COMPANY_TAX_ADDRESS" => "Tax Address",
+    "ADDRESS_RECEIVED" => "Address to received",
+    "BUY" => "Buy",
+    "SUCCESS_BUY" => "Order success!",
 ];
