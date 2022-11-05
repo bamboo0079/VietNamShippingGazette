@@ -54,12 +54,21 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         $last_name2 = '';
         $last_name3 = '';
         foreach ($this->data as $key => $item){
-            $current_name = $item->boss->port_nm_vn.','.$item->country->country_nm_vn;
+            if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
+                $current_name = $item->unloading->port_nm_vn.','.$item->unloading->country->country_nm_vn;
+            }else{
+                $current_name = $item->boss->port_nm_vn.','.$item->country->country_nm_vn;
+            }
             if($current_name != $last_name){
                 $count++;
                 $header[] = $count;
+                if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
+                    $tmp_current_name = mb_strtoupper($item->unloading->port_nm_vn).','.mb_strtoupper($item->unloading->country->country_nm_vn);
+                }else{
+                    $tmp_current_name = mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->country->country_nm_vn);
+                }
                 $data[] =  [
-                    'title1' => ''.mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->country->country_nm_vn),
+                    'title1' => ''.$tmp_current_name,
                     'title2' =>'',
                     'title3' =>'',
                     'title4' =>'',
@@ -72,12 +81,23 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             }
             $last_name = $current_name;
 
-            $current_name2 = $item->unloading->port_nm_vn;
+            if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
+                $current_name2 = $item->boss->port_nm_vn;
+            }else{
+                $current_name2 = $item->unloading->port_nm_vn;
+            }
+
             if($current_name2 != $last_name2){
                 $count++;
                 $locate[] = $count;
+
+                if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
+                    $tmp_current_name_2 = $item->boss->port_nm_vn;
+                }else{
+                    $tmp_current_name_2 = $item->unloading->port_nm_vn;
+                }
                 $data[] =  [
-                    'title1' => ''.$item->unloading->port_nm_vn,
+                    'title1' => ''.$tmp_current_name_2,
                     'title2' =>'',
                     'title3' =>'',
                     'title4' =>'',
@@ -132,7 +152,11 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         $last_name2 = '';
         $last_name3 = '';
         foreach ($this->data as $key => $item){
-            $current_name = $item->boss->port_nm_vn.','.$item->country->country_nm_vn;
+            if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
+                $current_name = $item->unloading->port_nm_vn.','.$item->unloading->country->country_nm_vn;
+            }else{
+                $current_name = $item->boss->port_nm_vn.','.$item->country->country_nm_vn;
+            }
             if($current_name != $last_name){
                 $count++;
                 $header[] = $count;
@@ -141,7 +165,11 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             }
             $last_name = $current_name;
 
-            $current_name2 = $item->unloading->port_nm_vn;
+            if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
+                $current_name2 = $item->boss->port_nm_vn;
+            }else{
+                $current_name2 = $item->unloading->port_nm_vn;
+            }
             if($current_name2 != $last_name2){
                 $count++;
                 $locate[] = $count;
