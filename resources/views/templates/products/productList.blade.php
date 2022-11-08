@@ -99,11 +99,15 @@
                                             </div>
                                             <p class="special-price">
                                                 <span class="price-title">{{ __("messages.PRICE") }}: </span>
-                                                <span class="price">{{ $new->price }}</span>
+                                                <span class="price">
+                                                    @if(is_numeric($new->price))
+                                                    {{ number_format($new->price) }}₫
+                                                    @else
+                                                        {{ $new->price }}
+                                                    @endif
+                                                </span>
             </p>
                                             <p class="special-price">
-                                                <span data-bs-toggle="modal" data-bs-target="#buyModal{{$new->id}}"
-                                                      class="price-title btn btm-primary">Đặt mua</span>
                                                 <div id="buyModal{{$new->id}}"
                                                      class="modal fade modal-video bd-example-modal-lg"
                                                      style="color: #000000;margin:0 auto;">

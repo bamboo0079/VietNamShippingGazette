@@ -4212,7 +4212,7 @@
 
         .offcanvas-toggle:hover {
             background: inherit;
-            --c-hamburger: var(--c-main);
+            --c-hamburger: #d0bfc0;
         }
 
         .hamburger-icon {

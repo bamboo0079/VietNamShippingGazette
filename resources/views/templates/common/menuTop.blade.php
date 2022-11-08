@@ -85,7 +85,6 @@
             <li id="menu-item-4536" class="menu-item  @if(isset($menu_active) && $menu_active == 'product') current-menu-item @endif menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4536">
                 <a href="{{ route('loai.san.pham', 0) }}">{{ __("messages.PRODUCTS") }}</a>
                 <ul class="sub-menu">
-
                     @foreach($product_categories_menu as $menu)
                         <li id="menu-item-4588"
                             class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4588">
@@ -133,27 +132,24 @@
                     <a rel="noopener" href="/language/vi">Tiếng Việt</a>
                 </li>
             @endif
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534" style="list-style-type: none; ">
+                <a class="link-a" href="/card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
+                    </svg>
+                    {{ __("messages.CARD") }}<span class="nb_prd">@if(Session::has('product_total')) {{ ' ('.Session::get('product_total') .' '. __("messages.PRODUCTS_NUMBER").')' }} @endif </span>
+                    <input class="product_total" type="hidden" name="product_total" value="@if(Session::has('product_total')) {{ Session::get('product_total') }} @else {{ 0 }} @endif">
+                </a>
+            </li>
         </ul>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 <div class="smart-head smart-head-a smart-head-main" id="smart-head" data-sticky="auto" data-sticky-type="smart"
      data-sticky-full>
     <div class="smart-head-row smart-head-top s-dark smart-head-row-full">
         <div class="inner wrap">
             <div class="items items-left ">
-
                 <button class="offcanvas-toggle has-icon" type="button" aria-label="Menu">
                         <span class="hamburger-icon hamburger-icon-a">
                             <span class="inner"></span>
@@ -196,7 +192,25 @@
                     </nav>
                 </div>
             </div>
-            <div class="items items-center empty">
+
+            <style type="text/css">
+                .link-a:hover {
+                    color: #95999c;
+                }
+            </style>
+            <div class="items items-center empty"> </div>
+            <div class="items items-right ">
+                <div class="spc-social-block spc-social spc-social-a smart-head-social">
+                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3534" style="list-style-type: none; ">
+                        <a class="link-a" href="/card">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
+                            </svg>
+                            {{ __("messages.CARD") }}<span class="nb_prd">@if(Session::has('product_total')) {{ ' ('.Session::get('product_total') .' '. __("messages.PRODUCTS_NUMBER").')' }} @endif </span>
+                            <input class="product_total" type="hidden" name="product_total" value="@if(Session::has('product_total')) {{ Session::get('product_total') }} @else {{ 0 }} @endif">
+                        </a>
+                    </li>
+                </div>
             </div>
         </div>
     </div>

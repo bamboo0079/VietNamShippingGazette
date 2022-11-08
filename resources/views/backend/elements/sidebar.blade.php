@@ -85,7 +85,7 @@
            href="#">
             <i class="fa fas fa-calendar"></i>
             <span>Quản lý thông tin  <b class="float-end">&raquo;</b></span></a>
-        <ul class="submenu dropdown-menu">
+            <ul class="submenu dropdown-menu">
             <li class="nav-item">
                 <a class="nav-link{{ (request()->is('admin/scenarios') || request()->is('*scenario*')) ? ' active' : '' }}"
                    href="{{ route('admin.scenarios') }}">
@@ -116,6 +116,21 @@
                     <i class="fa fa-comments"></i>
                     <span>Quản lý quốc gia</span></a>
             </li>
+        </ul>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link{{ (request()->is('admin/scenarios') || request()->is('*scenario*')) ? ' active' : '' }}"
+           href="#">
+            <i class="fa fas fa-calendar"></i>
+            <span>Quản Lý Đơn Hàng  <b class="float-end">&raquo;</b></span></a>
+            <ul class="submenu dropdown-menu">
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="{{ route('admin.card') }}">
+                    <i class="fa fas fa-calendar"></i>
+                    <span>Thông tin đơn hàng</span></a>
+            </li>
+
         </ul>
     </li>
 

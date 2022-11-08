@@ -48,6 +48,12 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/doi-tac', 'HomeController@partner')->name('doi.tac');
     Route::any('/thong-tin-doi-tac/{id?}', 'HomeController@partnerDetail')->name('partner.detail');
     Route::any('/dat-mua', 'HomeController@buyProcess')->name('buy.process');
+    Route::any('/addCard', 'HomeController@addCard')->name('addCard');
+    Route::any('/card', 'HomeController@card')->name('card');
+    Route::any('/card-confirm', 'HomeController@registerCard')->name('register.card');
+    Route::any('/removeCard', 'HomeController@removeCard')->name('removeCard');
+    Route::any('/updateCard', 'HomeController@updateCard')->name('updateCard');
+    Route::any('/deleteCard', 'HomeController@deleteCard')->name('deleteCard');
 });
 
 // Route BackEnd
@@ -200,6 +206,9 @@ Route::middleware(['admin', 'web'])->namespace('Backend')->prefix('admin')->grou
 
     Route::any('/newest-detail', 'PartnersController@newesetDetail')->name('admin.newest.detail');
     Route::any('/update-config', 'PartnersController@updateConfig')->name('admin.update.config');
+
+    Route::any('/admin-card', 'CardsController@listCard')->name('admin.card');
+    Route::any('/admin-processCard', 'CardsController@processCard')->name('admin.processCard');
 
     Route::get('export', 'ScenariosController@export')->name('export');
     //ROUTES

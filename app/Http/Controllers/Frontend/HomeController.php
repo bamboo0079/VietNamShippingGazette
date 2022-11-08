@@ -19,6 +19,7 @@ use App\Models\ProductCategory;
 use App\Models\Scenario;
 use App\Models\Setting;
 use App\Models\Ship;
+use App\Models\Card;
 use App\Models\Step;
 use App\Models\Support;
 use App\User;
@@ -230,6 +231,284 @@ class HomeController extends Controller
         $data['relate_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->inRandomOrder()->limit(6)->get();
 
         return view('templates.products.productDetail', $data);
+    }
+
+    public function addCard(Request $request) {
+
+        try {
+            $qt = $_POST['qt'];
+            $prd_id = $_POST['prd_id'];
+
+            if(Session::has('product_total')) {
+                $total = Session::get('product_total') + $qt;
+                Session::forget('product_total');
+                Session::put('product_total',$total);
+            } else {
+                $total = $qt;
+                Session::put('product_total',$qt);
+            }
+
+            if(Session::has('card_detail')) {
+                $card_detail = Session::get('card_detail');
+                if(isset($card_detail[$prd_id])) {
+                    $card_detail[$prd_id] += $qt;
+                } else {
+                    $card_detail[$prd_id] = $qt;
+                }
+                Session::forget('card_detail');
+            } else {
+                $card_detail = array($prd_id => $qt);
+            }
+            Session::put('card_detail',$card_detail);
+            return $total;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function updateCard(Request $request) {
+
+        $total = 0;
+        $contact_price = false;
+        $card_detail = [];
+        $return = [];
+        $total_qt = 0;
+        foreach ($_POST['data'] as $key => $value) {
+            $product_id = $value['prd_id'];
+            $qt = $value['qt'];
+            $card_detail[$product_id] = $qt;
+            $total_qt = $total_qt + $qt;
+            $price = str_replace(',','',$value['price']);
+            if(!is_numeric($price)) {
+                $contact_price = true;
+            } else {
+                $total = $total + ($qt*$price);
+            }
+        }
+        if($contact_price == true) {
+            $total = "Liên hệ";
+        }
+
+        Session::forget('product_total');
+        Session::put('product_total',$total_qt);
+
+        Session::forget('card_detail');
+        Session::put('card_detail',$card_detail);
+        $return['total'] = number_format($total).'₫';
+        $return['total_qt'] = $total_qt;
+        return $return;
+    }
+
+    public function deleteCard(Request $request) {
+
+        $data = $_POST['arr_data'];
+        $remove_id = $_POST['remove_id'];
+        $total = 0;
+        $total_price = 0;
+        $contact_price = false;
+        $card_detail = [];
+
+        foreach ($data as $_data) {
+            if($_data['prd_id'] != $remove_id) {
+                $total = $total + $_data['qt'];
+                $card_detail[$_data['prd_id']] = $_data['qt'];
+
+                $price = str_replace(',','',$_data['price']);
+                if(!is_numeric($price)) {
+                    $contact_price = true;
+                } else {
+                    $total_price = $total_price + ($_data['qt']*$price);
+                }
+            }
+        }
+        if($contact_price == true) {
+            $total_price = "Liên hệ";
+        }
+
+        Session::forget('product_total');
+        Session::put('product_total',$total);
+
+        Session::forget('card_detail');
+        Session::put('card_detail',$card_detail);
+        $return['total'] = number_format($total_price).'₫';
+        $return['total_qt'] = $total;
+        return $return;
+    }
+
+    public function card() {
+
+        if(!Session::has('card_detail')) {
+            return redirect('/');
+        }
+        $data = $this->commonMenuData();
+        $data_card = array();
+        $total = 0;
+        $check_number = true;
+        $cards = Session::get('card_detail');
+        if(empty($cards)) {
+            Session::forget('card_detail');
+            return redirect('/');
+        }
+
+        foreach ($cards as $prd_id => $qt) {
+            $product = News::where('id','=',$prd_id)->first();
+            $data_card[$prd_id]['id'] = $prd_id;
+            $data_card[$prd_id]['product_name_vn'] = $product->title_vn;
+            $data_card[$prd_id]['product_name_en'] = $product->title_en;
+            $data_card[$prd_id]['price'] = $product->price;
+            $data_card[$prd_id]['qt'] = $qt;
+            if(!is_numeric($product->price)) {
+                $check_number = false;
+            } else {
+                $total = $total + ($qt*$product->price);
+            }
+        }
+        if($check_number == false) {
+            $total = "Giá liên hệ";
+        } else {
+            $total = number_format($total);
+        }
+        $data['cards_total'] = $total;
+        $data['cards'] = $data_card;
+        if(!Session::has('card_detail')) {
+            return redirect('/');
+        }
+
+        return view('templates.cards.cardDetail', $data);
+    }
+
+    public function registerCard(Request $request) {
+
+        if(!Session::has('card_detail')) {
+            return redirect('/');
+        }
+
+        $submit_data = $_POST;
+
+        $card_detail = [];
+        $product_detail = [];
+        $i = 0;
+        foreach ($submit_data['prd_name'] as $key => $value) {
+            $product_detail[$i]['prd_id'] = $submit_data['id'][$key];
+            $product_detail[$i]['prd_name'] = $value;
+            $product_detail[$i]['qt'] = $submit_data['qt'][$key];
+            $price = str_replace(',','',$submit_data['price'][$key]);
+            if(is_numeric($price)) {
+                $product_detail[$i]['prd_price'] = number_format($price).'₫';
+            } else {
+                $product_detail[$i]['prd_price'] = $submit_data['price'][$key];
+            }
+
+            $i++;
+        }
+        $card_detail['product'] = $product_detail;
+        $card_total = str_replace(',','',$submit_data['card_total']);
+        if(is_numeric($card_total)) {
+            $card_detail['total'] = number_format($submit_data['card_total']).'₫';
+
+        } else {
+            $card_detail['total'] = $submit_data['card_total'];
+
+        }
+
+        $validate = $this->validateCardInfo($submit_data);
+        if($validate == false) {
+            foreach ($submit_data as $key => $value) {
+                Session::flash($key,$value);
+            }
+            return redirect('/card');
+        } else {
+            $member_id = "0";
+            if(Session::has("member")) {
+                $member = Session::get('member');
+                $member_id = $member->id;
+            }
+            try{
+                $card = new Card();
+                $card->full_name = $submit_data['name'];
+                $card->company = $submit_data['company'];
+                $card->invoice_export = $submit_data['invoice_export'];
+                $card->tax_no = $submit_data['tax_no'];
+                $card->invoice_address = $submit_data['invoice_address'];
+                $card->product_address = $submit_data['product_address'];
+                $card->tel = $submit_data['tel'];
+                $card->mobile = $submit_data['mobile'];
+                $card->fax = $submit_data['fax'];
+                $card->email = $submit_data['email'];
+                $card->card_info = json_encode($card_detail);
+                $card->car_date = date('Y-m-d H:i:s');
+                $card->member_id = $member_id;
+                $card->payment = $submit_data['payment'];
+                $card->note = $submit_data['note'];
+                $card->status = 0;
+                $card->del_flg = 0;
+                $card->save();
+                Session::flash('successMsg', __("messages.FINSISH_ADD_CARD_INFO"));
+                Session::forget('card_detail');
+                Session::forget('product_total');
+            } catch (\Exception $exception) {
+                echo $exception->getMessage();die;
+                Session::flash('errMsg', __("messages.ERROR_ADD_CARD_INFO"));
+            }
+        }
+        $data = $this->commonMenuData();
+        return view('templates.cards.cardAddFinish', $data);
+    }
+
+    public function removeCard() {
+        Session::forget('card_detail');
+        Session::forget('product_total');
+        return true;
+    }
+
+    public function validateCardInfo($submit_data) {
+
+        if(strlen($submit_data['name']) == 0) {
+            Session::flash('errMsg', __("messages.FULL_NAME"));
+            return false;
+        }
+
+        if(strlen($submit_data['company']) == 0) {
+            Session::flash('errMsg', __("messages.COMPANY_NULL"));
+            return false;
+        }
+        if($submit_data['invoice_export'] == 1) {
+            if(strlen($submit_data['tax_no']) == 0) {
+                Session::flash('errMsg', __("messages.TAX_NO_NULL"));
+                return false;
+            }
+            if(strlen($submit_data['invoice_address']) == 0) {
+                Session::flash('errMsg', __("messages.INVOICE_ADDRESS_NULL"));
+                return false;
+            }
+        }
+
+        if(strlen($submit_data['product_address']) == 0) {
+            Session::flash('errMsg', __("messages.PRODUCT_ADDRESS_NULL"));
+            return false;
+        }
+
+        if (strlen($submit_data['mobile']) == 0) {
+            Session::flash('errMsg', __("messages.EMPTY_PHONE_ERROR_MSG"));
+            return false;
+        }
+
+        if(strlen($submit_data['email']) == 0) {
+            Session::flash('errMsg', __("messages.EMPTY_EMAIL_ERROR_MSG"));
+            return false;
+        }
+
+        if (!filter_var($submit_data['email'], FILTER_VALIDATE_EMAIL)) {
+            Session::flash('errMsg', __("messages.FORMAT_EMAIL_ERROR_MSG"));
+            return false;
+        }
+
+        if(strlen($submit_data['mobile']) < 8) {
+            Session::flash('errMsg', __("messages.FORMAT_PHONE_ERROR_MSG"));
+            return false;
+        }
+
+        return true;
     }
 
     public function detail(Request $request, $id = 0)

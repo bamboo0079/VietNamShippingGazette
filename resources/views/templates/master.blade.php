@@ -25,7 +25,7 @@
 <script type="text/javascript" id="smartmag-lazyload-js" src="/public/js/92961980b7d92c5290db4bd840c1fd4a.js"></script>
 <script type="text/javascript" id="magnific-popup-js" src="/public/js/89ef949d5066fcc7ea828e9ca3102897.js" defer></script>
 <script type="text/javascript" id="theia-sticky-sidebar-js" src="/public/js/2df812bc5bf337961f74a4f732a85e32.js" defer></script>
-{{--<script type="text/javascript" id="smartmag-theme-js" src="/public/js/88ec8fcb1e79b74a036e399f073c3276.js" defer></script>--}}
+<script type="text/javascript" id="smartmag-theme-js" src="/public/js/88ec8fcb1e79b74a036e399f073c3276.js" defer></script>
 <script type="text/javascript" src="/public/js/delay-load.min.js"data-cfasync="false"></script>
 <script src="/public/js/jquery-3.6.0.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/public/css/jquery-ui.css">

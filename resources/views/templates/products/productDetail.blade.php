@@ -161,23 +161,39 @@
         <div class="ts-row" style="transform: none;">
             <div class="col-8 main-content">
                 <h1 class="archive-heading"><span>  {{ __("messages.PRODUCT_DETAIL_TITLE") }} </span></h1>
+                <style type="text/css">
+                    button.close {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        padding: 0.35rem 1.25rem;
+                        color: inherit;
+                        background: none;
+                        box-shadow: none !important;
+                        float: right;
+                    }
+
+                    #success_card, #err_card {
+                        display: none;
+                    }
+
+
+                </style>
+
+                <div id="success_card" class="alert alert-success fade show" role="alert">
+                    {{ __("messages.SUCCESS_ADD_CARD") }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" style="font-size: 20px">&times;</span>
+                    </button>
+                </div>
+                <div id="err_card" class="alert alert-danger fade show" role="alert">
+                    {{ __("messages.ERROR_ADD_CARD") }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" style="font-size: 20px">&times;</span>
+                    </button>
+                </div>
+
                 <div class="card">
-                    @if(Session::has('errMsg') && ! Session::has('successMsg'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ Session::get('errMsg') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                    @endif
-                    @if(Session::has('successMsg'))
-                        <div class="alert alert-success" role="alert">
-                            {{ Session::get('successMsg') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                    @endif
                     <div class="container-fliud">
                         <div class="wrapper row">
                             <div class="preview col-md-6">
@@ -185,16 +201,25 @@
                             </div>
                             <div class="details col-md-6">
                                 <h3 class="product-title">@if(Session::get('locale') == 'vi') {{ $news->title_vn }} @else {{ $news->title_en }} @endif</h3>
-                                <h4 class="price">{{ __("messages.PRICE") }}: <span>{{ $news->price }}</span></h4>
+                                <h4 class="price">{{ __("messages.PRICE") }}: <span>
+                                        @if(is_numeric($news->price))
+                                            {{ number_format($news->price) }}₫
+                                        @else
+                                            {{ $news->price }}
+                                        @endif
+                                    </span>
+                                </h4>
                                 <p class="special-price">
-                                                <span data-bs-toggle="modal" data-bs-target="#buyModal{{$news->id}}"
-                                                      class="price-title btn btm-primary">Đặt mua</span>
+                                    <input class="qt" type="number" step="1" name="qt" value="1" id="theNumber" min="1" max="400" />
+                                    <input class="prd_id" type="hidden" name="prd_id" value="{{$news->id}}">
+                                    <button id="order">{{ __("messages.ORDER") }}</button>
                                     <div id="buyModal{{$news->id}}"
                                          class="modal fade modal-video bd-example-modal-lg"
                                          style="color: #000000;margin:0 auto;">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header"><h2 style="color: #000;">Đặt mua
+                                                <div class="modal-header">
+                                                    <h2 style="color: #000;">Đặt mua
                                                         sản phẩm</h2>
                                                     <button style="background: #fff;color: #000;font-size: 20px;font-weight: bold;text-align: right;"
                                                             type="button" class="close" data-dismiss="modal"
@@ -293,6 +318,61 @@
         </div>
 
     </div>
+
+    <script type="text/javascript">
+        var error_number = '{{ __("messages.ERROR_NUMBER") }}';
+        function steponup() {
+            let input = document.getElementById('theNumber')
+            let val = document.getElementById('incrementor').value
+
+            if (val) {  /* increment with a parameter */
+                input.stepUp(val)
+            } else {    /* or without a parameter. Try it with 0 */
+                input.stepUp()
+            }
+        }
+        $(function() {
+
+            $('.close').on('click', function() {
+               $(this).parents('.alert').hide();
+            });
+
+            $("#order").on("click", function() {
+                var qt = $('.qt').val();
+                if(parseInt(qt) <= 0 ) {
+                    alert(error_number);
+                    return false;
+                }
+
+               let route = "{{ route('addCard') }}";
+               $.ajax({
+                   headers: {
+                       'X-CSRF-TOKEN': "{{csrf_token()}}",
+                   },
+                   url: route,
+                   type: 'POST',
+                   data: {
+                       qt:$('.qt').val(),
+                       prd_id:$('.prd_id').val(),
+
+                   },
+                   success: function(response) {
+
+                       $('.nb_prd').html('(' + response + ' {{ __("messages.PRODUCTS_NUMBER") }})');
+                       $('.product_total').val(response)
+                       $("#success_card").fadeTo(2000, 500).slideUp(500, function(){
+                           $("#success_card").slideUp(500);
+                       });
+                   },
+                   error: function(xhr) {
+                       $("#err_card").fadeTo(2000, 500).slideUp(500, function(){
+                           $("#err_card").slideUp(500);
+                       });
+                   }});
+           });
+
+        });
+    </script>
 
 @stop
 
