@@ -2,7 +2,7 @@
 @section('content')
 <div class="main ts-contain cf right-sidebar" data-title="Viet Nam Shipping Gazette" data-url="http://www.vietnamshippinggazette.com/" style="transform: none;">
     <div class="ts-row" style="transform: none;">
-        <div class="@if(count($hot_news)) {{ 'col-8 main-content' }} @else {{ 'col-12' }} @endif">
+        <div class="@if(isset($hot_news) || isset($paid_news) || count($hot_news) || count($paid_news)) {{ 'col-8 main-content' }} @else {{ 'col-12' }} @endif">
             <h1 class="archive-heading"><span>  {{ __("messages.NEWS_DETAIL_TITLE") }} </span></h1>
             <div class="the-post-header s-head-modern s-head-modern-a">
                 <div class="post-meta post-meta-a post-meta-left post-meta-single has-below">

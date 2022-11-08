@@ -7,19 +7,7 @@
                 <div class="card-header py-3">
                     <h5 class="m-0 font-weight-bold text-primary">Quản lý lịch tàu</h5>
                 </div>
-                {{--<div class="container-fluid mt-2 d-none" id="msgSuccess">
-                    <div class="card" style="border: none">
-                        <div class="alert alert-success" role="alert">
-                            Lưu thông tin thành công!
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>--}}
-                {{--@if(Session::has('message'))
-                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-                @endif--}}
+
                 <div class="card-body">
                     <div class="row">
                         <div class="block_search mb-3 col-md-3">
@@ -72,6 +60,7 @@
                                             <div class="input-group-prepend input-daterange">
                                                 <span class="input-group-text"><i class="fas fa-fw fa-calendar"></i>Ngày đi&nbsp;&nbsp;&nbsp;</span>
                                             </div>
+
                                             <input id="start_date" placeholder="dd/mm/yyyy" @if(isset($scenario->departure_day) && $scenario->departure_day) value="{{ date("d-m-Y", strtotime($scenario->departure_day)) }}" @endif type="text" class="input-sm form-control mask" name="departure_day">
                                         </div>
                                     </div>
@@ -80,6 +69,7 @@
                                             <div class="input-group-prepend input-daterange">
                                                 <span class="input-group-text"><i class="fas fa-fw fa-calendar"></i>Ngày đến</span>
                                             </div>
+
                                             <input id="end_date" placeholder="dd/mm/yyyy" @if(isset($scenario->arrival_date) && $scenario->arrival_date) value="{{ date("d-m-Y", strtotime($scenario->arrival_date)) }}" @endif type="text" class="input-sm form-control mask" name="arrival_date">
                                         </div>
                                     </div>
@@ -158,7 +148,7 @@
                                             <td class="{{ $class }} text-center"><input name="scenarios_id[]" value="{{$category->id}}" type="checkbox" class="scenarios_id"></td>
                                             <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->boss->port_nm_vn }}</td>
                                             <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->unloading->port_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->transit->port_nm_vn }}</td>
+                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">@if(isset($category->transit->port_nm_vn)) {{ $category->transit->port_nm_vn }} @endif</td>
                                             <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->ship->ship_nm_vn }}</td>
                                             <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->agent->agent_nm_vn }}</td>
                                             <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ date("Y/m/d", strtotime($category->departure_day)) }}</td>
@@ -281,17 +271,26 @@
     <script src="/src/asset/js/backend/bootstrap-datepicker.min.js"></script>
 
     <link href="/src/asset/css/frontend/bootstrap-chosen.css" rel="stylesheet">
-    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+    <script src="/src/asset/js/backend/chosen.jquery.js"></script>
     <script src="/src/asset/js/backend/jquery.maskedinput.js"></script>
 
     <script>
+
         $(document).ready(function () {
             $('.chosen-select').chosen();
             $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-            $('.input-daterange input').each(function() {
-//                $(this).datepicker();
-            });
-            $(".mask").mask("99/99/{{date('Y')}}", {placeholder: "__/__/____"});
+//             $('.input-daterange input').each(function() {
+// //                $(this).datepicker();
+//             });
+            var currentTime = new Date()
+            var month = currentTime.getMonth() + 1
+            var day = currentTime.getDate()
+            var year = currentTime.getFullYear()
+            var full_date = month + "/" + day + "/" + year;
+
+            $(".mask").mask("99/99/9999");
+
+            // $('#start_date').val(full_date);
             $(document).on("change", "#is_inbound", function () {
                 $("#frm_search").submit();
             });

@@ -44,99 +44,192 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
     public function collection()
     {
         $cond = $this->conditions;
-        $data = [];
-        $count = 0;
-        $header = [];
-        $locate = [];
-        $transit = [];
-        $detail = [];
-        $last_name = '';
-        $last_name2 = '';
-        $last_name3 = '';
-        foreach ($this->data as $key => $item){
-            if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
-                $current_name = $item->unloading->port_nm_vn.','.$item->unloading->country->country_nm_vn;
-            }else{
-                $current_name = $item->boss->port_nm_vn.','.$item->country->country_nm_vn;
-            }
-            if($current_name != $last_name){
-                $count++;
-                $header[] = $count;
-                if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
-                    $tmp_current_name = mb_strtoupper($item->unloading->port_nm_vn).','.mb_strtoupper($item->unloading->country->country_nm_vn);
-                }else{
-                    $tmp_current_name = mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->country->country_nm_vn);
+        if($cond['is_inbound'] == 1) { // converse data for outbound
+
+            $data = [];
+            $count = 0;
+            $header = [];
+            $locate = [];
+            $transit = [];
+            $detail = [];
+            $last_name = '';
+            $last_name2 = '';
+            $last_name3 = '';
+            foreach ($this->data as $key => $item) {
+                if (isset($cond['is_inbound']) && $cond['is_inbound'] == 1) {
+                    $current_name = $item->unloading->port_nm_vn . ',' . $item->unloading->country->country_nm_vn;
+                } else {
+                    $current_name = $item->boss->port_nm_vn . ',' . $item->country->country_nm_vn;
                 }
-                $data[] =  [
-                    'title1' => ''.$tmp_current_name,
-                    'title2' =>'',
-                    'title3' =>'',
-                    'title4' =>'',
-                    'title5' =>'',
-                    'title6' =>'',
-                    'title7' =>'',
-                ];
-                $last_name2 = '';
-                $last_name3 = '';
-            }
-            $last_name = $current_name;
+                if ($current_name != $last_name) {
+                    $count++;
+                    $header[] = $count;
+                    if (isset($cond['is_inbound']) && $cond['is_inbound'] == 1) {
+                        $tmp_current_name = mb_strtoupper($item->unloading->port_nm_vn) . ',' . mb_strtoupper($item->unloading->country->country_nm_vn);
+                    } else {
+                        $tmp_current_name = mb_strtoupper($item->boss->port_nm_vn) . ',' . mb_strtoupper($item->country->country_nm_vn);
+                    }
+                    $data[] = [
+                        'title1' => '' . $tmp_current_name,
+                        'title2' => '',
+                        'title3' => '',
+                        'title4' => '',
+                        'title5' => '',
+                        'title6' => ''
+                    ];
+                    $last_name2 = '';
+                    $last_name3 = '';
+                }
+                $last_name = $current_name;
 
-            if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
-                $current_name2 = $item->boss->port_nm_vn;
-            }else{
-                $current_name2 = $item->unloading->port_nm_vn;
-            }
+                if (isset($cond['is_inbound']) && $cond['is_inbound'] == 1) {
+                    $current_name2 = $item->boss->port_nm_vn;
+                } else {
+                    $current_name2 = $item->unloading->port_nm_vn;
+                }
 
-            if($current_name2 != $last_name2){
+                if ($current_name2 != $last_name2) {
+                    $count++;
+                    $locate[] = $count;
+
+                    if (isset($cond['is_inbound']) && $cond['is_inbound'] == 1) {
+                        $tmp_current_name_2 = $item->boss->port_nm_vn;
+                    } else {
+                        $tmp_current_name_2 = $item->unloading->port_nm_vn;
+                    }
+                    $data[] = [
+                        'title1' => '' . $tmp_current_name_2,
+                        'title2' => '',
+                        'title3' => '',
+                        'title4' => '',
+                        'title5' => '',
+                        'title6' => '',
+                    ];
+                    $last_name3 = '';
+                }
+                $last_name2 = $current_name2;
+
+                $current_name3 = (isset($cond['is_inbound']) && $cond['is_inbound'] == 1 && isset($item->transit->port_nm_vn)) ? $item->transit->port_nm_vn : '';
+                if ($current_name3 != $last_name3) {
+                    $count++;
+                    $transit[] = $count;
+                    $data[] = [
+                        'title1' => '',
+                        'title2' => '' . $item->transit->port_nm_vn,
+                        'title3' => '',
+                        'title4' => '',
+                        'title5' => '',
+                        'title6' => '',
+                    ];
+                }
+                $last_name3 = $current_name3;
+
                 $count++;
-                $locate[] = $count;
+                $detail[] = $count;
+                $data[] = [
+                    'title1' => '' . date("d-m", strtotime($item->departure_day)),
+                    'title2' => '(' . substr(date("D", strtotime($item->departure_day)), 0, 2) . ')',
+                    'title3' => '' . $item->ship->ship_nm_vn . '(' . $item->agent->agent_nm_vn . ')',
+                    'title4' => '' . date("d-m", strtotime($item->arrival_date)),
+                    'title5' => '(' . substr(date("D", strtotime($item->arrival_date)), 0, 2) . ')',
+                    'title6' => '(' . $item->total_date . ' days)',
+                ];
+
+            }
+
+        } else { // converse data for inbound
+            $data = [];
+            $count = 0;
+            $header = [];
+            $locate = [];
+            $transit = [];
+            $detail = [];
+            $last_name = '';
+            $last_name2 = '';
+            $last_name3 = '';
+            foreach ($this->data as $key => $item){
+                if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
+                    $current_name = $item->unloading->port_nm_vn.','.$item->unloading->country->country_nm_vn;
+                }else{
+                    $current_name = $item->boss->port_nm_vn.','.$item->country->country_nm_vn;
+                }
+                if($current_name != $last_name){
+                    $count++;
+                    $header[] = $count;
+                    if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
+                        $tmp_current_name = mb_strtoupper($item->unloading->port_nm_vn).','.mb_strtoupper($item->unloading->country->country_nm_vn);
+                    }else{
+                        $tmp_current_name = mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->country->country_nm_vn);
+                    }
+                    $data[] =  [
+                        'title1' => ''.$tmp_current_name,
+                        'title2' =>'',
+                        'title3' =>'',
+                        'title4' =>'',
+                        'title5' =>'',
+                        'title6' =>''
+                    ];
+                    $last_name2 = '';
+                    $last_name3 = '';
+                }
+                $last_name = $current_name;
 
                 if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
-                    $tmp_current_name_2 = $item->boss->port_nm_vn;
+                    $current_name2 = $item->boss->port_nm_vn;
                 }else{
-                    $tmp_current_name_2 = $item->unloading->port_nm_vn;
+                    $current_name2 = $item->unloading->port_nm_vn;
                 }
-                $data[] =  [
-                    'title1' => ''.$tmp_current_name_2,
-                    'title2' =>'',
-                    'title3' =>'',
-                    'title4' =>'',
-                    'title5' =>'',
-                    'title6' =>'',
-                    'title7' =>'',
-                ];
-                $last_name3 = '';
-            }
-            $last_name2 = $current_name2;
 
-            $current_name3 = (isset($cond['is_inbound']) && $cond['is_inbound'] == 1 && isset($item->transit->port_nm_vn))?$item->transit->port_nm_vn:'';
-            if($current_name3 != $last_name3){
+                if($current_name2 != $last_name2){
+                    $count++;
+                    $locate[] = $count;
+
+                    if(isset($cond['is_inbound']) && $cond['is_inbound'] == 1){
+                        $tmp_current_name_2 = $item->boss->port_nm_vn;
+                    }else{
+                        $tmp_current_name_2 = $item->unloading->port_nm_vn;
+                    }
+                    $data[] =  [
+                        'title1' => ''.$tmp_current_name_2,
+                        'title2' =>'',
+                        'title3' =>'',
+                        'title4' =>'',
+                        'title5' =>'',
+                        'title6' =>''
+                    ];
+                    $last_name3 = '';
+                }
+                $last_name2 = $current_name2;
+
+                $current_name3 = (isset($cond['is_inbound']) && $cond['is_inbound'] == 1 && isset($item->transit->port_nm_vn))?$item->transit->port_nm_vn:'';
+                if($current_name3 != $last_name3){
+                    $count++;
+                    $transit[] = $count;
+                    $data[] =  [
+                        'title1' => '',
+                        'title2' =>''.$item->transit->port_nm_vn,
+                        'title3' =>'',
+                        'title4' =>'',
+                        'title5' =>'',
+                        'title6' =>''
+                    ];
+                }
+                $last_name3 = $current_name3;
+
                 $count++;
-                $transit[] = $count;
+                $detail[] = $count;
                 $data[] =  [
-                    'title1' => '',
-                    'title2' =>''.$item->transit->port_nm_vn,
-                    'title3' =>'',
-                    'title4' =>'',
-                    'title5' =>'',
-                    'title6' =>'',
-                    'title7' =>'',
+                    'title1' => ''.date("d-m", strtotime($item->departure_day)),
+                    'title2' =>'('.substr(date("D", strtotime($item->departure_day)), 0, 2).')',
+                    'title3' =>''.$item->ship->ship_nm_vn.'('.$item->agent->agent_nm_vn.')',
+                    'title4' =>''.date("d-m", strtotime($item->arrival_date)),
+                    'title5' =>'('.substr(date("D", strtotime($item->arrival_date)), 0, 2).')',
+                    'title6' =>'('.$item->total_date.' days)',
                 ];
-            }
-            $last_name3 = $current_name3;
-
-            $count++;
-            $detail[] = $count;
-            $data[] =  [
-                'title1' => ''.date("d-m", strtotime($item->departure_day)),
-                'title2' =>'('.substr(date("D", strtotime($item->departure_day)), 0, 2).')',
-                'title3' =>''.$item->ship->ship_nm_vn,
-                'title4' =>'('.$item->agent->agent_nm_vn.')',
-                'title5' =>''.date("d-m", strtotime($item->arrival_date)),
-                'title6' =>'('.substr(date("D", strtotime($item->arrival_date)), 0, 2).')',
-                'title7' =>'('.$item->total_date.' days)',
-            ];
         }
+
+        }
+//        print_r($data);die;
         return collect($data);
     }
 
@@ -206,18 +299,18 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                         'bold' => true,
                     ]
                 ];
-                $cellRange = 'A1:F100'; // All headers
-                $cellRangeCustom = 'C1:C100'; // All C columns
+                $cellRange = 'A1:F'.(count($this->data)*5); // All headers
+                $cellRangeCustom = 'C1:C'.(count($this->data)*5); // All C columns
                 $event->sheet->getSheetView()->setZoomScale(175);
-                $event->sheet->getColumnDimension('A')->setAutoSize(false)->setWidth(3);
+                $event->sheet->getColumnDimension('A')->setAutoSize(false)->setWidth(4);
                 $event->sheet->getColumnDimension('B')->setAutoSize(false)->setWidth(3);
                 $event->sheet->getColumnDimension('C')->setAutoSize(false)->setWidth(20);
-                $event->sheet->getColumnDimension('D')->setAutoSize(false)->setWidth(3);
-                $event->sheet->getColumnDimension('E')->setAutoSize(false)->setWidth(3);
+                $event->sheet->getColumnDimension('D')->setAutoSize(false)->setWidth(4);
+                $event->sheet->getColumnDimension('E')->setAutoSize(false)->setWidth(4);
                 $event->sheet->getColumnDimension('F')->setAutoSize(false)->setWidth(5);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Arial Narrow')->getColor()->setARGB($data['color']);
                 foreach ($data['header'] as $item){
-                    $cellRange = 'A'.$item.':G'.$item;
+                    $cellRange = 'A'.$item.':F'.$item;
                     $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(11);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
@@ -226,26 +319,26 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['locate'] as $item){
-                    $cellRange = 'A'.$item.':G'.$item;
+                    $cellRange = 'A'.$item.':F'.$item;
                     $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(8);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
                     $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold)->getAlignment()->setVertical('center');
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['transit'] as $item){
-                    $cellRange = 'B'.$item.':G'.$item;
+                    $cellRange = 'B'.$item.':F'.$item;
                     $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(8);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
                     $event->sheet->getStyle($cellRange)->ApplyFromArray($styleBold)->getAlignment()->setVertical('center');
                     $event->sheet->mergeCells($cellRange);
                 }
                 foreach ($data['detail'] as $item){
-                    $cellRange = 'A'.$item.':G'.$item;
+                    $cellRange = 'A'.$item.':F'.$item;
                     $event->sheet->getDelegate()->getRowDimension($item)->setRowHeight(8);
                     $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(6);
                     $event->sheet->getStyle($cellRange)->getAlignment()->setVertical('center');
                 }
-                $event->sheet->mergeCells('C3:D3');
+//                $event->sheet->mergeCells('C3:D3');
             },
         ];
     }

@@ -2,12 +2,12 @@
 @section('content')
     <div class="main ts-contain cf right-sidebar spc-alp-main">
         <div class="ts-row">
-            <div class=" @if(count($hot_news) > 0 && count($paid_news) > 0 ) {{ 'col-8 main-content' }} @else {{ 'col-12' }} @endif">
+            <div class=" @if(count($hot_news) > 0 || count($paid_news) > 0 ) {{ 'col-8 main-content' }} @else {{ 'col-12' }} @endif">
                 <h1 class="archive-heading"><span>{{ __("messages.VSG_NEWS_TITLE") }}</span></h1>
                 <section class="block-wrap block-grid mb-none" data-id="8">
                     <div class="block-content">
                         @if(count($news))
-                            <div class="loop loop-grid loop-grid-base grid  @if(count($hot_news) > 0 && count($paid_news) > 0 ) {{ 'grid-3' }} @else {{ 'grid-4' }} @endif md:grid-2 xs:grid-1">
+                            <div class="loop loop-grid loop-grid-base grid  @if(count($hot_news) > 0 || count($paid_news) > 0 ) {{ 'grid-3' }} @else {{ 'grid-4' }} @endif md:grid-2 xs:grid-1">
                                 @forelse($news as $new)
                                     <article class="l-post  grid-base-post grid-post">
                                         <div class="media">

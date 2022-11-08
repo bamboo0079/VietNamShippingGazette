@@ -70,9 +70,9 @@ class ScenariosController extends Controller
         }
         $data['categories'] = $query->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
 
-        $data['ports'] = Port::get();
-        $data['ships'] = Ship::get();
-        $data['agents'] = Agent::get();
+        $data['ports'] = Port::orderBy('port_nm_vn', 'ASC')->get();
+        $data['ships'] = Ship::orderBy('ship_nm_vn', 'ASC')->get();
+        $data['agents'] = Agent::orderBy('agent_nm_vn', 'ASC')->get();
         $data['download_link'] = route('export').'?';
         foreach ($submit_data as $k => $v){
             $data['download_link'] .= $k.'='.$v.'&';
@@ -101,7 +101,8 @@ class ScenariosController extends Controller
             'arrival_date' => ['required'],
         ]);*/
         $port = Port::where('id', $data['boss_port_id'])->first();
-        $data['country_id'] = isset($port->country_id)?$port->country_id:0;
+
+        $data['country_id'] = $port->country_id;
         if($data['departure_day'] && $data['arrival_date']){
             $data['departure_day'] = \DateTime::createFromFormat("d/m/Y", $data['departure_day'])->format('Y-m-d');
             $data['arrival_date'] = \DateTime::createFromFormat("d/m/Y", $data['arrival_date'])->format('Y-m-d');
@@ -118,7 +119,7 @@ class ScenariosController extends Controller
         $validate = Validator::make($data, [
             'boss_port_id' => 'required|numeric|min:0|not_in:0',
             'unloading_port_id' => 'required|numeric|min:0|not_in:0',
-            'transit_port_id' => 'required|numeric|min:0|not_in:0',
+//            'transit_port_id' => 'required|numeric|min:0|not_in:0',
             'ship_id' => 'required|numeric|min:0|not_in:0',
             'agent_id' => 'required|numeric|min:0|not_in:0',
             'departure_day' => ['required'],
@@ -199,6 +200,7 @@ class ScenariosController extends Controller
         }
 
         $conditions = $request->all();
+
         return \Excel::download(new ScenarioExport($conditions), $file_name);
     }
 

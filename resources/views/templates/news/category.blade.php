@@ -6,7 +6,7 @@
             @php
             $class = '';
             $col = 'grid-4 md:grid-4 ';
-            if(isset($hot_news) && isset($paid_news) && count($hot_news) && count($paid_news)){
+            if(isset($hot_news) || isset($paid_news) || count($hot_news) || count($paid_news)){
                 $class = '';
                 $col = 'grid-3 md:grid-3';
             }
