@@ -3,32 +3,20 @@
 namespace App\Http\Controllers\Backend;
 
 use App\ConstApp;
-use App\Helpers\Helper;
 use App\Models\Agent;
-use App\Models\Audio;
 use App\Models\Country;
 use App\Models\Port;
-use App\Models\ProductCategory;
 use App\Models\Scenario;
 use App\Models\Ship;
-use App\Models\Step;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Facades\Auth;
 use Hash;
-use App\User;
-use App\Models\Book;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cookie;
 use App\Exports\ScenarioExport;
-use Illuminate\Support\Facades\DB;
-//use mysql_xdevapi\Session;
-use Symfony\Component\Console\Input\Input;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 //use MaatwebsiteExcelFacadesExcel;
 
@@ -45,7 +33,9 @@ class ScenariosController extends Controller
 
     public function index(Request $request)
     {
+
         $submit_data = $request->all();
+//        print_r($submit_data);die;
         $data['limit'] = ConstApp::NUMBER_PER_PAGE;
         $query = Scenario::where('id','>', 0);
         if (isset($submit_data['start']) && $submit_data['start']) {
@@ -55,6 +45,24 @@ class ScenariosController extends Controller
         if (isset($submit_data['end']) && $submit_data['end']) {
             $submit_data['end'] = \DateTime::createFromFormat("d/m/Y", $submit_data['end'])->format('Y-m-d');
             $query->where('arrival_date','<=', date("Y-m-d",strtotime($submit_data['end'])));
+        }
+        if (isset($submit_data['country_id']) && $submit_data['country_id'] != 0) {
+            $query->where('country_id','=', $submit_data['country_id']);
+        }
+        if (isset($submit_data['boss_port_id']) && $submit_data['boss_port_id'] != 0) {
+            $query->where('boss_port_id','=', $submit_data['boss_port_id']);
+        }
+        if (isset($submit_data['unloading_port_id']) && $submit_data['unloading_port_id'] != 0) {
+            $query->where('unloading_port_id','=', $submit_data['unloading_port_id']);
+        }
+        if (isset($submit_data['transit_port_id']) && $submit_data['transit_port_id'] != 0) {
+            $query->where('transit_port_id','=', $submit_data['transit_port_id']);
+        }
+        if (isset($submit_data['ship_id']) && $submit_data['ship_id'] != 0) {
+            $query->where('ship_id','=', $submit_data['ship_id']);
+        }
+        if (isset($submit_data['agent_id']) && $submit_data['agent_id'] != 0) {
+            $query->where('agent_id','=', $submit_data['ship_id']);
         }
 
         $id = isset($_GET['id'])?$_GET['id']:0;
@@ -70,6 +78,7 @@ class ScenariosController extends Controller
         }
         $data['categories'] = $query->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
 
+        $data['countries'] = Country::orderBy('country_nm_vn', 'ASC')->get();
         $data['ports'] = Port::orderBy('port_nm_vn', 'ASC')->get();
         $data['ships'] = Ship::orderBy('ship_nm_vn', 'ASC')->get();
         $data['agents'] = Agent::orderBy('agent_nm_vn', 'ASC')->get();
@@ -91,15 +100,7 @@ class ScenariosController extends Controller
     public function process(Request $request, $category_id = 0)
     {
         $data = $request->all();
-        /*$msg = $request->validate([
-            'boss_port_id' => 'required|numeric|min:0|not_in:0',
-            'unloading_port_id' => 'required|numeric|min:0|not_in:0',
-            'transit_port_id' => 'required|numeric|min:0|not_in:0',
-            'ship_id' => 'required|numeric|min:0|not_in:0',
-            'agent_id' => 'required|numeric|min:0|not_in:0',
-            'departure_day' => ['required'],
-            'arrival_date' => ['required'],
-        ]);*/
+
         $port = Port::where('id', $data['boss_port_id'])->first();
 
         $data['country_id'] = $port->country_id;
@@ -171,17 +172,7 @@ class ScenariosController extends Controller
             $category->where('scenarios.country_id',1);
         } else {
             $category->where('scenarios.country_id','<>',1);
-        }/*
-
-        if (isset($_GET['start']) && $_GET['start']) {
-            $category->where('departure_day','>=', date("Y-m-d", strtotime($_GET['start'])));
         }
-        if (isset($_GET['end']) && $_GET['end']) {
-            $category->where('arrival_date','<=', date("Y-m-d",strtotime($_GET['end'])));
-        }
-        if(isset($_GET['id']) && $_GET['id'] != "") {
-            $data['scenario'] = Scenario::where('id', $_GET['id'])->first();
-        }*/
 
         $data['categories'] = $category->orderBy('updated_at', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
 

@@ -127,7 +127,7 @@
             <li class="nav-item">
                 <a class="nav-link"
                    href="{{ route('admin.card') }}">
-                    <i class="fa fas fa-calendar"></i>
+                    <i class="fa fas fa-newspaper"></i>
                     <span>Thông tin đơn hàng</span></a>
             </li>
 

@@ -46,7 +46,17 @@
 
                         <div class="form-group self-process">
                             <div class="row">
-                                <label class="control-label col-sm-3 text-right">Slogan<span class="required-label">（<small>*</small>）</span></label>
+                                <label class="control-label col-sm-3 text-right">Giới thiệu (VN)<span class="required-label">（<small>*</small>）</span></label>
+                                <div class="input-field col-sm-9">
+                                    <textarea id="slogan_vn" rows="6" name="slogan_vn" placeholder="slogan_vn" class="summernote input-space form-control" @error('slogan_vn') is-invalid @enderror required>{!! isset($slogan_vn) ? $slogan_vn:'' !!}</textarea>
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group self-process">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Giới thiệu (EN)<span class="required-label">（<small>*</small>）</span></label>
                                 <div class="input-field col-sm-9">
                                     <textarea id="slogan" rows="6" name="slogan" placeholder="Slogan" class="summernote input-space form-control" @error('slogan') is-invalid @enderror required>{!! isset($slogan)?$slogan:'' !!}</textarea>
                                     <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>

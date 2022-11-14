@@ -73,6 +73,7 @@
                                             <input id="end_date" placeholder="dd/mm/yyyy" @if(isset($scenario->arrival_date) && $scenario->arrival_date) value="{{ date("d-m-Y", strtotime($scenario->arrival_date)) }}" @endif type="text" class="input-sm form-control mask" name="arrival_date">
                                         </div>
                                     </div>
+
                                     <div class="col-md-12 mb-3 text-center">
                                         {{--<input class="btn btn-primary btn-medium pull-right" type="submit" name="yt0" value="Thêm mới">--}}
                                         <button style="margin-top: 0px !important;" id="btnSubmit" type="submit" class="btn btn-primary mr-2"><i class="fas fa-plus-circle"></i> @if(isset($scenario->id) && $scenario->id) Cập nhật @else Thêm mới @endif</button>
@@ -101,28 +102,81 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 find_type">
+                                </div>
+                                <div class="row clss-group2">
+                                    <div class="col-md-3 mb-3">
+                                        <select name="country_id" data-placeholder="Cảng Xếp" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
+                                            <option value="0">Quốc gia</option>
+                                            @foreach($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->country_nm_vn }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <select name="boss_port_id" data-placeholder="Cảng Xếp" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
+                                            <option value="0">Cảng Xếp</option>
+                                            @foreach($ports as $port)
+                                                <option @if(isset($scenario->boss_port_id) && $scenario->boss_port_id == $port->id) selected @endif value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <select name="unloading_port_id" data-placeholder="Cảng Dỡ" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
+                                            <option value="0">Cảng Dỡ</option>
+                                            @foreach($ports as $port)
+                                                <option @if(isset($scenario->unloading_port_id) && $scenario->unloading_port_id == $port->id) selected @endif value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <select name="transit_port_id" data-placeholder="Cảng Transit" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
+                                            <option value="0">Cảng Transit</option>
+                                            @foreach($ports as $port)
+                                                <option @if(isset($scenario->transit_port_id) && $scenario->transit_port_id == $port->id) selected @endif value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <select name="ship_id" data-placeholder="Tên Tàu" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
+                                            <option value="0">Tên Tàu</option>
+                                            @foreach($ships as $ship)
+                                                <option @if(isset($scenario->ship_id) && $scenario->ship_id == $ship->id) selected @endif value="{{ $ship->id }}">{{ $ship->ship_nm_vn }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <select name="agent_id" data-placeholder="Đại lý" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
+                                            <option value="0">Đại lý</option>
+                                            @foreach($agents as $agent)
+                                                <option @if(isset($scenario->agent_id) && $scenario->agent_id == $agent->id) selected @endif value="{{ $agent->id }}">{{ $agent->agent_nm_vn }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
                                         <div class="form-group">
-                                            <select id="is_inbound" name="is_inbound" class="form-control">
+                                            <select id="is_inbound" name="is_inbound" class="form-control" style="height: 39px;line-height: 16px;">
                                                 <option @if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 0) selected @endif value="0" {{ (isset($_GET['is_inbound']) && $_GET['is_inbound'] == 0)?'selected':''}}>InBound</option>
                                                 <option @if(isset($scenario->country_id) && $scenario->country_id == 1) selected @endif @if(isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1) selected @endif value="1" {{ (isset($_GET['is_inbound']) && $_GET['is_inbound'] == 1)?'selected':''}}>OutBound</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <button style="padding: 9px 5px;" type="submit" class="btn btn-primary mr-2"><i class="fas fa-filter"></i> Tìm kiếm</button>
-                                        <button style="padding: 9px 10px;" type="button" class="btn btn-primary mr-2" title="Download File">
+                                    <div class="col-md-3 mb-3">
+                                        <button style="padding: 6px 5px; margin-top: 0px;" type="submit" class="btn btn-primary mr-2"><i class="fas fa-filter"></i> Tìm kiếm</button>
+                                        <button style="padding: 6px 5px; margin-top: 0px;" type="button" class="btn btn-primary mr-2" title="Download File">
                                             <a style="color: white;text-decoration:none;" href="{{ $download_link }}"><i class="fa fa-download" aria-hidden="true"></i> DL</a>
                                         </button>
                                     </div>
                                 </div>
                             </form>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <div class="row" style="margin-left: 0px;margin-bottom: 10px;margin-top: 0px;">
+                                    <button style="padding: 6px 5px; margin-top: 0px;" class="btn btn-primary btn-sm btn-delete" type="button" id="btn_delete_all"><i class="fas fa fa-trash"></i> Xóa Lịch Đã Chọn</button>
+                                </div>
+                                <table class="table table-bordered table-hover" id="dataTable" style="width: 140%" cellspacing="0">
                                     <colgroup>
                                         <col width="50">
                                         <col>
-                                        <col width="180">
+                                        <col width="280">
                                         <col width="180">
                                         <col width="120">
                                         <col width="120">
@@ -131,7 +185,7 @@
                                     </colgroup>
                                     <thead>
                                     <tr>
-                                        <th class="text-center"><button class="btn btn-primary btn-sm btn-delete" type="button" id="btn_delete_all"><i class="fas fa fa-trash"></i></button></th>
+                                        <th class="text-center"><input id="checkAll" name="checked_all" value="1" type="checkbox" class="scenarios_id"></th>
                                         <th class="text-left">Cảng Xếp</th>
                                         <th class="text-left">Cảng Dỡ</th>
                                         <th class="text-left">Cảng Transit</th>
@@ -275,13 +329,19 @@
     <script src="/src/asset/js/backend/jquery.maskedinput.js"></script>
 
     <script>
+        $(function() {
+           $("#checkAll").on('click',function() {
+               if($(this).is(":checked")) {
+                   $('.scenarios_id').prop('checked', true);
+               } else {
+                   $('.scenarios_id').prop('checked', false);
+               }
+           });
+        });
 
         $(document).ready(function () {
             $('.chosen-select').chosen();
             $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-//             $('.input-daterange input').each(function() {
-// //                $(this).datepicker();
-//             });
             var currentTime = new Date()
             var month = currentTime.getMonth() + 1
             var day = currentTime.getDate()

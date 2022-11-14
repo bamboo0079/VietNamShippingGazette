@@ -177,4 +177,6 @@ return [
     "PRODUCT_PRICE" => "Giá Bán",
     "PRODUCT_DELETE" => "Xóa",
     "PRODUCT_TOTAL_PRICE" => "Tổng Tiền",
+    "ABOUT_US" => "Giới Thiệu",
+    "ADDRESS" => "Địa Chỉ",
 ];

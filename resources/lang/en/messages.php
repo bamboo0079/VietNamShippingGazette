@@ -178,4 +178,6 @@ return [
     "PRODUCT_PRICE" => "Price",
     "PRODUCT_DELETE" => "Delete",
     "PRODUCT_TOTAL_PRICE" => "Total payment",
+    "ABOUT_US" => "About Us",
+    "ADDRESS" => "Address",
 ];

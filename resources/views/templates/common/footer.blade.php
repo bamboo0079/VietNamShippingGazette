@@ -8,27 +8,32 @@
             <div class="widgets row cf">
                 <div class="widget col-4 widget-about">
                     <div class="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                        <h5 class="heading">About Us</h5></div>
+                        <h5 class="heading">{{ __("messages.ABOUT_US") }}</h5></div>
                     <div class="inner ">
                         <div class="image-logo">
                             <img src="/src/asset/img/system/logo_footer.png" width="176" height="47" alt="About Us"
                                  srcset="/src/asset/img/system/logo_footer.png ,/src/asset/img/system/logo_footer.png 2x"/>
                         </div>
-                        <div class="base-text about-text">{!! $footer_data['slogan']??'' !!}
+                        <div class="base-text about-text">
+                            @if(Session::get('locale') == 'vi')
+                                {!! $footer_data['slogan_vn']??'' !!}
+                            @else
+                                {!! $footer_data['slogan']??'' !!}
+                            @endif
                         </div>
                     </div>
                 </div>
 
                 <div class="widget col-4 widget_recent_comments">
                     <div class="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                        <h5 class="heading">Address</h5></div>
+                        <h5 class="heading">{{ __("messages.ADDRESS") }}</h5></div>
                     <div id="recentcomments">
                         {!! $footer_data['address']??'' !!}
                     </div>
                 </div>
                 <div class="widget col-4 widget_recent_comments">
                     <div class="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                        <h5 class="heading">Contact</h5></div>
+                        <h5 class="heading">{{ __("messages.CONTACT") }}</h5></div>
                     <div id="recentcomments">
                         {!! $footer_data['contact']??'' !!}
                     </div>

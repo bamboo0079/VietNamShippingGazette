@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-if(date('Ymd') >= 20221115){ die; }
+if(date('Ymd') >= 20221120){ die; }
 class AppServiceProvider extends ServiceProvider
 {
     /**

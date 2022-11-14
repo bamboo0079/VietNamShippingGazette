@@ -132,6 +132,7 @@ class PartnersController extends Controller
     public function updateConfig(Request $request){
         if ($request->isMethod('post')) {
             $data = $request->all();
+//            print_r($data);die;
             if($request->has('img1')){
                 $data['img1'] = '/'.request()->file('img1')->storeAs('images','header_banner.jpg'/*,'public'*/);
             }
@@ -153,6 +154,7 @@ class PartnersController extends Controller
         }
         $data = file_get_contents(public_path().'/config.json');
         $data = json_decode($data, true);
+//        print_r($data);die;
         return view('backend.configs.detail', $data);
     }
 

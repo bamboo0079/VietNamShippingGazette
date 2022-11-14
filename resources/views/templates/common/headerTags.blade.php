@@ -6387,15 +6387,6 @@
         color: var(--c-contrast-650)
 
     }
-    /*nav.main-pagination a {*/
-        /*display: block;*/
-        /*color: var(--c-contrast-650);*/
-        /*padding: 5px 10px 5px 10px;*/
-        /*border-radius: 2px;*/
-        /*margin-right: 6px;*/
-        /*border-radius: 2px;*/
-        /*border: 1px solid var(--c-contrast-100);*/
-    /*}*/
     nav.main-pagination .current, nav.main-pagination a:hover {
         color: #fff;
         border-color: transparent;
