@@ -31,20 +31,27 @@ class ScenariosController extends Controller
         }
     }
 
+    public function formatDate($date) {
+        $expl = explode('/',$date);
+        $date_str = $expl[2].'-'.$expl[1].'-'.$expl[0];
+        return $date_str;
+    }
+
     public function index(Request $request)
     {
 
         $submit_data = $request->all();
-//        print_r($submit_data);die;
         $data['limit'] = ConstApp::NUMBER_PER_PAGE;
+
         $query = Scenario::where('id','>', 0);
+
         if (isset($submit_data['start']) && $submit_data['start']) {
-            $submit_data['start'] = \DateTime::createFromFormat("d/m/Y", $submit_data['start'])->format('Y-m-d');
-            $query->where('departure_day','>=', date("Y-m-d", strtotime($submit_data['start'])));
+            $start_date = $this->formatDate($submit_data['start']);
+            $query->where('departure_day','>=', $start_date);
         }
         if (isset($submit_data['end']) && $submit_data['end']) {
-            $submit_data['end'] = \DateTime::createFromFormat("d/m/Y", $submit_data['end'])->format('Y-m-d');
-            $query->where('arrival_date','<=', date("Y-m-d",strtotime($submit_data['end'])));
+            $end_date = $this->formatDate($submit_data['end']);
+            $query->where('arrival_date','<=', $end_date);
         }
         if (isset($submit_data['country_id']) && $submit_data['country_id'] != 0) {
             $query->where('country_id','=', $submit_data['country_id']);
@@ -120,7 +127,6 @@ class ScenariosController extends Controller
         $validate = Validator::make($data, [
             'boss_port_id' => 'required|numeric|min:0|not_in:0',
             'unloading_port_id' => 'required|numeric|min:0|not_in:0',
-//            'transit_port_id' => 'required|numeric|min:0|not_in:0',
             'ship_id' => 'required|numeric|min:0|not_in:0',
             'agent_id' => 'required|numeric|min:0|not_in:0',
             'departure_day' => ['required'],

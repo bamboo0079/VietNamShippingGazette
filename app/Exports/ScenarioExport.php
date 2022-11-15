@@ -38,22 +38,13 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             $query->where('scenarios.country_id', '<>', 1);
         }
 
-        /*if (isset($submit_data['start']) && $submit_data['start']) {
-            $query->where('scenarios.arrival_date', '>=', $submit_data['start']);
-        }
-        if (isset($submit_data['end']) && $submit_data['end']) {
-            $query->where('scenarios.departure_day', '<=', $submit_data['end']);
-        }*/
-
         if (isset($submit_data['start']) && $submit_data['start']) {
-            /*$submit_data['start'] = date('Y/m/d',strtotime($submit_data['start']));
-            $submit_data['start'] = \DateTime::createFromFormat("d/m/Y", $submit_data['start'])->format('Y-m-d');*/
-            $query->where('scenarios.departure_day','>=', date("Y-m-d", strtotime($submit_data['start'])));
+            $submit_data['start'] = $this->formatDate($submit_data['start']);
+            $query->where('scenarios.departure_day','>=', $submit_data['start']);
         }
         if (isset($submit_data['end']) && $submit_data['end']) {
-           /* $submit_data['end'] = date('Y/m/d',strtotime($submit_data['end']));
-            $submit_data['end'] = \DateTime::createFromFormat("d/m/Y", $submit_data['end'])->format('Y-m-d');*/
-            $query->where('scenarios.arrival_date','<=', date("Y-m-d",strtotime($submit_data['end'])));
+            $submit_data['end'] = $this->formatDate($submit_data['end']);
+            $query->where('scenarios.arrival_date','<=', $submit_data['end']);
         }
 
         if (isset($submit_data['country_id']) && $submit_data['country_id'] != 0) {
@@ -75,10 +66,24 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             $query->where('scenarios.agent_id','=', $submit_data['ship_id']);
         }
 
-        $this->data = $query
-            ->leftJoin('ports', 'scenarios.boss_port_id', '=', 'ports.id')
-            ->orderBy('ports.port_nm_vn', 'ASC')
-            ->get();
+        if (isset($submit_data['is_inbound']) && $submit_data['is_inbound'] == 1) {
+            $this->data = $query
+                ->leftJoin('ports', 'scenarios.boss_port_id', '=', 'ports.id')
+                ->orderBy('ports.port_nm_vn', 'ASC')
+                ->get();
+        } else {
+            $this->data = $query
+                ->leftJoin('ports', 'scenarios.unloading_port_id', '=', 'ports.id')
+                ->orderBy('ports.port_nm_vn', 'ASC')
+                ->get();
+        }
+
+    }
+
+    public function formatDate($date) {
+        $expl = explode('/',$date);
+        $date_str = $expl[2].'-'.$expl[1].'-'.$expl[0];
+        return $date_str;
     }
 
     public function collection()
@@ -151,9 +156,34 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         return $this->data_out_bound = $data_out_bound;
     }
 
+    public function sortDataArray($data) {
+        $result_data = [];
+        $tmp_arr = [];
+        foreach ($data as $key => $value) {
+            $first_char = substr($key, 0, 8);
+            $tmp_arr[$first_char] = $key;
+        }
+        ksort($tmp_arr);
+        foreach ($tmp_arr as $_item) {
+            $result_data[$_item] = [];
+        }
+        return $result_data;
+    }
+
     public function makeDataOutbound() {
 
-        $data = [];
+        //Sap xep aphabet theo ky tu dau
+        $data_sort = [];
+        foreach ($this->data as $key => $item) {
+
+            $cang_xep = mb_strtoupper($item->unloading->port_nm_vn) . ',' . mb_strtoupper($item->unloading->country->country_nm_vn);
+            if(!isset($data_sort[$cang_xep])) {
+                $data_sort[$cang_xep] = array();
+            }
+        }
+
+        $data = $this->sortDataArray($data_sort);
+
         foreach ($this->data as $key => $item) {
 
             $cang_xep =  mb_strtoupper($item->unloading->port_nm_vn) . ',' . mb_strtoupper($item->unloading->country->country_nm_vn);
@@ -174,7 +204,6 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
 
         return $this->makeDataExportoutBound($data);
     }
-
 
     public function exportOutBound() {
 
@@ -290,8 +319,20 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
 
     public function makeDataExportInBound() {
 
+        //Sap xep aphabet theo ky tu dau
+        $data_sort = [];
+        foreach ($this->data as $key => $item) {
+
+            $cang_xep = mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->boss->country->country_nm_vn);
+            if(!isset($data_sort[$cang_xep])) {
+                $data_sort[$cang_xep] = array();
+            }
+        }
+
+        $goup = $this->sortDataArray($data_sort);
+
         // Group data follow cang xep
-        $goup = [];
+//        $goup = [];
         foreach ($this->data as $key => $item) {
             $cang_xep = mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->boss->country->country_nm_vn);
             $cang_do =  mb_strtoupper($item->unloading->port_nm_vn);

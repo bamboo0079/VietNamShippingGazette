@@ -46,7 +46,7 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/chi-tiet-san-pham/{id?}', 'HomeController@productDetail')->name('product.detail');
     Route::any('/tin-svg', 'HomeController@svgNews')->name('tin.svg');
     Route::any('/doi-tac', 'HomeController@partner')->name('doi.tac');
-    Route::any('/thong-tin-doi-tac/{id?}', 'HscenariosomeController@partnerDetail')->name('partner.detail');
+    Route::any('/thong-tin-doi-tac/{id?}', 'HomeController@partnerDetail')->name('partner.detail');
     Route::any('/dat-mua', 'HomeController@buyProcess')->name('buy.process');
     Route::any('/addCard', 'HomeController@addCard')->name('addCard');
     Route::any('/card', 'HomeController@card')->name('card');

@@ -162,16 +162,17 @@
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <button style="padding: 6px 5px; margin-top: 0px;" type="submit" class="btn btn-primary mr-2"><i class="fas fa-filter"></i> Tìm kiếm</button>
-                                        <button style="padding: 6px 5px; margin-top: 0px;" type="button" class="btn btn-primary mr-2" title="Download File">
-                                            <a style="color: white;text-decoration:none;" href="{{ $download_link }}"><i class="fa fa-download" aria-hidden="true"></i> DL</a>
-                                        </button>
                                     </div>
                                 </div>
                             </form>
+                            <div class="row" style="margin-left: 0px;margin-bottom: 10px;margin-top: 0px;">
+                                <button style="padding: 6px 5px; margin-top: 0px;" class="btn btn-primary btn-sm btn-delete" type="button" id="btn_delete_all"><i class="fas fa fa-trash"></i> Xóa Lịch Đã Chọn</button>
+                                <button style="padding: 6px 5px; margin-top: 0px; margin-left: 10px" type="button" class="btn btn-primary mr-2" title="Download File">
+                                    <a style="color: white;text-decoration:none;" href="{{ $download_link }}"><i class="fa fa-download" aria-hidden="true"></i> Tải Lịch</a>
+                                </button>
+                            </div>
                             <div class="table-responsive">
-                                <div class="row" style="margin-left: 0px;margin-bottom: 10px;margin-top: 0px;">
-                                    <button style="padding: 6px 5px; margin-top: 0px;" class="btn btn-primary btn-sm btn-delete" type="button" id="btn_delete_all"><i class="fas fa fa-trash"></i> Xóa Lịch Đã Chọn</button>
-                                </div>
+
                                 <table class="table table-bordered table-hover" id="dataTable" style="width: 140%" cellspacing="0">
                                     <colgroup>
                                         <col width="50">
