@@ -83,6 +83,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group self-process">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Tài khoản Ngân Hàng<span class="required-label">（<small>*</small>）</span></label>
+                                <div class="input-field col-sm-9">
+                                    <textarea id="bank" rows="6" name="bank" placeholder="Địa chỉ" class="summernote input-space form-control" required>{!! isset($bank)?$bank:'' !!}</textarea>
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="buttons-set text-center">
                             <button type="submit" class="btn btn-primary mr-2"><i class="fa fa-save"></i> Lưu lại</button>
                         </div>

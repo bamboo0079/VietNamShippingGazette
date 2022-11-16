@@ -78,6 +78,10 @@
             background: var(--c-main) !important;
         }
     </style>
+    @php
+        $footer_data = file_get_contents(public_path().'/config.json');
+        $footer_data = json_decode($footer_data, true);
+    @endphp
     <div class="main ts-contain cf right-sidebar">
         <form class="register-form" action="{{ route('register.card') }}" method="post">
             <div class="ts-row">
@@ -154,9 +158,7 @@
                                 </p>
                                 <div class="form-field comment-form-author payment_method_div" style="margin-bottom:30px; line-height: 29px; @if(Session::has('payment') && Session::get('payment') == 1) {{'display: block' }} @else {{'display: none'}}@endif">
                                     <h4 style="line-height: 40px">{{ __("messages.CARD_TRANSFER_INFO") }}</h4>
-                                    <span>STK: 09030320920423432</span><br>
-                                    <span>Ngân Hàng VB BANK</span><br>
-                                    <span>Chi Nhánh Thủ Đức</span><br>
+                                    {!! $footer_data['bank']??'' !!}
                                 </div>
                                 <p class="form-submit">
                                     <input name="submit" type="submit" id="regis-submit" class="submit" value="{{ __("messages.CONFIRM_ADD") }}">
