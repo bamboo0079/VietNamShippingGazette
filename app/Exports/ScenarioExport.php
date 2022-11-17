@@ -65,19 +65,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         if (isset($submit_data['agent_id']) && $submit_data['agent_id'] != 0) {
             $query->where('scenarios.agent_id','=', $submit_data['ship_id']);
         }
-
-        if (isset($submit_data['is_inbound']) && $submit_data['is_inbound'] == 1) {
-            $this->data = $query
-                ->leftJoin('ports', 'scenarios.boss_port_id', '=', 'ports.id')
-                ->orderBy('ports.port_nm_vn', 'ASC')
-                ->get();
-        } else {
-            $this->data = $query
-                ->leftJoin('ports', 'scenarios.unloading_port_id', '=', 'ports.id')
-                ->orderBy('ports.port_nm_vn', 'ASC')
-                ->get();
-        }
-
+        $this->data = $query->get();
     }
 
     public function formatDate($date) {
@@ -131,8 +119,10 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                 //Data thong tin tau va ngay
                 foreach ($item as $_item_key => $child) {
                     if($_item_key == 'None') { // truong hop khong co cang transis
-                        $data_out_bound[$i] = $child;
-                        $i+=1;
+                        foreach ($child as $_child_key => $_child) {
+                            $data_out_bound[$i] = $_child;
+                            $i+=1;
+                        }
                     } else {
                         $data_out_bound[$i] = [
                             'title1' => '',
@@ -142,8 +132,10 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                             'title5' => '',
                             'title6' => '',
                         ];
-                        $i+=1;
-                        $data_out_bound[$i] = $child;
+                        foreach ($child as $_child_key => $_child) {
+                            $i+=1;
+                            $data_out_bound[$i] = $_child;
+                        }
                         $i+=1;
                     }
                 }
@@ -151,7 +143,6 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             }
 
         }
-
         $this->export_cound = $i;
         return $this->data_out_bound = $data_out_bound;
     }
@@ -198,7 +189,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                 'title6' => '(' . $item->total_date . ' days)',
             ];
 
-            $data[$cang_xep][$cang_do][$cang_transit] = $tau_info;
+            $data[$cang_xep][$cang_do][$cang_transit][] = $tau_info;
 
         }
 
@@ -235,7 +226,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     if(isset($_data['cang_do'])) {
                         $cellRange = 'A'.$i.':F'.$i;
                         $event->sheet->getDelegate()->getRowDimension($i)->setRowHeight(14);
-                        $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12);
+                        $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
                         $event->sheet->getStyle($cellRange)->ApplyFromArray($styleArray)->getAlignment()->setVertical('center');
                         $event->sheet->mergeCells($cellRange);
                     } elseif (isset($_data['cang_xep'])) {

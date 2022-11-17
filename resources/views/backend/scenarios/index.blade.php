@@ -108,7 +108,7 @@
                                         <select name="country_id" data-placeholder="Cảng Xếp" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
                                             <option value="0">Quốc gia</option>
                                             @foreach($countries as $country)
-                                                <option value="{{ $country->id }}">{{ $country->country_nm_vn }}</option>
+                                                <option {{ isset($_GET['country_id']) && $_GET['country_id'] == $country->id  ? 'selected="selected"' :'' }} value="{{ $country->id }}">{{ $country->country_nm_vn }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -116,7 +116,7 @@
                                         <select name="boss_port_id" data-placeholder="Cảng Xếp" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
                                             <option value="0">Cảng Xếp</option>
                                             @foreach($ports as $port)
-                                                <option @if(isset($scenario->boss_port_id) && $scenario->boss_port_id == $port->id) selected @endif value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
+                                                <option  {{ isset($_GET['boss_port_id']) && $_GET['boss_port_id'] == $port->id  ? 'selected="selected"' :'' }} value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -124,7 +124,7 @@
                                         <select name="unloading_port_id" data-placeholder="Cảng Dỡ" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
                                             <option value="0">Cảng Dỡ</option>
                                             @foreach($ports as $port)
-                                                <option @if(isset($scenario->unloading_port_id) && $scenario->unloading_port_id == $port->id) selected @endif value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
+                                                <option {{ isset($_GET['unloading_port_id']) && $_GET['unloading_port_id'] == $port->id  ? 'selected="selected"' :'' }} value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -132,7 +132,7 @@
                                         <select name="transit_port_id" data-placeholder="Cảng Transit" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
                                             <option value="0">Cảng Transit</option>
                                             @foreach($ports as $port)
-                                                <option @if(isset($scenario->transit_port_id) && $scenario->transit_port_id == $port->id) selected @endif value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
+                                                <option {{ isset($_GET['transit_port_id']) && $_GET['transit_port_id'] == $port->id  ? 'selected="selected"' :'' }} value="{{ $port->id }}">{{ $port->port_nm_vn }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -140,7 +140,7 @@
                                         <select name="ship_id" data-placeholder="Tên Tàu" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
                                             <option value="0">Tên Tàu</option>
                                             @foreach($ships as $ship)
-                                                <option @if(isset($scenario->ship_id) && $scenario->ship_id == $ship->id) selected @endif value="{{ $ship->id }}">{{ $ship->ship_nm_vn }}</option>
+                                                <option {{ isset($_GET['ship_id']) && $_GET['ship_id'] == $ship->id  ? 'selected="selected"' :'' }} value="{{ $ship->id }}">{{ $ship->ship_nm_vn }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -148,7 +148,7 @@
                                         <select name="agent_id" data-placeholder="Đại lý" class="chosen-select border-0 mb-1 px-4 py-4 rounded shadow mb-3 form-control-sm ">
                                             <option value="0">Đại lý</option>
                                             @foreach($agents as $agent)
-                                                <option @if(isset($scenario->agent_id) && $scenario->agent_id == $agent->id) selected @endif value="{{ $agent->id }}">{{ $agent->agent_nm_vn }}</option>
+                                                <option {{ isset($_GET['agent_id']) && $_GET['agent_id'] == $agent->id  ? 'selected="selected"' :'' }} value="{{ $agent->id }}">{{ $agent->agent_nm_vn }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -162,6 +162,9 @@
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <button style="padding: 6px 5px; margin-top: 0px;" type="submit" class="btn btn-primary mr-2"><i class="fas fa-filter"></i> Tìm kiếm</button>
+                                        <a href="{{ route('admin.scenarios') }}">
+                                            <button style="padding: 6px 5px; margin-top: 0px;" type="button" class="btn btn-primary mr-2"><i class="fas fa-random"></i> Clear</button>
+                                        </a>
                                     </div>
                                 </div>
                             </form>

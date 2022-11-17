@@ -34,7 +34,7 @@
         @include('templates.news.rightBarNews')
     </div>
 
-    <section class="related-posts @if(count($relate_news) == 0) d-none @endif">
+    <section style="margin-top: 25px" class="related-posts @if(count($relate_news) == 0) d-none @endif">
         <div class="block-head block-head-ac block-head-e block-head-e2 is-left">
             @if($news->category_id == 1)
                 <h4 class="heading"><span class="color">{{ __("messages.RELATE_EVENT") }}</span></h4>

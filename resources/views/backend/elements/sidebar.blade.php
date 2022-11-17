@@ -121,7 +121,7 @@
     <li class="nav-item">
         <a class="nav-link{{ (request()->is('admin/scenarios') || request()->is('*scenario*')) ? ' active' : '' }}"
            href="#">
-            <i class="fa fas fa-calendar"></i>
+            <i class="fa fas fa-list"></i>
             <span>Quản Lý Đơn Hàng  <b class="float-end">&raquo;</b></span></a>
             <ul class="submenu dropdown-menu">
             <li class="nav-item">
@@ -137,7 +137,7 @@
     <li class="nav-item">
         <a class="nav-link{{ (request()->is('admin/news') || request()->is('*add-new*') || request()->is('*new-detail*')) ? ' active' : '' }}"
            href="#">
-            <i class="fa fa-id-badge"></i>
+            <i class="fa fa-clipboard"></i>
             <span>Quản lý tin tức <b class="float-end">&raquo;</b></span></a>
         <ul class="submenu dropdown-menu">
             <li class="nav-item">
@@ -175,7 +175,7 @@
     <li class="nav-item">
         <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
            href="#">
-            <i class="fa fas fa fa-newspaper"></i>
+            <i class="fa fas fa-random"></i>
             <span>Quản lý giao thương <b class="float-end">&raquo;</b></span></a>
         <ul class="submenu dropdown-menu">
             <li class="nav-item">
@@ -202,7 +202,7 @@
     <li class="nav-item">
         <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
            href="{{ route('admin.product.type') }}">
-            <i class="fa fas fa fa-newspaper"></i>
+            <i class="fa fas fa-th"></i>
             <span>Quản lý sản phẩm <b class="float-end">&raquo;</b></span></a>
         <ul class="submenu dropdown-menu">
             <li class="nav-item">
@@ -221,7 +221,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">
-            <i class="fas fa-bell"></i>
+            <i class="fas fa-align-center"></i>
             <span>Quản lý chung <b class="float-end">&raquo;</b></span></a>
         <ul class="submenu dropdown-menu">
             <li class="nav-item {{ (request()->is('admin/partners') || request()->is('*partner*')) ? ' active' : '' }}">

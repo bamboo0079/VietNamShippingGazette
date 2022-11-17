@@ -215,7 +215,7 @@
                                     <input type="hidden" name="prd_name[]" value="{{ $card['product_name_vn'] }}">
                                 </td>
                                 <td>
-                                    <input style="height: 35px; width: 80px" class="qt" type="number" step="1" name="qt[]" value="{{ $card['qt'] }}" id="theNumber" min="1" max="400" />
+                                    <input style=" width: 80px" class="qt" type="number" step="1" name="qt[]" value="{{ $card['qt'] }}" id="theNumber" min="1" max="400" />
                                     <input class="prd_id" name="id[]" type="hidden" value="{{ $card['id'] }}">
                                     <input class="qt_org" type="hidden" name="qt_org" value="{{ $card['qt'] }}">
                                 </td>

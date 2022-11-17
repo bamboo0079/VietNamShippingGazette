@@ -17,7 +17,7 @@ return [
     'Logout'=> 'Logout',
     'Register'=> 'Register',
     'HOME'=> 'Home',
-    'BOAT_SCHEDULE'=> 'Boat Schedule',
+    'BOAT_SCHEDULE'=> 'Shipping Schedule',
     'NEWS'=> 'News',
     'TRADE'=> 'Trade',
     'PRODUCTS'=> 'Products',

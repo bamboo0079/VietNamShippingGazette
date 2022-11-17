@@ -45,14 +45,6 @@ class ScenariosController extends Controller
 
         $query = Scenario::where('id','>', 0);
 
-        if (isset($submit_data['start']) && $submit_data['start']) {
-            $start_date = $this->formatDate($submit_data['start']);
-            $query->where('departure_day','>=', $start_date);
-        }
-        if (isset($submit_data['end']) && $submit_data['end']) {
-            $end_date = $this->formatDate($submit_data['end']);
-            $query->where('arrival_date','<=', $end_date);
-        }
         if (isset($submit_data['country_id']) && $submit_data['country_id'] != 0) {
             $query->where('country_id','=', $submit_data['country_id']);
         }
@@ -69,10 +61,10 @@ class ScenariosController extends Controller
             $query->where('ship_id','=', $submit_data['ship_id']);
         }
         if (isset($submit_data['agent_id']) && $submit_data['agent_id'] != 0) {
-            $query->where('agent_id','=', $submit_data['ship_id']);
+            $query->where('agent_id','=', $submit_data['agent_id']);
         }
 
-        $id = isset($_GET['id'])?$_GET['id']:0;
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
         $data['scenario'] = Scenario::where('id', $id)->first();
         if($id == 0){
             if(isset($submit_data['is_inbound']) && $submit_data['is_inbound'] == 1){
@@ -83,6 +75,17 @@ class ScenariosController extends Controller
         }else{
             $query->where('scenarios.country_id',$data['scenario']->country_id);
         }
+
+        if (isset($submit_data['start']) && $submit_data['start']) {
+            $start_date = $this->formatDate($submit_data['start']);
+            $query->where('departure_day','>=', $start_date);
+        }
+
+        if (isset($submit_data['end']) && $submit_data['end']) {
+            $end_date = $this->formatDate($submit_data['end']);
+            $query->where('arrival_date','<=', $end_date);
+        }
+
         $data['categories'] = $query->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
 
         $data['countries'] = Country::orderBy('country_nm_vn', 'ASC')->get();
