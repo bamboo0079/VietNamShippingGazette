@@ -29,6 +29,32 @@
         .chosen-container a.chosen-single b{
             margin-top: 6px !important;
         }
+        .alert-dismissible .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0.75rem 1.25rem;
+            color: inherit;
+        }
+        button.close {
+            margin-top: -8px !important;
+            padding: 0;
+            background-color: transparent;
+            border: 0;
+            -webkit-appearance: none;
+        }
+        .close {
+            float: right;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #000;
+            text-shadow: 0 1px 0 #fff;
+            opacity: .5;
+        }
+        .error_message {
+            display: none;
+        }
     </style>
     <div class="main ts-contain cf right-sidebar">
         <div class="ts-row">
@@ -36,18 +62,24 @@
 
                 <h1 class="archive-heading"><span> {{ __("messages.SEARCH_SCHEDULE_TITLE") }}</span></h1>
                 <section class="block-wrap block-grid mb-none" data-id="8">
+                    <div class="alert alert-danger error_message" role="alert">
+                        {{ __("messages.SEARCH_REQUIRED_PARAM") }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
                     <div class="block-content">
                         <!--Full form-->
                         <form class="information_search col-12" id="schedule-full-form" action="" method="get">
                             <div class="row top-row">
                                 <div class="col-4">
-                                    <select id="ship_id" class="chosen-select form-control" name="ship_id" tabindex="-1" aria-hidden="true">
-                                        <option value=""> {{ __("messages.ALL_SHIPPING_AGENT") }}</option>
-                                        @foreach($list_ship as $ship)
+                                    <select id="agent_id" class="chosen-select form-control" name="agent_id" tabindex="-1" aria-hidden="true">
+                                        <option value=""> {{ __("messages.AGENT") }}</option>
+                                        @foreach($agents as $agent)
                                             @if(Session::get('locale') == 'vi')
-                                                <option @if(isset($_GET['ship_id']) && $_GET['ship_id'] == $ship->id) selected @endif  value="{{ $ship->id }}">{{ $ship->ship_nm_vn }}</option>
+                                                <option @if(isset($_GET['agent_id']) && $_GET['agent_id'] == $agent->id) selected @endif  value="{{ $agent->id }}">{{ $agent->agent_nm_vn }}</option>
                                             @else
-                                                <option @if(isset($_GET['ship_id']) && $_GET['ship_id'] == $ship->id) selected @endif  value="{{ $ship->id }}">{{ $ship->ship_nm_en }}</option>
+                                                <option @if(isset($_GET['agent_id']) && $_GET['agent_id'] == $agent->id) selected @endif  value="{{ $agent->id }}">{{ $agent->agent_nm_en }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -86,7 +118,7 @@
                                     <input id="datetimepicker2" value="@if(isset($_GET['arrival_date'])){{ $_GET['arrival_date'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="ETA" id="arrival_date" autocomplete="off" name="arrival_date" type="text">
                                 </div>
                                 <div class="col-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary search-schedule">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
                                         </svg>
@@ -102,11 +134,11 @@
                                 </div>
                             </div>
                         </form>
-                        @if(!empty($list_scenarios))
+
                             <table id="schedule-table" class="table table-hover table-nomargin table-bordered">
                                 <thead>
                                 <tr>
-                                    <th id="lichtau-grid_cMaHangTau">Hãng Tàu</th>
+                                    <th id="lichtau-grid_cMaHangTau">{{ __("messages.AGENT") }}</th>
                                     <th id="lichtau-grid_cETD">ETD</th>
                                     <th id="lichtau-grid_cETA">ETA</th>
                                     <th id="lichtau-grid_cPOL">POL</th>
@@ -117,21 +149,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($list_scenarios as $k => $scenario)
-                                    <tr >
-                                        <td>{{ $scenario->ship->ship_nm_vn }}</td>
-                                        <td><b>{{ $scenario->departure_day }}</b></td>
-                                        <td><b>{{ $scenario->arrival_date }}</b></td>
-                                        <td>{{ $scenario->boss->port_nm_vn }}</td>
-                                        <td>{{ $scenario->unloading->port_nm_vn }}</td>
-                                        <td>{{ $scenario->transit->port_nm_vn }}</td>
-                                        <td> </td>
-                                        <td>{!! App\Helpers\Helper::substractTwoDate( $scenario->departure_day, $scenario->arrival_date)  !!}</td>
-                                    </tr>
-                                @endforeach
+                                    @if(count($list_scenarios) > 0)
+                                        @foreach($list_scenarios as $k => $scenario)
+                                            <tr >
+                                                <td>{{ $scenario->ship->ship_nm_vn }}</td>
+                                                <td><b>{{ $scenario->departure_day }}</b></td>
+                                                <td><b>{{ $scenario->arrival_date }}</b></td>
+                                                <td>{{ $scenario->boss->port_nm_vn }}</td>
+                                                <td>{{ $scenario->unloading->port_nm_vn }}</td>
+                                                <td>{{ isset($scenario->transit->port_nm_vn) ? $scenario->transit->port_nm_vn : "" }}</td>
+                                                <td> </td>
+                                                <td>{!! App\Helpers\Helper::substractTwoDate( $scenario->departure_day, $scenario->arrival_date)  !!}</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="8">{{ __("messages.DATA_NOT_FOUND") }}</td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
-                        @endif
+
                     </div>
 
                 </section>
@@ -220,5 +258,43 @@
             </aside>
         </div>
     </div>
+    <script type="text/javascript">
+        $(function() {
+            $('.close').on('click', function () {
+                $(this).parent('.alert').hide();
+            });
+            $(".search-schedule").on("click",function() {
+                $(".error_message").hide();
+                var check_search = false;
+                var agent_id = $("#agent_id").val();
+                if(agent_id != '0' && agent_id != '') {
+                   check_search = true;
+                }
+                var boss_port_id = $("#boss_port_id").val();
+                if(boss_port_id != '0' && boss_port_id != '') {
+                    check_search = true;
+                }
+                var unloading_port_id = $("#unloading_port_id").val();
+                if(unloading_port_id != '0' && unloading_port_id != '') {
+                    check_search = true;
+                }
+                var datetimepicker1 = $("#datetimepicker1").val();
+                if(datetimepicker1 != '0' && datetimepicker1 != '') {
+                    check_search = true;
+                }
+                var datetimepicker2 = $("#datetimepicker2").val();
+                if(datetimepicker2 != '0' && datetimepicker2 != '') {
+                    check_search = true;
+                }
 
+                if(check_search == false) {
+                    $(".error_message").show();
+                    return false;
+                } else {
+                    return true;
+                }
+
+            });
+        })
+    </script>
 @stop

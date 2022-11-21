@@ -182,4 +182,7 @@ return [
     "ADDRESS" => "Address",
     "REMOVE_NEWS" => "Delete News",
     "DELETE_NEWS_SUCCESS" => "Success delete post",
+    "SEARCH_REQUIRED_PARAM" => "Please choose search condition.",
+    "DATA_NOT_FOUND" => "Data not found...",
+    "AGENT" => "Agent",
 ];

@@ -181,4 +181,7 @@ return [
     "ADDRESS" => "Địa Chỉ",
     "REMOVE_NEWS" => "Xóa Tin",
     "DELETE_NEWS_SUCCESS" => "Xoá tin thành công.",
+    "SEARCH_REQUIRED_PARAM" => "Vui lòng chọn điều kiện tìm kiếm.",
+    "DATA_NOT_FOUND" => "Không tìm thấy dữ liệu tìm kiếm...",
+    "AGENT" => "Hãng Tàu",
 ];

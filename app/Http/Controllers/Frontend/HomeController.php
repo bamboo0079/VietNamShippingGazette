@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 //use App\Helpers\Helper;
 use App\ConstApp;
+use App\Models\Agent;
 use App\Models\Audio;
 use App\Models\Book;
 use App\Models\Category;
@@ -172,13 +173,13 @@ class HomeController extends Controller
         $data['product_categories_menu'] = ProductCategory::where('show_menu', 1)->orderBy('order','ASC')->get();
         $data['hot_news'] = News::where('is_hot', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
-        $data['list_ship'] = Ship::where('id','>', 0)->orderBy('ship_nm_en','ASC')->get();
+        $data['agents'] = Agent::where('id','>', 0)->orderBy('agent_nm_vn','ASC')->get();
         $data['list_port'] = Port::where('id','>', 0)->orderBy('port_nm_en','ASC')->get();
         $data['menu_active'] = 'schedule';
-        if(isset($_GET['ship_id']) || isset($_GET['boss_port_id']) || isset($_GET['unloading_port_id']) || isset($_GET['departure_day']) || isset($_GET['arrival_date'])) {
+        if(isset($_GET['agent_id']) || isset($_GET['boss_port_id']) || isset($_GET['unloading_port_id']) || isset($_GET['departure_day']) || isset($_GET['arrival_date'])) {
             $list_scenarios = Scenario::query();
-            if(isset($_GET['ship_id']) && $_GET['ship_id']){
-                $list_scenarios = $list_scenarios->where('ship_id', $_GET['ship_id']);
+            if(isset($_GET['agent_id']) && $_GET['agent_id']){
+                $list_scenarios = $list_scenarios->where('agent_id', $_GET['agent_id']);
             }
             if(isset($_GET['boss_port_id']) && $_GET['boss_port_id']){
                 $list_scenarios = $list_scenarios->where('boss_port_id', $_GET['boss_port_id']);
