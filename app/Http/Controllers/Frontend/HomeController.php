@@ -961,6 +961,12 @@ class HomeController extends Controller
         return view('templates.news.newsManagent', $data);
     }
 
+    public function deletePost($id) {
+        News::where('id', $id)->delete();
+        Session::flash('successMsg', __("messages.DELETE_NEWS_SUCCESS"));
+        return redirect()->route('news.management');
+    }
+
     public function svgNews(Request $request) {
         $data = $this->commonMenuData();
         $data['news'] = News::where('category_id', 2)->where('approved', 1)->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);

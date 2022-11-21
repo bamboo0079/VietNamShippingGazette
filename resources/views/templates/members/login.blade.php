@@ -86,7 +86,7 @@
                         @endif
                         @if(Session::has('successLoginMsg'))
                             <div class="alert alert-success" role="alert">
-                                {{ Session::get('successLoginMsg') }} <a href="{{ route('login') }}" class="alert-link">{{ __("messages.HERE") }}</a>.
+                                {{ Session::get('successLoginMsg') }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>

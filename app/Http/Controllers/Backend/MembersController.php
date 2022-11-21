@@ -118,8 +118,9 @@ class MembersController extends Controller
                 'block' => isset($data['block']) ? $data['block'] : 0,
             ];
             if(isset($data['password']) && strlen($data['password']) > 5){
-                $update['password'] = Hash::make($data['password']);
+                $update['password'] = md5($data['password']);
             }
+
             User::where('id', $data['id'])->update($update);
         } else {
             $request->validate([
@@ -135,7 +136,7 @@ class MembersController extends Controller
                 'email' => $data['email'],
                 'tel' => isset($data['tel'])?$data['tel']:'',
                 'role' => $data['role'],
-                'password' => Hash::make($data['password']),
+                'password' => md5($data['password']),
             ]);
         }
 
@@ -163,7 +164,7 @@ class MembersController extends Controller
                 'active' => isset($data['block']) ? $data['block'] : 0,
             ];
             if(isset($data['password']) && strlen($data['password']) > 5){
-                $update['password'] = Hash::make($data['password']);
+                $update['password'] = md5($data['password']);
             }
             Member::where('id', $data['id'])->update($update);
         } else {
@@ -180,7 +181,7 @@ class MembersController extends Controller
                 'email' => $data['email'],
                 'phone' => isset($data['tel'])?$data['tel']:'',
 //                'role' => $data['role'],
-                'password' => Hash::make($data['password']),
+                'password' => md5($data['password']),
             ]);
         }
 

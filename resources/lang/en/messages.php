@@ -180,4 +180,6 @@ return [
     "PRODUCT_TOTAL_PRICE" => "Total payment",
     "ABOUT_US" => "About Us",
     "ADDRESS" => "Address",
+    "REMOVE_NEWS" => "Delete News",
+    "DELETE_NEWS_SUCCESS" => "Success delete post",
 ];

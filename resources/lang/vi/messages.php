@@ -179,4 +179,6 @@ return [
     "PRODUCT_TOTAL_PRICE" => "Tổng Tiền",
     "ABOUT_US" => "Giới Thiệu",
     "ADDRESS" => "Địa Chỉ",
+    "REMOVE_NEWS" => "Xóa Tin",
+    "DELETE_NEWS_SUCCESS" => "Xoá tin thành công.",
 ];

@@ -42,6 +42,7 @@ Route::middleware(['front'])->namespace('Frontend')->group(function () {
     Route::any('/update-account', 'HomeController@updateAccount')->name('update.account');
     Route::any('/add-news', 'HomeController@addNews')->name('add.news');
     Route::any('/news-management', 'HomeController@newsManagent')->name('news.management');
+    Route::any('/delete-post/{id?}', 'HomeController@deletePost')->name('news.remove');
     Route::any('/loai-san-pham/{id?}', 'HomeController@productCategory')->name('loai.san.pham');
     Route::any('/chi-tiet-san-pham/{id?}', 'HomeController@productDetail')->name('product.detail');
     Route::any('/tin-svg', 'HomeController@svgNews')->name('tin.svg');
