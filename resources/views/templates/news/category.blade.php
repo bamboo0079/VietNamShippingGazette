@@ -20,7 +20,7 @@
                     <h1 class="archive-heading"><span>@if(Session::get('locale') == 'vi') {{ $category->name_vn }} @else {{ $category->name_en }} @endif</span></h1>
                 @endif
 
-                <section class="block-wrap block-grid mb-none" data-id="8">
+                <section class="block-wrap block-grid mb-none" data-id="8" style="margin-bottom: 20px">
                     <div class="block-content">
                         @if(count($news))
                         <div class="loop loop-grid loop-grid-base grid {{ $col }} xs:grid-1">

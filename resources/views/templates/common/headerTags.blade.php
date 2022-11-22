@@ -1997,6 +1997,7 @@
     }
 
     .post-meta > .is-title:first-child {
+        font-size: 14px;
         margin-top: 0 !important;
     }
 
@@ -4908,7 +4909,7 @@
     }
 
     .loop-grid-base .post-title {
-        font-size: 18px;
+        font-size: 14px;
         font-weight: 600;
     }
 

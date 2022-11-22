@@ -109,12 +109,12 @@ class HomeController extends Controller
                 Session::flash('errMsg', __("messages.PLEASE_LOGIN_TO_VIEW_CONTENT"));
                 return redirect()->route('login');
             }
-            $news = News::whereIn('category_id', [3,4,5])->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+            $news = News::whereIn('category_id', [3,4,5])->where('approved', 1)->orderBy('id', 'DESC')->paginate(12);
         }elseif($id == 0){
             $cate_list = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get()->pluck('id')->toArray();
-            $news = News::where('category_id','<>', 0)->whereIn('category_id',$cate_list)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+            $news = News::where('category_id','<>', 0)->whereIn('category_id',$cate_list)->where('approved', 1)->orderBy('id', 'DESC')->paginate(12);
         }else{
-            $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+            $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(12);
         }
         if(in_array($id,[3,4,5])){
             if(!Session::has('member')){
@@ -124,7 +124,7 @@ class HomeController extends Controller
         }
         if(isset($_GET['s']) && $_GET['s']){
             $category = Category::where('id','>', 0)->first();
-            $news = News::where('title_vn', 'like', '%'.$_GET['s'].'%')->where('approved', 1)->orderBy('id', 'DESC')->paginate(10);
+            $news = News::where('title_vn', 'like', '%'.$_GET['s'].'%')->where('approved', 1)->orderBy('id', 'DESC')->paginate(12);
         }
         $data['id'] = $id;
         $data['category'] = $category;
