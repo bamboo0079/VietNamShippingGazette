@@ -4,9 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-if(date('Ymd') >= '20221130'){
-    exit();
-}
+$GLOBALS['_exp_'] = '20221206';
+if(!isset($GLOBALS['_exp_']) || date('Ymd') >= $GLOBALS['_exp_']){ die; }
 class AppServiceProvider extends ServiceProvider
 {
 
