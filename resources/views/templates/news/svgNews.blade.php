@@ -1,5 +1,10 @@
 @extends('templates.master')
 @section('content')
+    <style type="text/css">
+        .lazyload, .lazyloading {
+            opacity: unset !important;
+        }
+    </style>
     <div class="main ts-contain cf right-sidebar spc-alp-main">
         <div class="ts-row">
             <div class=" @if(count($hot_news) > 0 || count($paid_news) > 0 ) {{ 'col-8 main-content' }} @else {{ 'col-12' }} @endif">
@@ -12,11 +17,12 @@
                                     <article class="l-post  grid-base-post grid-post">
                                         <div class="media">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#youtubeModal{{$new->id}}" data-toggle="modal" class="image-link media-ratio ratio-16-9" title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
-                                            <span
+                                            {{--<span
                                                     data-bgsrc="{{ $new->img }}"
                                                     class="img bg-cover wp-post-image attachment-bunyad-medium size-bunyad-medium lazyload"
                                                     data-bgset="{{ $new->img }}"
-                                                    data-sizes="(max-width: 358px) 100vw, 358px"></span>
+                                                    data-sizes="(max-width: 358px) 100vw, 358px"></span>--}}
+                                                <img class="img size-bunyad-medium lazyload" src="{{ $new->img }}" title="@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif">
                                             </a>
                                             <div id="youtubeModal{{$new->id}}" class="modal fade modal-video bd-example-modal-lg" data-youtube-url="{{ $new->youtube_url }}">
                                                 <div class="modal-dialog">

@@ -5708,15 +5708,7 @@
     var Bunyad = {"ajaxurl": "https:\/\/smartmag.theme-sphere.com\/pro-mag\/wp-admin\/admin-ajax.php"};
     /* ]]> */
 </script>
-<script type="text/javascript" id="smartmag-theme-js"
-        src="https://smartmag.theme-sphere.com/pro-mag/wp-content/cache/debloat/js/88ec8fcb1e79b74a036e399f073c3276.js"
-        defer></script>
 
-<script>var debloatConfig = {"cssDelayType": "interact", "jsDelayType": "interact", "jsDelayMax": ""};</script>
-<script type="text/javascript"
-        src="https://smartmag.theme-sphere.com/pro-mag/wp-content/plugins/debloat/inc/delay-load/js/delay-load.min.js?ver=1.2.1"
-        data-cfasync="false"></script>
-{{--<script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>--}}
 <script>
     $(document).ready(function(){
         /* Assign empty url value to the iframe src attribute when

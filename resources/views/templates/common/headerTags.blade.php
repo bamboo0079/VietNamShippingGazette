@@ -6403,8 +6403,8 @@
 <meta name="generator" content="WordPress 5.9.3"/>
 <link rel='shortlink' href='http://vietnamshippinggazette.com/'/>
 <link href="/src/asset/css/frontend/bootstrap-chosen.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-2.2.4.js"  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
-<script src="public/ckeditor/ckeditor.js"></script>
+<script src="/public/js/jquery-2.2.4.js"  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<script src="/public/ckeditor/ckeditor.js"></script>
 <style type="text/css">
     .modal.fade.show{
         z-index: 99999;

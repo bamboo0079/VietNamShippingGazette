@@ -5663,14 +5663,7 @@
     var Bunyad = {"ajaxurl": "https:\/\/smartmag.theme-sphere.com\/pro-mag\/wp-admin\/admin-ajax.php"};
     /* ]]> */
 </script>
-<script type="text/javascript" id="smartmag-theme-js"
-        src="https://smartmag.theme-sphere.com/pro-mag/wp-content/cache/debloat/js/88ec8fcb1e79b74a036e399f073c3276.js"
-        defer></script>
 
-<script>var debloatConfig = {"cssDelayType": "interact", "jsDelayType": "interact", "jsDelayMax": ""};</script>
-<script type="text/javascript"
-        src="https://smartmag.theme-sphere.com/pro-mag/wp-content/plugins/debloat/inc/delay-load/js/delay-load.min.js?ver=1.2.1"
-        data-cfasync="false"></script>
 <link rel="stylesheet" href="https://harvesthq.github.io/chosen/chosen.css">
 <script src="https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="https://harvesthq.github.io/chosen/chosen.jquery.js" type="text/javascript"></script>
