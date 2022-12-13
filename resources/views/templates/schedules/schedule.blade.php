@@ -158,7 +158,7 @@
                                                 <td><b>{{ date("d/m/y",strtotime($scenario->departure_day)) }}</b></td>
                                                 <td>{{ $scenario->unloading->port_nm_en }}</td>
                                                 <td><b>{{ date("d/m/Y",strtotime($scenario->arrival_date)) }}</b></td>
-                                                <td>{{ $scenario->transit->port_nm_en }}</td>
+                                                <td>{{ isset($scenario->transit->port_nm_en) ? $scenario->transit->port_nm_en : "" }}</td>
                                                 <td>{{ $scenario->agent->agent_nm_en }}</td>
                                                 <td>{!! App\Helpers\Helper::substractTwoDate( $scenario->departure_day, $scenario->arrival_date)  !!}</td>
                                             </tr>
