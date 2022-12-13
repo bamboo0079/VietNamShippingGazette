@@ -57,7 +57,7 @@
                                                                         </span>
                                                                         <span class="meta-item date">
                                                                         <span class="date-link">
-                                                                        <time class="post-date" datetime=""> {{ $new->created_at }}</time>
+                                                                        <time class="post-date" datetime=""> {{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                                         </span>
                                                                         </span>
                                                                     </div>
@@ -106,7 +106,7 @@
                                                                         </span>
                                                                         <span class="meta-item date">
                                                                         <span class="date-link">
-                                                                        <time class="post-date" datetime=""> {{ $new->created_at }}</time>
+                                                                        <time class="post-date" datetime=""> {{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                                         </span>
                                                                         </span>
                                                                     </div>
@@ -172,7 +172,7 @@
                                                                 </span>
                                                                 <span class="meta-item date">
                                                                     <span class="date-link">
-                                                                        <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                                                        <time class="post-date" datetime="{{ date('d/m/Y',strtotime($new->created_at)) }}">{{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                                     </span>
                                                                 </span>
                                                             </div>
@@ -311,7 +311,7 @@
                                                                                     </span>
                                                                                     <span class="meta-item date">
                                                                                         <span class="date-link">
-                                                                                            <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                                                                            <time class="post-date" datetime="{{ date('d/m/Y',strtotime($new->created_at)) }}">{{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                                                         </span>
                                                                                     </span>
                                                                                 </div>
@@ -360,7 +360,7 @@
                                                                                     </span>
                                                                                     <span class="meta-item date">
                                                                                         <span class="date-link">
-                                                                                            <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                                                                            <time class="post-date" datetime="{{ date('d/m/Y',strtotime($new->created_at)) }}">{{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                                                         </span>
                                                                                     </span>
                                                                                 </div>
@@ -375,12 +375,12 @@
                                                                                @else
                                                                                {!! \App\Helpers\Helper::limitCharacters($new->title_en, \App\ConstApp::NUMBER_CHARACTERS_LIMIT_TITLE) !!}
                                                                                @endif ">
-                                                                    <span data-bgsrc="{{ $new->img }}"
-                                                                          class="img bg-cover wp-post-image attachment-medium size-medium lazyloaded"
-                                                                          data-bgset="{{ $new->img }}"
-                                                                          data-sizes="(max-width: 116px) 100vw, 116px"
-                                                                          style="background-image: url(&quot;{{ $new->img }}&quot;);">
-                                                                    </span>
+                                                                                <span data-bgsrc="{{ $new->img }}"
+                                                                                      class="img bg-cover wp-post-image attachment-medium size-medium lazyloaded"
+                                                                                      data-bgset="{{ $new->img }}"
+                                                                                      data-sizes="(max-width: 116px) 100vw, 116px"
+                                                                                      style="background-image: url(&quot;{{ $new->img }}&quot;);">
+                                                                                </span>
                                                                             </a>
                                                                         </div>
                                                                     </article>
@@ -505,7 +505,7 @@
                                                         </span>
                                                                 <span class="meta-item date">
                                                             <span class="date-link">
-                                                                <time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                                                <time class="post-date" datetime="{{ date('d/m/Y',strtotime($new->created_at)) }}">{{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                             </span>
                                                         </span>
                                                             </div>
@@ -574,7 +574,7 @@
                                                         <span class="meta-item date">
                                                             <span class="date-link">
                                                                 <time class="post-date"
-                                                                      datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                                                      datetime="{{ date('d/m/Y',strtotime($new->created_at)) }}">{{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                             </span>
                                                         </span>
                                                                 </div>
@@ -628,7 +628,7 @@
                                                             <span class="meta-item date">
                                                                 <span class="date-link">
                                                                     <time class="post-date"
-                                                                          datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                                                          datetime="{{ date('d/m/Y',strtotime($new->created_at)) }}">{{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                                 </span>
                                                             </span>
                                                                 </div>
@@ -683,7 +683,7 @@
                                                             <span class="meta-item date">
                                                                 <span class="date-link">
                                                                     <time class="post-date"
-                                                                          datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                                                          datetime="{{ date('d/m/Y',strtotime($new->created_at)) }}">{{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                                 </span>
                                                             </span>
                                                                 </div>

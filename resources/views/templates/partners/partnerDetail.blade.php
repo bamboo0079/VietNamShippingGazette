@@ -166,10 +166,12 @@
                     <div class="container-fliud">
                         <div class="wrapper row">
                             <div class="preview col-md-6">
-                                <img src="{{ $partners[0]->img }}" />
+                                <a target="_blank" href="//{{ $partners[0]->link }}">
+                                    <img src="{{ $partners[0]->img }}" />
+                                </a>
                             </div>
                             <div class="details col-md-6">
-                                <h3 class="product-title">@if(Session::get('locale') == 'vi') {{ $partners[0]->title_vn }} @else {{ $partners[0]->title_en }} @endif</h3>
+                                <h3 class="product-title">@if(Session::get('locale') == 'vi') {!! $partners[0]->title_vn !!} @else {!! $partners[0]->title_en !!} @endif</h3>
                                 <p class="vote">
                                     @if(Session::get('locale') == 'vi') {!! $partners[0]->content_vn !!} @else {!! $partners[0]->content_en !!} @endif
                                 </p>

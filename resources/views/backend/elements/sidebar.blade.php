@@ -64,7 +64,7 @@
         <li class="nav-item {{ (request()->is('admin') || request()->is('admin/user-detail/*') || request()->is('admin/add-user') || request()->is('admin/member')) ? ' active' : '' }}">
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <i class="fas fa-fw fa-user"></i>
-                <span>Quản lý người dùng  <b class="float-end">&raquo;</b></span></a>
+                <span>Quản lý người dùng  <span style="color: #ee5f5f; font-weight: bold">@if(\App\Helpers\Helper::getCountMember() > 0) {{ '('.\App\Helpers\Helper::getCountMember().')' }} @endif</span><b class="float-end">&raquo;</b></span></a>
             <ul class="submenu dropdown-menu">
                 <li class="nav-item {{ (request()->is('admin') || request()->is('admin/user-detail/*') || request()->is('admin/add-user')) ? ' active' : '' }}">
                     <a class="nav-link" href="{{ route('admin.dashboard') }}">
@@ -74,7 +74,7 @@
                 <li class="nav-item {{ (request()->is('member') || request()->is('admin/member/*') || request()->is('admin/member')) ? ' active' : '' }}">
                     <a class="nav-link" href="{{ route('admin.member') }}">
                         <i class="fas fa-fw fa-user"></i>
-                        <span>Người dùng</span></a>
+                        <span>Người dùng</span> <span style="color: #ee5f5f; font-weight: bold">@if(\App\Helpers\Helper::getCountMember() > 0) {{ '('.\App\Helpers\Helper::getCountMember().')' }} @endif</span></a>
                 </li>
             </ul>
         </li>
@@ -119,10 +119,9 @@
         </ul>
     </li>
     <li class="nav-item">
-        <a class="nav-link{{ (request()->is('admin/scenarios') || request()->is('*scenario*')) ? ' active' : '' }}"
-           href="#">
-            <i class="fa fas fa-list"></i>
-            <span>Quản Lý Đơn Hàng  <b class="float-end">&raquo;</b></span></a>
+        <a class="nav-link{{ (request()->is('admin/scenarios') || request()->is('*scenario*')) ? ' active' : '' }}" href="#">
+            <i class="fa fas fa-shopping-cart"></i>
+            <span>Quản Lý Đơn Hàng  <span style="color: #ee5f5f; font-weight: bold">@if(\App\Helpers\Helper::getCountCard() > 0) {{ '('.\App\Helpers\Helper::getCountCard().')' }} @endif</span><b class="float-end">&raquo;</b></span></a>
             <ul class="submenu dropdown-menu">
             <li class="nav-item">
                 <a class="nav-link"
@@ -176,25 +175,25 @@
         <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
            href="#">
             <i class="fa fas fa-random"></i>
-            <span>Quản lý giao thương <b class="float-end">&raquo;</b></span></a>
+            <span>Quản lý giao thương <span style="color: #ee5f5f; font-weight: bold">@if(\App\Helpers\Helper::getGiaoThuong() > 0) {{ '('.\App\Helpers\Helper::getGiaoThuong().')' }} @endif</span><b class="float-end">&raquo;</b></span></a>
         <ul class="submenu dropdown-menu">
+            <li class="nav-item">
+                <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
+                   href="{{ route('admin.app.news') }}?category_id=3">
+                    <i class="fa fas fa fa-newspaper"></i>
+                    <span>Yêu cầu báo giá</span><span style="color: #ee5f5f; font-weight: bold">@if(\App\Helpers\Helper::getBaoGiaCount() > 0) {{ '('.\App\Helpers\Helper::getBaoGiaCount().')' }} @endif</span></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
                    href="{{ route('admin.app.news') }}?category_id=4">
                     <i class="fa fas fa fa-newspaper"></i>
-                    <span>Giới Thiệu Dịch Vụ</span></a>
+                    <span>Giới Thiệu Dịch Vụ </span><span style="color: #ee5f5f; font-weight: bold">@if(\App\Helpers\Helper::getChaoMuaCount() > 0) {{ '('.\App\Helpers\Helper::getChaoMuaCount().')' }} @endif</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
                    href="{{ route('admin.app.news') }}?category_id=5">
                     <i class="fa fas fa fa-newspaper"></i>
-                    <span>Giới Thiệu Sản Phẩm</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link{{ (request()->is('admin/product-types') || request()->is('admin/add-product-type/*') || request()->is('*product-type*')) ? ' active' : '' }}"
-                   href="{{ route('admin.app.news') }}?category_id=3">
-                    <i class="fa fas fa fa-newspaper"></i>
-                    <span>Yêu cầu báo giá</span></a>
+                    <span>Giới Thiệu Sản Phẩm</span> <span style="color: #ee5f5f; font-weight: bold">@if(\App\Helpers\Helper::getChaoBanCount() > 0) {{ '('.\App\Helpers\Helper::getChaoBanCount().')' }} @endif</span></a>
             </li>
         </ul>
     </li>
@@ -222,7 +221,7 @@
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-align-center"></i>
-            <span>Quản lý chung <b class="float-end">&raquo;</b></span></a>
+            <span>Quản lý chung <span style="color: #ee5f5f; font-weight: bold">@if(\App\Helpers\Helper::getCountContact() > 0) {{ '('.\App\Helpers\Helper::getCountContact().')' }} @endif</span><b class="float-end">&raquo;</b></span></a>
         <ul class="submenu dropdown-menu">
             <li class="nav-item {{ (request()->is('admin/partners') || request()->is('*partner*')) ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.partners') }}">
@@ -237,7 +236,7 @@
             <li class="nav-item {{ (request()->is('admin/contacts') || request()->is('*contacts*')) ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.contacts') }}">
                     <i class="fas fa-id-card"></i>
-                    <span>Liên hệ</span></a>
+                    <span>Liên hệ</span> <span style="color: #ee5f5f; font-weight: bold">@if(\App\Helpers\Helper::getCountContact() > 0) {{ '('.\App\Helpers\Helper::getCountContact().')' }} @endif</span></a>
             </li>
             <li class="nav-item {{ (request()->is('admin/update-config') || request()->is('*update-config*')) ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.update.config') }}">

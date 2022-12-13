@@ -8,7 +8,10 @@ use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-
+use App\Models\Card;
+use App\Models\Contact;
+use App\Models\Member;
+use App\Models\News;
 class Helper
 {
     public static function updateDayList()
@@ -87,5 +90,50 @@ class Helper
         $str = explode("\n", $str);
         return $str[0] . '...';
 
+    }
+
+    public static function getCountCard() {
+        $data = Card::where('status','=','0')->get();
+        return count($data);
+    }
+
+    public static function getCountContact() {
+        $data = Contact::where('is_read','=','0')->get();
+        return count($data);
+    }
+
+    public static function getCountMember() {
+        $data = Member::where('active','=','0')->get();
+        return count($data);
+    }
+
+    public static function getGiaoThuong() {
+
+        $data = News::whereIn('category_id',['3','4','5'])->get();
+        return count($data);
+    }
+
+    public static function getBaoGia() {
+
+        $data = News::whereIn('category_id',['3'])->get();
+        return count($data);
+    }
+
+    public static function getBaoGiaCount() {
+
+        $data = News::whereIn('category_id',['3'])->get();
+        return count($data);
+    }
+
+    public static function getChaoMuaCount() {
+
+        $data = News::whereIn('category_id',['4'])->get();
+        return count($data);
+    }
+
+    public static function getChaoBanCount() {
+
+        $data = News::whereIn('category_id',['5'])->get();
+        return count($data);
     }
 }

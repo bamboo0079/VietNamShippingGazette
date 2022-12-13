@@ -434,7 +434,6 @@ class HomeController extends Controller
                 $card->product_address = $submit_data['product_address'];
                 $card->tel = $submit_data['tel'];
                 $card->mobile = $submit_data['mobile'];
-                $card->fax = $submit_data['fax'];
                 $card->email = $submit_data['email'];
                 $card->card_info = json_encode($card_detail);
                 $card->car_date = date('Y-m-d H:i:s');
@@ -448,7 +447,6 @@ class HomeController extends Controller
                 Session::forget('card_detail');
                 Session::forget('product_total');
             } catch (\Exception $exception) {
-                echo $exception->getMessage();die;
                 Session::flash('errMsg', __("messages.ERROR_ADD_CARD_INFO"));
             }
         }
@@ -889,6 +887,7 @@ class HomeController extends Controller
                     $new->save();
                     Session::flash('successMsg', __("messages.SUCCESS_ADD_NEWS"));
                 } catch (\Exception $exception) {
+                    print_r($exception);die;
                     Session::flash('errMsg', __("messages.EXCEPTION_ERROR_ADD_NEWS"));
                 }
                 Session::forget('category_id');

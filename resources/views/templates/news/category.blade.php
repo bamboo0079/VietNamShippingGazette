@@ -36,7 +36,7 @@
                                                     class="is-title post-title"><a
                                                         href="{{ route('tin.tuc', $new->id) }}" data-toggle="modal">@if(Session::get('locale') == 'vi') {{ $new->title_vn }} @else {{ $new->title_en }} @endif</a>
                                             </h2>
-                                            <div class="post-meta-items meta-below"><time class="post-date" datetime="{{ $new->created_at }}">{{ $new->created_at }}</time>
+                                            <div class="post-meta-items meta-below"><time class="post-date" datetime="{{ date('d/m/Y',strtotime($new->created_at)) }}">{{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                             </div>
                                         </div>
                                     </div>

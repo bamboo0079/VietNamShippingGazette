@@ -42,6 +42,8 @@ class NewsController extends Controller
             $book->where('approved', $submit_data['status']);
         }
 
+        News::where('category_id', 0)->delete();
+
         $data['books'] = $book->orderBy('id', 'DESC')->paginate($this->limit);
         return view('backend.news.index', $data);
     }

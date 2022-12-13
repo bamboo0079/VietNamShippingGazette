@@ -138,27 +138,28 @@
                             <table id="schedule-table" class="table table-hover table-nomargin table-bordered">
                                 <thead>
                                 <tr>
-                                    <th id="lichtau-grid_cMaHangTau">{{ __("messages.AGENT") }}</th>
-                                    <th id="lichtau-grid_cETD">ETD</th>
-                                    <th id="lichtau-grid_cETA">ETA</th>
+
+                                    <th id="lichtau-grid_cLoadVesselVoyage">Vessel - Voyage</th>
                                     <th id="lichtau-grid_cPOL">POL</th>
+                                    <th id="lichtau-grid_cETD">ETD</th>
                                     <th id="lichtau-grid_cPOD">POD</th>
-                                    <th id="lichtau-grid_cLoadVesselVoyage">Load Vessel - Voyage</th>
-                                    <th id="lichtau-grid_cLoadVesselVoyage">Discharge Vessel - Voyage</th>
-                                    <th id="lichtau-grid_cLoadVesselVoyage">Transit Time</th>
+                                    <th id="lichtau-grid_cETA">ETA</th>
+                                    <th id="lichtau-grid_cETA">Transit Port</th>
+                                    <th id="lichtau-grid_cMaHangTau">Line</th>
+                                    <th id="lichtau-grid_cLoadVesselVoyage">Voyage Time</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     @if(count($list_scenarios) > 0)
                                         @foreach($list_scenarios as $k => $scenario)
                                             <tr >
-                                                <td>{{ $scenario->ship->ship_nm_vn }}</td>
-                                                <td><b>{{ $scenario->departure_day }}</b></td>
-                                                <td><b>{{ $scenario->arrival_date }}</b></td>
-                                                <td>{{ $scenario->boss->port_nm_vn }}</td>
-                                                <td>{{ $scenario->unloading->port_nm_vn }}</td>
-                                                <td>{{ isset($scenario->transit->port_nm_vn) ? $scenario->transit->port_nm_vn : "" }}</td>
-                                                <td> </td>
+                                                <td>{{ $scenario->ship->ship_nm_en }}</td>
+                                                <td>{{ $scenario->boss->port_nm_en }}</td>
+                                                <td><b>{{ date("d/m/y",strtotime($scenario->departure_day)) }}</b></td>
+                                                <td>{{ $scenario->unloading->port_nm_en }}</td>
+                                                <td><b>{{ date("d/m/Y",strtotime($scenario->arrival_date)) }}</b></td>
+                                                <td>{{ $scenario->transit->port_nm_en }}</td>
+                                                <td>{{ $scenario->agent->agent_nm_en }}</td>
                                                 <td>{!! App\Helpers\Helper::substractTwoDate( $scenario->departure_day, $scenario->arrival_date)  !!}</td>
                                             </tr>
                                         @endforeach

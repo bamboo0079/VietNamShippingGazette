@@ -16,7 +16,6 @@ class Card extends Model
         'invoice_address',
         'product_address',
         'tel',
-        'fax',
         'mobile',
         'email',
         'card_info',

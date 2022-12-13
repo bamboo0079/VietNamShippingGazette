@@ -143,9 +143,6 @@
                                     <input name="mobile" type="text" placeholder="{{ __("messages.PHONE") }} *" value="@if(Session::has('mobile')) {{ Session::get('mobile') }} @endif" size="100" maxlength="100" required="required">
                                 </p>
                                 <p class="form-field comment-form-author">
-                                    <input name="fax" type="text" placeholder="{{ __("messages.FAX") }} " value="@if(Session::has('fax')) {{ Session::get('fax') }} @endif" size="100" maxlength="100" required="required">
-                                </p>
-                                <p class="form-field comment-form-author">
                                     <input name="email" type="email" placeholder="{{ __("messages.Email") }} *" value="@if(Session::has('email')) {{ Session::get('email') }} @endif" size="100" maxlength="100" required="required">
                                 </p>
                                 <p class="form-field comment-form-author">

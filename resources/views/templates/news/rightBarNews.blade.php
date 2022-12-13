@@ -39,7 +39,7 @@
                                                     </span>
                                                 <span class="meta-item date">
                                                     <span class="date-link">
-                                                    <time class="post-date" datetime=""> {{ $new->created_at }}</time>
+                                                    <time class="post-date" datetime=""> {{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                     </span>
                                                     </span>
                                             </div>
@@ -84,7 +84,7 @@
                                                     </span>
                                                 <span class="meta-item date">
                                                     <span class="date-link">
-                                                    <time class="post-date" datetime=""> {{ $new->created_at }}</time>
+                                                    <time class="post-date" datetime=""> {{ date('d/m/Y',strtotime($new->created_at)) }}</time>
                                                     </span>
                                                     </span>
                                             </div>

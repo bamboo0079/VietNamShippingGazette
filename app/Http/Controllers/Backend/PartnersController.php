@@ -102,7 +102,7 @@ class PartnersController extends Controller
         if (isset($data['id']) && $data['id']) {
             $update = [
                 'title_vn' => $data['title_vn'],
-                'title_en' => $data['title_vn'],
+                'title_en' => $data['title_en'],
                 'content_vn' => $data['content_vn'],
                 'content_en' => $data['content_en'],
                 'link' => $data['link'],

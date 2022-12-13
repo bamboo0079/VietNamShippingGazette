@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Card;
 use App\Models\Comment;
 use App\Models\Member;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cookie;
+use App\Helpers;
 class MembersController extends Controller
 {
     var $limit = 10;
