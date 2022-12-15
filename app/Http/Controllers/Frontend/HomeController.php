@@ -96,7 +96,7 @@ class HomeController extends Controller
         $data['paid_news'] = News::where('is_paid', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['news'] = $news;
 
-        $data['relate_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->inRandomOrder()->limit(6)->get();
+        $data['relate_news'] = News::where('approved', 1)->where('id','<>', $id)->where('category_id', $news->category_id)->where('product_category_id', $news->product_category_id)->inRandomOrder()->limit(8)->get();
         return view('templates.news.newsDetail', $data);
     }
 
@@ -994,7 +994,7 @@ class HomeController extends Controller
     public function partnerDetail(Request $request, $id = 0) {
         $data = $this->commonMenuData();
         $data['partners'] = Partner::where('id', $id)->get();
-        $data['partnersRelationship'] = Partner::where('type', 1)->where('id','<>', $id)->where('is_show','=', 1)->get();
+        $data['partnersRelationship'] = Partner::where('type', 1)->where('id','<>', $id)->where('is_show','=', 1)->limit(10)->get();
 
         $data['menu_active'] = 'doi_tac';
         return view('templates.partners.partnerDetail', $data);

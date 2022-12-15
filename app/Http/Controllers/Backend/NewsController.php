@@ -30,6 +30,7 @@ class NewsController extends Controller
         $book = News::where('id', '>', 0);
         if (isset($submit_data['category_id']) && $submit_data['category_id']) {
             $book->where('category_id', $submit_data['category_id']);
+            $book->whereNotIn('category_id', [2,3,4,5,17]);
         }else{
             $book->whereNotIn('category_id', [2,3,4,5,17]);
             $book->where('product_category_id', 0);
