@@ -184,4 +184,7 @@ return [
     "SEARCH_REQUIRED_PARAM" => "Vui lòng chọn điều kiện tìm kiếm.",
     "DATA_NOT_FOUND" => "Không tìm thấy dữ liệu tìm kiếm...",
     "AGENT" => "Hãng Tàu",
+    "TAX_CODE" => "Mã số thuế",
+    "PLS_INPUT_COMPANY" => "Vui lòng nhập tên công ty",
+    "PLS_INPUT_TAX_CODE" => "Vui lòng nhập mã số thuế",
 ];

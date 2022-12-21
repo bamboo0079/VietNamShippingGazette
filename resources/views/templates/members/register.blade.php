@@ -80,7 +80,7 @@
                         @csrf
                         <div id="respond" class="comment-respond">
                             <p class="form-field comment-form-author">
-                                <input name="name" type="text" placeholder="{{ __("messages.FULL_NAME") }} *" value="@if(Session::has('name')) {{ Session::get('name') }} @endif" size="100" maxlength="100" required="required">
+                                <input name="name" type="text" placeholder="{{ __("messages.FULL_NAME") }} *" value="@if(Session::has('name')) {{ Session::get('name') }} @endif" size="200" maxlength="200" required="required">
                             </p>
                             <p class="form-field comment-form-email">
                                 <input name="email" type="text" placeholder="{{ __("messages.EMAIL") }} *" value="@if(Session::has('email')) {{ Session::get('email') }} @endif" size="100" maxlength="100" required="required">
@@ -89,7 +89,10 @@
                                 <input name="phone" type="text" placeholder="{{ __("messages.PHONE_NUMBER") }} *" value="@if(Session::has('phone')) {{ Session::get('phone') }} @endif" size="11" maxlength="11" required="required">
                             </p>
                             <p class="form-field comment-form-url">
-                                <input name="company" type="text" placeholder="{{ __("messages.COMPANY") }} *" value="@if(Session::has('company')) {{ Session::get('company') }} @endif" size="100" maxlength="100" >
+                                <input name="company" type="text" placeholder="{{ __("messages.COMPANY") }} *" value="@if(Session::has('company')) {{ Session::get('company') }} @endif" size="200" maxlength="200" required="required" >
+                            </p>
+                            <p class="form-field comment-form-url">
+                                <input name="tax_code" type="text" placeholder="{{ __("messages.TAX_CODE") }} *" value="@if(Session::has('tax_code')) {{ Session::get('tax_code') }} @endif" size="20" maxlength="20" required="required" >
                             </p>
                             <p class="form-field comment-form-url">
                                 <input name="password" type="password" placeholder="{{ __("messages.PASSWORD") }} *" value="" size="30" maxlength="30" required="required">

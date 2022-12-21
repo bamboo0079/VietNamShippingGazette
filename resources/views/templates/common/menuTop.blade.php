@@ -226,7 +226,7 @@
                         <img src="/src/asset/img/system/logo1.jpg" class="logo-image" alt="Viet Nam Shipping Gazete" srcset="/src/asset/img/system/logo_vietnamshippinggazette.png ,/src/asset/img/system/logo_vietnamshippinggazette.png 2x" width="250" height="35"/>
                     </h1>
                 </a>
-                <img style="margin-top: 7px;" border="0" alt="qc" src="/public/images/header_banner.jpg?v={{time()}}" >
+                <img style="margin-top: 7px;height: 91px;margin-top: 15px;" border="0" alt="qc" src="/public/images/header_banner.jpg?v={{time()}}" >
             </div>
         </div>
     </div>

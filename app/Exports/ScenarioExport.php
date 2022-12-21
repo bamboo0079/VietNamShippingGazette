@@ -63,7 +63,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
             $query->where('scenarios.ship_id','=', $submit_data['ship_id']);
         }
         if (isset($submit_data['agent_id']) && $submit_data['agent_id'] != 0) {
-            $query->where('scenarios.agent_id','=', $submit_data['ship_id']);
+            $query->where('scenarios.agent_id','=', $submit_data['agent_id']);
         }
         $this->data = $query->get();
     }
@@ -166,31 +166,35 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         //Sap xep aphabet theo ky tu dau
         $data_sort = [];
         foreach ($this->data as $key => $item) {
-
-            $cang_xep = mb_strtoupper($item->unloading->port_nm_vn) . ',' . mb_strtoupper($item->unloading->country->country_nm_vn);
-            if(!isset($data_sort[$cang_xep])) {
-                $data_sort[$cang_xep] = array();
+            if(isset($item->unloading->port_nm_vn) && $item->unloading->port_nm_vn != "" && isset($item->unloading->country->country_nm_vn) && $item->unloading->country->country_nm_vn != "") {
+                $cang_xep = mb_strtoupper($item->unloading->port_nm_vn) . ',' . mb_strtoupper($item->unloading->country->country_nm_vn);
+                if(!isset($data_sort[$cang_xep])) {
+                    $data_sort[$cang_xep] = array();
+                }
             }
         }
 
         $data = $this->sortDataArray($data_sort);
 
         foreach ($this->data as $key => $item) {
+            if(isset($item->unloading->port_nm_vn) && $item->unloading->port_nm_vn != "" && isset($item->unloading->country->country_nm_vn) && $item->unloading->country->country_nm_vn != "") {
+                $cang_xep =  mb_strtoupper($item->unloading->port_nm_vn) . ',' . mb_strtoupper($item->unloading->country->country_nm_vn);
 
-            $cang_xep =  mb_strtoupper($item->unloading->port_nm_vn) . ',' . mb_strtoupper($item->unloading->country->country_nm_vn);
-            $cang_do = $item->boss->port_nm_vn;
-            $cang_transit = isset($item->transit->port_nm_vn) ? $item->transit->port_nm_vn : "None";
-            $tau_info = [
-                'title1' => '' . date("d-m", strtotime($item->departure_day)),
-                'title2' => '(' . substr(date("D", strtotime($item->departure_day)), 0, 2) . ')',
-                'title3' => '' . $item->ship->ship_nm_vn . '(' . $item->agent->agent_nm_vn . ')',
-                'title4' => '' . date("d-m", strtotime($item->arrival_date)),
-                'title5' => '(' . substr(date("D", strtotime($item->arrival_date)), 0, 2) . ')',
-                'title6' => '(' . $item->total_date . ' days)',
-            ];
+                if(isset($item->boss->port_nm_vn) && $item->boss->port_nm_vn != "") {
+                    $cang_do = $item->boss->port_nm_vn;
+                    $cang_transit = isset($item->transit->port_nm_vn) ? $item->transit->port_nm_vn : "None";
+                    $tau_info = [
+                        'title1' => '' . date("d-m", strtotime($item->departure_day)),
+                        'title2' => '(' . substr(date("D", strtotime($item->departure_day)), 0, 2) . ')',
+                        'title3' => '' . isset($item->ship->ship_nm_vn) ? $item->ship->ship_nm_vn : "" . isset($item->agent->agent_nm_vn) ? '(' . $item->agent->agent_nm_vn . ')':"",
+                        'title4' => '' . date("d-m", strtotime($item->arrival_date)),
+                        'title5' => '(' . substr(date("D", strtotime($item->arrival_date)), 0, 2) . ')',
+                        'title6' => '(' . $item->total_date . ' days)',
+                    ];
 
-            $data[$cang_xep][$cang_do][$cang_transit][] = $tau_info;
-
+                    $data[$cang_xep][$cang_do][$cang_transit][] = $tau_info;
+                }
+            }
         }
 
         return $this->makeDataExportoutBound($data);
@@ -223,13 +227,13 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
 
                foreach ($data as $number => $_data) {
                     $i = $number + 1;
-                    if(isset($_data['cang_do'])) {
+                    if(isset($_data['cang_do']) && $_data['cang_do'] != "") {
                         $cellRange = 'A'.$i.':F'.$i;
                         $event->sheet->getDelegate()->getRowDimension($i)->setRowHeight(14);
                         $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(10);
                         $event->sheet->getStyle($cellRange)->ApplyFromArray($styleArray)->getAlignment()->setVertical('center');
                         $event->sheet->mergeCells($cellRange);
-                    } elseif (isset($_data['cang_xep'])) {
+                    } elseif (isset($_data['cang_xep']) && $_data['cang_xep'] != "") {
                         $cellRange = 'A'.$i.':F'.$i;
                         $event->sheet->getDelegate()->getRowDimension($i)->setRowHeight(10);
                         $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
@@ -282,13 +286,13 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
 
                 foreach ($data as $number => $_data) {
                     $i = $number + 1;
-                    if(isset($_data['cang_do'])) {
+                    if(isset($_data['cang_do']) && $_data['cang_do'] != "") {
                         $cellRange = 'A'.$i.':F'.$i;
                         $event->sheet->getDelegate()->getRowDimension($i)->setRowHeight(14);
                         $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12);
                         $event->sheet->getStyle($cellRange)->ApplyFromArray($styleArray)->getAlignment()->setVertical('center');
                         $event->sheet->mergeCells($cellRange);
-                    } elseif (isset($_data['cang_xep'])) {
+                    } elseif (isset($_data['cang_xep']) && $_data['cang_xep'] != "") {
                         $cellRange = 'A'.$i.':F'.$i;
                         $event->sheet->getDelegate()->getRowDimension($i)->setRowHeight(10);
                         $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(7);
@@ -313,10 +317,11 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         //Sap xep aphabet theo ky tu dau
         $data_sort = [];
         foreach ($this->data as $key => $item) {
-
-            $cang_xep = mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->boss->country->country_nm_vn);
-            if(!isset($data_sort[$cang_xep])) {
-                $data_sort[$cang_xep] = array();
+            if(isset($item->unloading->port_nm_vn) && $item->unloading->port_nm_vn != "" && isset($item->unloading->country->country_nm_vn) && $item->unloading->country->country_nm_vn != "") {
+                $cang_xep = mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->boss->country->country_nm_vn);
+                if(!isset($data_sort[$cang_xep])) {
+                    $data_sort[$cang_xep] = array();
+                }
             }
         }
 
@@ -325,18 +330,24 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         // Group data follow cang xep
 //        $goup = [];
         foreach ($this->data as $key => $item) {
-            $cang_xep = mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->boss->country->country_nm_vn);
-            $cang_do =  mb_strtoupper($item->unloading->port_nm_vn);
-            $tau_info = [
-                'title1' => '' . date("d-m", strtotime($item->departure_day)),
-                'title2' => '(' . substr(date("D", strtotime($item->departure_day)), 0, 2) . ')',
-                'title3' => '' . $item->ship->ship_nm_vn . '(' . $item->agent->agent_nm_vn . ')',
-                'title4' => '' . date("d-m", strtotime($item->arrival_date)),
-                'title5' => '(' . substr(date("D", strtotime($item->arrival_date)), 0, 2) . ')',
-                'title6' => '(' . $item->total_date . ' days)',
-            ];
+            if(isset($item->unloading->port_nm_vn) && $item->unloading->port_nm_vn != "" && isset($item->unloading->country->country_nm_vn) && $item->unloading->country->country_nm_vn != "") {
+                $cang_xep = mb_strtoupper($item->boss->port_nm_vn).','.mb_strtoupper($item->boss->country->country_nm_vn);
 
-            $goup[$cang_xep][$cang_do][] = $tau_info;
+                if(isset($item->unloading->port_nm_vn) && $item->unloading->port_nm_vn != "") {
+                    $cang_do =  mb_strtoupper($item->unloading->port_nm_vn);
+                    $tau_info = [
+                        'title1' => '' . date("d-m", strtotime($item->departure_day)),
+                        'title2' => '(' . substr(date("D", strtotime($item->departure_day)), 0, 2) . ')',
+                        'title3' => '' . $item->ship->ship_nm_vn . '(' . $item->agent->agent_nm_vn . ')',
+                        'title4' => '' . date("d-m", strtotime($item->arrival_date)),
+                        'title5' => '(' . substr(date("D", strtotime($item->arrival_date)), 0, 2) . ')',
+                        'title6' => '(' . $item->total_date . ' days)',
+                    ];
+
+                    $goup[$cang_xep][$cang_do][] = $tau_info;
+                }
+
+            }
         }
 
         // Create array to write file excel

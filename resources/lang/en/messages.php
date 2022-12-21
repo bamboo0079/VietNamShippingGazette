@@ -185,4 +185,7 @@ return [
     "SEARCH_REQUIRED_PARAM" => "Please choose search condition.",
     "DATA_NOT_FOUND" => "Data not found...",
     "AGENT" => "Agent",
+    "TAX_CODE" => "Tax code",
+    "PLS_INPUT_COMPANY" => "Please input company name",
+    "PLS_INPUT_TAX_CODE" => "Please input tax code",
 ];

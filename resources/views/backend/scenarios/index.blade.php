@@ -190,28 +190,30 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center"><input id="checkAll" name="checked_all" value="1" type="checkbox" class="scenarios_id"></th>
-                                        <th class="text-left">Cảng Xếp</th>
-                                        <th class="text-left">Cảng Dỡ</th>
-                                        <th class="text-left">Cảng Transit</th>
+                                        <th class="text-left" width="10%">Cảng Xếp</th>
+                                        <th class="text-left"  width="10%">Cảng Dỡ</th>
+                                        <th class="text-left"  width="10%">Cảng Transit</th>
                                         <th class="text-left">Tên Tàu</th>
                                         <th class="text-left">Đại Lý</th>
-                                        <th class="text-left">Ngày Đi</th>
-                                        <th class="text-left">Ngày Đến</th>
+                                        <th class="text-left" width="10%">Ngày Đi</th>
+                                        <th class="text-left" width="10%">Ngày Đến</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @forelse($categories as $k => $category)
-                                        <tr>
-                                            @php $class = (isset($_GET['id']) && $_GET['id'] == $category->id)?'active':'';@endphp
-                                            <td class="{{ $class }} text-center"><input name="scenarios_id[]" value="{{$category->id}}" type="checkbox" class="scenarios_id"></td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->boss->port_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->unloading->port_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">@if(isset($category->transit->port_nm_vn)) {{ $category->transit->port_nm_vn }} @endif</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->ship->ship_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ $category->agent->agent_nm_vn }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ date("Y/m/d", strtotime($category->departure_day)) }}</td>
-                                            <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ date("Y/m/d", strtotime($category->arrival_date)) }}</td>
-                                        </tr>
+                                        @if(isset($category->boss->port_nm_vn) && $category->boss->port_nm_vn != "")
+                                            <tr>
+                                                @php $class = (isset($_GET['id']) && $_GET['id'] == $category->id)?'active':'';@endphp
+                                                <td class="{{ $class }} text-center"><input name="scenarios_id[]" value="{{$category->id}}" type="checkbox" class="scenarios_id"></td>
+                                                <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ isset($category->boss->port_nm_vn) ? $category->boss->port_nm_vn : "" }}</td>
+                                                <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ isset($category->unloading->port_nm_vn) ? $category->unloading->port_nm_vn : "" }}</td>
+                                                <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">@if(isset($category->transit->port_nm_vn)) {{ $category->transit->port_nm_vn }} @endif</td>
+                                                <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ isset($category->ship->ship_nm_vn) ? $category->ship->ship_nm_vn : "" }}</td>
+                                                <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ isset($category->agent->agent_nm_vn) ? $category->agent->agent_nm_vn : "" }}</td>
+                                                <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ isset($category->departure_day) ? date("d/m/Y", strtotime($category->departure_day)) : "" }}</td>
+                                                <td onclick="window.location='{{ route('admin.scenarios') }}?id={{$category->id}}'" class="{{ $class }} text-left">{{ isset($category->arrival_date) ? date("d/m/Y", strtotime($category->arrival_date)) : "" }}</td>
+                                            </tr>
+                                        @endif
                                     @empty
                                         <tr>
                                             <td colspan="8">Không có dữ liệu</td>

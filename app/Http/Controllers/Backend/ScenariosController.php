@@ -83,10 +83,10 @@ class ScenariosController extends Controller
 
         if (isset($submit_data['end']) && $submit_data['end']) {
             $end_date = $this->formatDate($submit_data['end']);
-            $query->where('arrival_date','<=', $end_date);
+            $query->where('departure_day','<=', $end_date);
         }
 
-        $data['categories'] = $query->orderBy('id', 'DESC')->paginate(ConstApp::NUMBER_PER_PAGE);
+        $data['categories'] = $query->orderBy('id', 'DESC')->paginate(40);
 
         $data['countries'] = Country::orderBy('country_nm_vn', 'ASC')->get();
         $data['ports'] = Port::orderBy('port_nm_vn', 'ASC')->get();
@@ -110,10 +110,13 @@ class ScenariosController extends Controller
     public function process(Request $request, $category_id = 0)
     {
         $data = $request->all();
+        if(isset($data['boss_port_id']) && $data['boss_port_id'] != 0) {
+            $port = Port::where('id', $data['boss_port_id'])->first();
+            $data['country_id'] = $port->country_id;
+        } else {
+            $data['country_id'] = 1;
+        }
 
-        $port = Port::where('id', $data['boss_port_id'])->first();
-
-        $data['country_id'] = $port->country_id;
         if($data['departure_day'] && $data['arrival_date']){
             $data['departure_day'] = \DateTime::createFromFormat("d/m/Y", $data['departure_day'])->format('Y-m-d');
             $data['arrival_date'] = \DateTime::createFromFormat("d/m/Y", $data['arrival_date'])->format('Y-m-d');

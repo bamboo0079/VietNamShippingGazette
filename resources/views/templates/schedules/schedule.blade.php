@@ -112,10 +112,10 @@
 
                             <div class="row mt-2">
                                 <div class="col-4">
-                                    <input id="datetimepicker1" value="@if(isset($_GET['departure_day'])){{ $_GET['departure_day'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="ETD" id="departure_day" data-position="right top" autocomplete="off" name="departure_day" type="text">
+                                    <input id="datetimepicker1" value="@if(isset($_GET['departure_day'])){{ $_GET['departure_day'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="Start Date" id="departure_day" data-position="right top" autocomplete="off" name="departure_day" type="text">
                                 </div>
                                 <div class="col-4">
-                                    <input id="datetimepicker2" value="@if(isset($_GET['arrival_date'])){{ $_GET['arrival_date'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="ETA" id="arrival_date" autocomplete="off" name="arrival_date" type="text">
+                                    <input id="datetimepicker2" value="@if(isset($_GET['arrival_date'])){{ $_GET['arrival_date'] }}@endif" class="input-block-level form-control input-date" data-date="" data-date-format="DD MMMM YYYY" placeholder="End Date" id="arrival_date" autocomplete="off" name="arrival_date" type="text">
                                 </div>
                                 <div class="col-4">
                                     <button type="submit" class="btn btn-primary search-schedule">
@@ -153,13 +153,13 @@
                                     @if(count($list_scenarios) > 0)
                                         @foreach($list_scenarios as $k => $scenario)
                                             <tr >
-                                                <td>{{ $scenario->ship->ship_nm_en }}</td>
-                                                <td>{{ $scenario->boss->port_nm_en }}</td>
-                                                <td><b>{{ date("d/m/y",strtotime($scenario->departure_day)) }}</b></td>
-                                                <td>{{ $scenario->unloading->port_nm_en }}</td>
-                                                <td><b>{{ date("d/m/Y",strtotime($scenario->arrival_date)) }}</b></td>
+                                                <td>{{ isset($scenario->ship->ship_nm_en) ? $scenario->ship->ship_nm_en : "" }}</td>
+                                                <td>{{ isset($scenario->boss->port_nm_en) ? $scenario->boss->port_nm_en : "" }}</td>
+                                                <td><b>{{ date("d/m/Y",strtotime($scenario->departure_day)) }}</b></td>
+                                                <td>{{ isset($scenario->unloading->port_nm_en) ? $scenario->unloading->port_nm_en : "" }}</td>
+                                                <td><b>{{ isset($scenario->arrival_date) ? date("d/m/Y",strtotime($scenario->arrival_date)) : "" }}</b></td>
                                                 <td>{{ isset($scenario->transit->port_nm_en) ? $scenario->transit->port_nm_en : "" }}</td>
-                                                <td>{{ $scenario->agent->agent_nm_en }}</td>
+                                                <td>{{ isset($scenario->agent->agent_nm_en) ? $scenario->agent->agent_nm_en : "" }}</td>
                                                 <td>{!! App\Helpers\Helper::substractTwoDate( $scenario->departure_day, $scenario->arrival_date)  !!}</td>
                                             </tr>
                                         @endforeach

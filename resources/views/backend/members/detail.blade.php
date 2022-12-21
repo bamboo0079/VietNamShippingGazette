@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group hidden">
+                        <div class="form-group ">
                             <div class="row">
                                 <label class="control-label col-sm-3 text-right">Điện thoại<span class="required-label">（<small>*</small>）</span></label>
                                 <div class="input-field col-sm-9">
@@ -61,18 +61,23 @@
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <label class="control-label col-sm-3 text-right">Mật khẩu</label>
+                                <label class="control-label col-sm-3 text-right">Công ty<span class="required-label">（<small>*</small>）</span></label>
                                 <div class="input-field col-sm-9">
-                                    <input id="password" type="text" placeholder="Mật khẩu" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
-                                    <div class="invalid-feedback @error('password') d-none @enderror">{!! __("Vui lòng nhập mật khẩu") !!}</div>
-                                    @error('password')
-                                    <span id="message-password" class="invalid-feedback display-block" role="alert">
-                                                {{ str_replace('The password must be at least 6 characters.','Mật khẩu tối thiểu 6 ký tự',str_replace('The password confirmation does not match.','Mật khẩu và xác nhận mật khẩu không chính xác',$message)) }}
-                                            </span>
-                                    @enderror
+                                    <input id="tel" type="tel" placeholder="Điện thoại" class="form-control @error('tel') is-invalid @enderror" name="tel" value="{{ $user->company }}" >
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Mã số thuế<span class="required-label">（<small>*</small>）</span></label>
+                                <div class="input-field col-sm-9">
+                                    <input id="tel" type="tel" placeholder="Điện thoại" class="form-control @error('tel') is-invalid @enderror" name="tel" value="{{ $user->tax_code }}" >
+                                    <div class="invalid-feedback">{!! __("Vui lòng nhập") !!}</div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="row">
                                 <label class="control-label col-sm-3 text-right">Trạng thái</label>

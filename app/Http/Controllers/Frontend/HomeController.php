@@ -109,12 +109,13 @@ class HomeController extends Controller
                 Session::flash('errMsg', __("messages.PLEASE_LOGIN_TO_VIEW_CONTENT"));
                 return redirect()->route('login');
             }
-            $news = News::whereIn('category_id', [3,4,5])->where('approved', 1)->orderBy('id', 'DESC')->paginate(12);
+            $data['giao_thuong'] = "true";
+            $news = News::whereIn('category_id', [3,4,5])->where('approved', 1)->orderBy('id', 'DESC')->paginate(24);
         }elseif($id == 0){
             $cate_list = Category::where('show_menu', 1)->where('type', 1)->orderBy('order','ASC')->get()->pluck('id')->toArray();
-            $news = News::where('category_id','<>', 0)->whereIn('category_id',$cate_list)->where('approved', 1)->orderBy('id', 'DESC')->paginate(12);
+            $news = News::where('category_id','<>', 0)->whereIn('category_id',$cate_list)->where('approved', 1)->orderBy('id', 'DESC')->paginate(24);
         }else{
-            $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(12);
+            $news = News::where('category_id', $id)->where('approved', 1)->orderBy('id', 'DESC')->paginate(24);
         }
         if(in_array($id,[3,4,5])){
             if(!Session::has('member')){
@@ -138,6 +139,7 @@ class HomeController extends Controller
         $data['anpham'] = Partner::where('type', 2)->where('is_show', 1)->orderBy('id','DESC')->limit(3)->get();
         $data['partners'] = Partner::where('type', 1)->orderBy('id','DESC')->limit(3)->get();
         if($id == 3 || $id == 4 || $id == 5) {
+            $data['giao_thuong'] = "true";
             $data['menu_active'] = 'gt';
         }elseif($id == 1) {
             $data['menu_active'] = 'event';
@@ -189,11 +191,11 @@ class HomeController extends Controller
             }
             if(isset($_GET['departure_day']) && $_GET['departure_day']){
                 $departure_day = \DateTime::createFromFormat("d/m/Y", $_GET['departure_day'])->format('Y-m-d');
-                $list_scenarios = $list_scenarios->where('departure_day', '=',$departure_day);
+                $list_scenarios = $list_scenarios->where('departure_day', '>=',$departure_day);
             }
             if(isset($_GET['arrival_date']) && $_GET['arrival_date']){
                 $arrival_date = \DateTime::createFromFormat("d/m/Y", $_GET['arrival_date'])->format('Y-m-d');
-                $list_scenarios = $list_scenarios->where('arrival_date', '<=',$arrival_date);
+                $list_scenarios = $list_scenarios->where('departure_day', '<=',$arrival_date);
             }
             $list_scenarios = $list_scenarios->orderBy('departure_day', 'ASC')->get();
             $data['list_scenarios'] = $list_scenarios;
@@ -683,6 +685,8 @@ class HomeController extends Controller
             Session::flash('name', $submit_data['name']);
             Session::flash('email', $submit_data['email']);
             Session::flash('phone', $submit_data['phone']);
+            Session::flash('company', $submit_data['company']);
+            Session::flash('tax_code', $submit_data['tax_code']);
 
             if($validate == true) {
                 $mem = Member::where('email', $submit_data['email'])->count();
@@ -695,6 +699,7 @@ class HomeController extends Controller
                         $member->email = $submit_data['email'];
                         $member->phone = $submit_data['phone'];
                         $member->company = $submit_data['company'];
+                        $member->tax_code = $submit_data['tax_code'];
                         $member->password = md5($submit_data['password']);
                         $member->save();
                         Session::flash('successMsg', __("messages.SUCCESS_REGISTER_ACCOUNT"));
@@ -731,6 +736,15 @@ class HomeController extends Controller
 
         if(strlen($submit_data['phone']) < 8) {
             Session::flash('errMsg', __("messages.FORMAT_PHONE_ERROR_MSG"));
+            return false;
+        }
+
+        if(strlen($submit_data['company']) == 0) {
+            Session::flash('errMsg', __("messages.PLS_INPUT_COMPANY"));
+            return false;
+        }
+        if(strlen($submit_data['tax_code']) == 0) {
+            Session::flash('errMsg', __("messages.PLS_INPUT_TAX_CODE"));
             return false;
         }
 
