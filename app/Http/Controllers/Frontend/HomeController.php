@@ -197,7 +197,7 @@ class HomeController extends Controller
                 $arrival_date = \DateTime::createFromFormat("d/m/Y", $_GET['arrival_date'])->format('Y-m-d');
                 $list_scenarios = $list_scenarios->where('departure_day', '<=',$arrival_date);
             }
-            $list_scenarios = $list_scenarios->orderBy('departure_day', 'ASC')->get();
+            $list_scenarios = $list_scenarios->orderBy('departure_day', 'ASC')->paginate(40);
             $data['list_scenarios'] = $list_scenarios;
         }
 

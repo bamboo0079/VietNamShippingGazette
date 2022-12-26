@@ -170,7 +170,12 @@
                                     @endif
                                 </tbody>
                             </table>
-
+                        <style type="text/css">
+                            ul.pagination {
+                                margin-bottom: 15px; margin-top: 15px;
+                            }
+                        </style>
+                        {{ $list_scenarios->appends($_GET)->links("pagination::bootstrap-4") }}
                     </div>
 
                 </section>
