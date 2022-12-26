@@ -44,7 +44,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         }
         if (isset($submit_data['end']) && $submit_data['end']) {
             $submit_data['end'] = $this->formatDate($submit_data['end']);
-            $query->where('scenarios.arrival_date','<=', $submit_data['end']);
+            $query->where('scenarios.departure_day','<=', $submit_data['end']);
         }
 
         if (isset($submit_data['country_id']) && $submit_data['country_id'] != 0) {

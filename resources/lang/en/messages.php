@@ -34,7 +34,7 @@ return [
     'LatestPublications'=> 'Latest Publications',
     'Onlinesupport'=> 'Online support',
     'HotNews'=> 'Hot News',
-    'PaidNews'=> 'Paid News',
+    'PaidNews'=> 'Sponsorship Channel',
     'RoadNews'=> 'Road News',
     'ImportNews'=> 'Import Export News',
     'NewsStation'=> 'News Station - Port - Border Gate',

@@ -189,7 +189,7 @@
                                     </colgroup>
                                     <thead>
                                     <tr>
-                                        <th class="text-center"><input id="checkAll" name="checked_all" value="1" type="checkbox" class="scenarios_id"></th>
+                                        <th class="text-center" width="3%"><input id="checkAll" name="checked_all" value="1" type="checkbox" class="scenarios_id"></th>
                                         <th class="text-left" width="10%">Cảng Xếp</th>
                                         <th class="text-left"  width="10%">Cảng Dỡ</th>
                                         <th class="text-left"  width="10%">Cảng Transit</th>
