@@ -65,7 +65,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
         if (isset($submit_data['agent_id']) && $submit_data['agent_id'] != 0) {
             $query->where('scenarios.agent_id','=', $submit_data['agent_id']);
         }
-        $this->data = $query->get();
+        $this->data = $query->orderBy('scenarios.departure_day', 'ASC')->get();
     }
 
     public function formatDate($date) {
@@ -176,17 +176,28 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
 
         $data = $this->sortDataArray($data_sort);
 
+        $data_transict = array();
+
         foreach ($this->data as $key => $item) {
             if(isset($item->unloading->port_nm_vn) && $item->unloading->port_nm_vn != "" && isset($item->unloading->country->country_nm_vn) && $item->unloading->country->country_nm_vn != "") {
                 $cang_xep =  mb_strtoupper($item->unloading->port_nm_vn) . ',' . mb_strtoupper($item->unloading->country->country_nm_vn);
 
                 if(isset($item->boss->port_nm_vn) && $item->boss->port_nm_vn != "") {
+
                     $cang_do = $item->boss->port_nm_vn;
-                    $cang_transit = isset($item->transit->port_nm_vn) ? $item->transit->port_nm_vn : "None";
+                    if(isset($item->transit->port_nm_vn)) {
+                        $cang_transit = 'T/S '.$item->transit->port_nm_vn;
+                        $data_transict[$cang_xep][$cang_do]['has_transit'] = true;
+                    } else if(isset($data_transict[$cang_xep][$cang_do]['has_transit']) && $data_transict[$cang_xep][$cang_do]['has_transit'] = true) {
+                        $cang_transit = $cang_do;
+                    } else {
+                        $cang_transit = "None";
+                    }
+
                     $tau_info = [
                         'title1' => '' . date("d-m", strtotime($item->departure_day)),
                         'title2' => '(' . substr(date("D", strtotime($item->departure_day)), 0, 2) . ')',
-                        'title3' => '' . isset($item->ship->ship_nm_vn) ? $item->ship->ship_nm_vn : "" . isset($item->agent->agent_nm_vn) ? '(' . $item->agent->agent_nm_vn . ')':"",
+                        'title3' => '' .  $item->ship->ship_nm_vn  .  ' (' . $item->agent->agent_nm_vn . ')',
                         'title4' => '' . date("d-m", strtotime($item->arrival_date)),
                         'title5' => '(' . substr(date("D", strtotime($item->arrival_date)), 0, 2) . ')',
                         'title6' => '(' . $item->total_date . ' days)',
@@ -195,8 +206,8 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     $data[$cang_xep][$cang_do][$cang_transit][] = $tau_info;
                 }
             }
-        }
 
+        }
         return $this->makeDataExportoutBound($data);
     }
 
@@ -338,7 +349,7 @@ class ScenarioExport implements FromCollection, /*WithHeadings,*/ ShouldAutoSize
                     $tau_info = [
                         'title1' => '' . date("d-m", strtotime($item->departure_day)),
                         'title2' => '(' . substr(date("D", strtotime($item->departure_day)), 0, 2) . ')',
-                        'title3' => '' . $item->ship->ship_nm_vn . '(' . $item->agent->agent_nm_vn . ')',
+                        'title3' => '' . $item->ship->ship_nm_vn . ' (' . $item->agent->agent_nm_vn . ')',
                         'title4' => '' . date("d-m", strtotime($item->arrival_date)),
                         'title5' => '(' . substr(date("D", strtotime($item->arrival_date)), 0, 2) . ')',
                         'title6' => '(' . $item->total_date . ' days)',

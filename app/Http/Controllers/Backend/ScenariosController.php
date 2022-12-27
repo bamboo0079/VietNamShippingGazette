@@ -86,7 +86,7 @@ class ScenariosController extends Controller
             $query->where('departure_day','<=', $end_date);
         }
 
-        $data['categories'] = $query->orderBy('id', 'DESC')->paginate(40);
+        $data['categories'] = $query->orderBy('departure_day', 'DESC')->paginate(40);
 
         $data['countries'] = Country::orderBy('country_nm_vn', 'ASC')->get();
         $data['ports'] = Port::orderBy('port_nm_vn', 'ASC')->get();

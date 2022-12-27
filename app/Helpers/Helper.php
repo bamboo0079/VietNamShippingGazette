@@ -109,31 +109,31 @@ class Helper
 
     public static function getGiaoThuong() {
 
-        $data = News::whereIn('category_id',['3','4','5'])->get();
+        $data = News::whereIn('category_id',['3','4','5'])->where('approved','=','0')->get();
         return count($data);
     }
 
     public static function getBaoGia() {
 
-        $data = News::whereIn('category_id',['3'])->get();
+        $data = News::whereIn('category_id',['3'])->where('approved','=','0')->get();
         return count($data);
     }
 
     public static function getBaoGiaCount() {
 
-        $data = News::whereIn('category_id',['3'])->get();
+        $data = News::whereIn('category_id',['3'])->where('approved','=','0')->get();
         return count($data);
     }
 
     public static function getChaoMuaCount() {
 
-        $data = News::whereIn('category_id',['4'])->get();
+        $data = News::whereIn('category_id',['4'])->where('approved','=','0')->get();
         return count($data);
     }
 
     public static function getChaoBanCount() {
 
-        $data = News::whereIn('category_id',['5'])->get();
+        $data = News::whereIn('category_id',['5'])->where('approved','=','0')->get();
         return count($data);
     }
 }
