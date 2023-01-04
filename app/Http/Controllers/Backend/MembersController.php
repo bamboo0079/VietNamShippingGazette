@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cookie;
 use App\Helpers;
+use App\Models\News;
+use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
+
 class MembersController extends Controller
 {
     var $limit = 10;
@@ -25,6 +29,28 @@ class MembersController extends Controller
 
     public function index(Request $request)
     {
+        /***Remove new more than 30 day**/
+        $limit_date = date("Y-m-d H:i:s", strtotime("-1 months"));
+        $category = Category::where('type', 1)->where('show_menu', 1)->get('id');
+        $categories_id_arr = [3,4,5];
+        foreach ($category as $_catergories) {
+            $categories_id_arr[] = $_catergories->id;
+        }
+
+        $data_news = News::whereIn('category_id', $categories_id_arr)
+            ->where('created_at', '<', $limit_date)
+            ->orderBy('created_at', 'DESC')
+            ->get(array('id','img','created_at'));
+        $new_id_remove = array();
+        foreach ($data_news as $_data_news) {
+            $new_id_remove[] = $_data_news->id;
+            $image_path = $_data_news->img;
+            Storage::disk('public')->delete($image_path);
+        }
+
+        News::whereIn('id', $new_id_remove)->delete();
+        /***Remove new more than 30 day**/
+
         if (!Auth::check()) {
             return redirect('/admin/login/');
         }

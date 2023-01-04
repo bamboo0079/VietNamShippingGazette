@@ -53,6 +53,33 @@
                                 </div>
                             </div>
                         </div>
+                        @if(!empty($member) > 0)
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Người đăng<span class="required-label"></span></label>
+                                <div class="input-field col-sm-9">
+                                    <input readonly id="title_vn" type="text" placeholder="Người đăng" class="input-space form-control" value="{{$member->name}}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Công ty<span class="required-label"></span></label>
+                                <div class="input-field col-sm-9">
+                                    <input readonly id="title_vn" type="text" placeholder="Công ty" class="input-space form-control" required name="title_vn" value="{{$member->company}}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label col-sm-3 text-right">Email<span class="required-label"></span></label>
+                                <div class="input-field col-sm-9">
+                                    <input readonly id="title_vn" type="text" placeholder="Email" class="input-space form-control" required name="title_vn" value="{{ $member->email }}" >
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
                         <div class="form-group">
                             <div class="row">
                                 <label class="control-label col-sm-3 text-right">Tiêu đề tiếng việt<span class="required-label">（<small>*</small>）</span></label>

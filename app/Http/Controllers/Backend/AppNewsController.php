@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Helpers\Helper;
 use App\Models\Category;
+use App\Models\Member;
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Auth;
 use Hash;
@@ -79,10 +80,19 @@ class AppNewsController extends Controller
         $data = [];
         $data['categories'] = Category::orderBy('order', 'ASC')->get();
         $data['productcategories'] = ProductCategory::orderBy('order', 'ASC')->get();
+
         $book = News::where('id', $book_id)->first();
+
         if (!$book) {
             abort(404);
         }
+        if($book->member_id != 0) {
+            $data['member'] = Member::where('id',$book->member_id)->first();
+        } else {
+            $data['member'] = [];
+        }
+
+
         $data['book'] = $book;
         return view('backend.app.detail', $data);
     }
