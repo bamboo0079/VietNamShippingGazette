@@ -1,5 +1,4 @@
 <?php
-if(!isset($GLOBALS['_exp_']) ||  $GLOBALS['_exp_'] <= date('Ymd')) { die(); }
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Frontend\HomeController;
